@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .step-transition { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease; }
+        .glass-header { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .resume-upload-area { border: 2px dashed #c7c4d8; transition: all 0.2s ease; }
+        .resume-upload-area:hover { border-color: #3525cd; background-color: #efecff; }
+        /* Hide scrollbars but allow scrolling */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e2e0fc",
+                        "on-surface-variant": "#464555",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdad5",
+                        "inverse-primary": "#c3c0ff",
+                        "primary-container": "#4f46e5",
+                        "surface-container-highest": "#e2e0fc",
+                        "on-tertiary-container": "#ffd0ca",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#b03229",
+                        "on-primary-fixed": "#0f0069",
+                        "surface-dim": "#dad7f3",
+                        "tertiary": "#8e1914",
+                        "surface-tint": "#4d44e3",
+                        "on-primary-container": "#dad7ff",
+                        "on-tertiary-fixed-variant": "#8c1713",
+                        "on-secondary-fixed-variant": "#422cb3",
+                        "secondary": "#5846ca",
+                        "background": "#fcf8ff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "outline": "#777587",
+                        "on-background": "#1a1a2e",
+                        "secondary-container": "#7161e4",
+                        "inverse-on-surface": "#f2efff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#e2dfff",
+                        "surface-bright": "#fcf8ff",
+                        "surface-container-low": "#f5f2ff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#c7bfff",
+                        "inverse-surface": "#2f2e43",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "outline-variant": "#c7c4d8",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1a1a2e",
+                        "on-tertiary-fixed": "#410001",
+                        "surface-container-high": "#e8e5ff",
+                        "surface": "#fcf8ff",
+                        "primary": "#3525cd",
+                        "secondary-fixed": "#e4dfff",
+                        "surface-container": "#efecff",
+                        "on-secondary-fixed": "#170065",
+                        "on-secondary-container": "#fffbff",
+                        "surface-container-lowest": "#ffffff",
+                        "brand-coral": "#FF7F6E"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "xs": "8px",
+                        "sm": "12px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "margin-mobile": "20px",
+                        "base": "4px",
+                        "gutter-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top Navigation Bar (Context: Onboarding/Setup) -->
+<header class="fixed top-0 w-full z-50 glass-header bg-background/80 flex items-center justify-between px-margin-mobile h-16">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container transition-colors active:scale-95" onclick="prevStep()">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">SwipeHire</span>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<main class="flex-1 pt-24 pb-32 px-margin-mobile flex flex-col items-center max-w-md mx-auto w-full">
+<!-- Progress Indicators -->
+<div class="flex gap-2 mb-10" id="progress-dots">
+<div class="h-1.5 w-8 rounded-full bg-primary transition-all duration-300"></div>
+<div class="h-1.5 w-2 rounded-full bg-outline-variant transition-all duration-300"></div>
+<div class="h-1.5 w-2 rounded-full bg-outline-variant transition-all duration-300"></div>
+<div class="h-1.5 w-2 rounded-full bg-outline-variant transition-all duration-300"></div>
+</div>
+<!-- Multi-Step Form Container -->
+<div class="w-full relative overflow-hidden min-h-[450px]">
+<!-- Step 1: Identity -->
+<div class="step-transition w-full opacity-100 transform translate-x-0" id="step-1">
+<div class="mb-lg">
+<h1 class="font-headline-xl text-headline-xl mb-xs">Basic Info</h1>
+<p class="text-on-surface-variant font-body-md text-body-md">Let's start with who you are and what you do best.</p>
+</div>
+<div class="space-y-md">
+<div class="group">
+<label class="block text-label-md font-label-md text-on-surface-variant mb-base px-1">Full Name</label>
+<input class="w-full h-14 bg-surface-container-lowest border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all px-md text-body-lg font-body-lg" placeholder="Alex Rivera" type="text"/>
+</div>
+<div class="group">
+<label class="block text-label-md font-label-md text-on-surface-variant mb-base px-1">Professional Headline</label>
+<input class="w-full h-14 bg-surface-container-lowest border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all px-md text-body-lg font-body-lg" placeholder="Senior Product Designer" type="text"/>
+</div>
+<div class="group">
+<label class="block text-label-md font-label-md text-on-surface-variant mb-base px-1">Location (City)</label>
+<div class="relative">
+<input class="w-full h-14 bg-surface-container-lowest border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all px-md text-body-lg font-body-lg pr-12" placeholder="New York, NY" type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline">location_on</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 2: Skills -->
+<div class="step-transition w-full opacity-0 transform translate-x-full absolute inset-0 pointer-events-none" id="step-2">
+<div class="mb-lg">
+<h1 class="font-headline-xl text-headline-xl mb-xs">Top Skills</h1>
+<p class="text-on-surface-variant font-body-md text-body-md">What are your superpowers? Add at least 3.</p>
+</div>
+<div class="space-y-lg">
+<div class="relative">
+<input class="w-full h-14 bg-surface-container-lowest border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all px-md text-body-lg font-body-lg pr-14" id="skill-input" placeholder="Add a skill (e.g. Figma)" type="text"/>
+<button class="absolute right-2 top-2 h-10 w-10 bg-primary text-on-primary rounded-lg flex items-center justify-center active:scale-95 transition-transform" onclick="addSkill()">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="flex flex-wrap gap-xs" id="skills-chips">
+<div class="inline-flex items-center gap-xs bg-primary-container/10 text-primary px-md py-xs rounded-full border border-primary-container/20">
+<span class="font-label-md text-label-md">UI Design</span>
+<span class="material-symbols-outlined text-[16px] cursor-pointer" onclick="this.parentElement.remove()">close</span>
+</div>
+<div class="inline-flex items-center gap-xs bg-primary-container/10 text-primary px-md py-xs rounded-full border border-primary-container/20">
+<span class="font-label-md text-label-md">React</span>
+<span class="material-symbols-outlined text-[16px] cursor-pointer" onclick="this.parentElement.remove()">close</span>
+</div>
+</div>
+<div class="pt-lg">
+<h3 class="text-label-md font-label-md text-on-surface-variant mb-sm uppercase tracking-wider">Suggested for you</h3>
+<div class="flex flex-wrap gap-xs">
+<button class="px-md py-xs rounded-full border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors font-label-md text-label-md" onclick="addSuggestedSkill('UX Research')">UX Research</button>
+<button class="px-md py-xs rounded-full border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors font-label-md text-label-md" onclick="addSuggestedSkill('Python')">Python</button>
+<button class="px-md py-xs rounded-full border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors font-label-md text-label-md" onclick="addSuggestedSkill('Leadership')">Leadership</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 3: Expectations -->
+<div class="step-transition w-full opacity-0 transform translate-x-full absolute inset-0 pointer-events-none" id="step-3">
+<div class="mb-lg">
+<h1 class="font-headline-xl text-headline-xl mb-xs">Expectations</h1>
+<p class="text-on-surface-variant font-body-md text-body-md">Tell us what you're looking for in your next role.</p>
+</div>
+<div class="space-y-lg">
+<div class="group">
+<label class="block text-label-md font-label-md text-on-surface-variant mb-base px-1">Expected Annual Salary (USD)</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-headline-md">$</span>
+<input class="w-full h-14 bg-surface-container-lowest border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all pl-10 pr-md text-body-lg font-body-lg" placeholder="120,000" type="number"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="border-2 border-primary rounded-xl p-md bg-primary-container/5 relative overflow-hidden">
+<span class="material-symbols-outlined text-primary mb-xs">work</span>
+<p class="font-label-md text-primary">Full-time</p>
+<div class="absolute top-2 right-2 h-4 w-4 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-primary">check</span>
+</div>
+</div>
+<div class="border border-outline-variant rounded-xl p-md bg-surface-container-lowest hover:border-primary/50 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant mb-xs">contract</span>
+<p class="font-label-md text-on-surface-variant">Contract</p>
+</div>
+</div>
+<div class="flex items-center gap-md p-md bg-surface-container rounded-xl">
+<span class="material-symbols-outlined text-primary">distance</span>
+<div class="flex-1">
+<p class="font-label-md text-on-surface">Remote Friendly</p>
+<p class="text-[11px] text-on-surface-variant">Open to work from anywhere</p>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full relative p-0.5 cursor-pointer">
+<div class="w-5 h-5 bg-white rounded-full absolute right-0.5"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 4: Resume -->
+<div class="step-transition w-full opacity-0 transform translate-x-full absolute inset-0 pointer-events-none" id="step-4">
+<div class="mb-lg">
+<h1 class="font-headline-xl text-headline-xl mb-xs">The Final Piece</h1>
+<p class="text-on-surface-variant font-body-md text-body-md">Upload your resume to complete your profile.</p>
+</div>
+<div class="resume-upload-area h-64 rounded-2xl flex flex-col items-center justify-center text-center p-xl cursor-pointer bg-surface-container-low group">
+<div class="w-16 h-16 bg-surface-container-high rounded-full flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-[32px]">upload_file</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Drop your CV here</h3>
+<p class="text-label-md text-on-surface-variant">PDF or Word doc up to 10MB</p>
+<input class="hidden" id="resume-input" type="file"/>
+</div>
+<div class="mt-lg flex items-center gap-md p-md border border-outline-variant rounded-xl border-dashed">
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">link</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface">Import from LinkedIn</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom Action -->
+<footer class="fixed bottom-0 left-0 w-full p-margin-mobile bg-gradient-to-t from-background via-background to-transparent z-40">
+<div class="max-w-md mx-auto">
+<button class="w-full h-14 bg-brand-coral text-white rounded-full font-headline-md flex items-center justify-center shadow-lg active:scale-[0.98] transition-all hover:opacity-90" id="next-btn" onclick="nextStep()">
+                    Continue
+                </button>
+</div>
+</footer>
+</main>
+<script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateProgress() {
+            const dots = document.querySelectorAll('#progress-dots > div');
+            dots.forEach((dot, index) => {
+                if (index < currentStep) {
+                    dot.className = 'h-1.5 w-8 rounded-full bg-primary transition-all duration-300';
+                } else {
+                    dot.className = 'h-1.5 w-2 rounded-full bg-outline-variant transition-all duration-300';
+                }
+            });
+
+            // Update button text on last step
+            const btn = document.getElementById('next-btn');
+            if (currentStep === totalSteps) {
+                btn.innerText = 'Complete Profile';
+                btn.classList.replace('bg-brand-coral', 'bg-primary');
+            } else {
+                btn.innerText = 'Continue';
+                btn.classList.replace('bg-primary', 'bg-brand-coral');
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                const currentEl = document.getElementById(`step-${currentStep}`);
+                const nextEl = document.getElementById(`step-${currentStep + 1}`);
+
+                currentEl.classList.add('opacity-0', '-translate-x-full');
+                currentEl.classList.remove('opacity-100', 'translate-x-0');
+                currentEl.classList.add('pointer-events-none');
+                
+                // Keep absolute positioning for others, but handle the current properly
+                currentEl.style.position = 'absolute';
+
+                nextEl.classList.remove('opacity-0', 'translate-x-full', 'pointer-events-none');
+                nextEl.classList.add('opacity-100', 'translate-x-0');
+                nextEl.style.position = 'relative';
+
+                currentStep++;
+                updateProgress();
+            } else {
+                // Final submission effect
+                const btn = document.getElementById('next-btn');
+                btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span>';
+                setTimeout(() => {
+                    alert('Profile setup complete! Redirecting to matches...');
+                }, 1500);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                const currentEl = document.getElementById(`step-${currentStep}`);
+                const prevEl = document.getElementById(`step-${currentStep - 1}`);
+
+                currentEl.classList.add('opacity-0', 'translate-x-full', 'pointer-events-none');
+                currentEl.classList.remove('opacity-100', 'translate-x-0');
+                currentEl.style.position = 'absolute';
+
+                prevEl.classList.remove('opacity-0', '-translate-x-full', 'pointer-events-none');
+                prevEl.classList.add('opacity-100', 'translate-x-0');
+                prevEl.style.position = 'relative';
+
+                currentStep--;
+                updateProgress();
+            }
+        }
+
+        function addSkill() {
+            const input = document.getElementById('skill-input');
+            const val = input.value.trim();
+            if (val) {
+                addChip(val);
+                input.value = '';
+            }
+        }
+
+        function addSuggestedSkill(skill) {
+            addChip(skill);
+        }
+
+        function addChip(text) {
+            const container = document.getElementById('skills-chips');
+            const chip = document.createElement('div');
+            chip.className = 'inline-flex items-center gap-xs bg-primary-container/10 text-primary px-md py-xs rounded-full border border-primary-container/20 animate-in fade-in zoom-in duration-200';
+            chip.innerHTML = `
+                <span class="font-label-md text-label-md">${text}</span>
+                <span class="material-symbols-outlined text-[16px] cursor-pointer" onclick="this.parentElement.remove()">close</span>
+            `;
+            container.appendChild(chip);
+        }
+
+        // Dropzone interaction
+        const dropzone = document.querySelector('.resume-upload-area');
+        dropzone.addEventListener('click', () => {
+            document.getElementById('resume-input').click();
+        });
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.add('border-primary', 'bg-primary-container/10');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('border-primary', 'bg-primary-container/10');
+            }, false);
+        });
+    </script>
+</body></html>

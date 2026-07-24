@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SwipeHire | Seeker Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcf8ff;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .profile-header-gradient {
+            background: linear-gradient(180deg, #efecff 0%, #fcf8ff 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-background flex items-center justify-between px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary active:scale-95 transition-transform duration-200">menu</button>
+<span class="font-headline-lg text-headline-lg text-primary tracking-tight">SwipeHire</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95">notifications</button>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile space-y-lg">
+<!-- Profile Hero Section -->
+<section class="profile-header-gradient -mx-margin-mobile px-margin-mobile pt-8 pb-4 flex flex-col items-center text-center">
+<div class="relative group">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg ring-2 ring-primary/10">
+<img class="w-full h-full object-cover" data-alt="A professional and friendly portrait of a young tech professional with a warm smile, set against a clean, softly lit studio background with pastel indigo accents. The visual style is high-end editorial photography, featuring sharp focus on the subject and a gentle bokeh effect that feels modern and approachable, perfectly aligning with the SwipeHire brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1ldUCwH2WlzHp5cQno88xgZM-bOBy_HB1sowpMIwZQr-LLYHhXkE0KwRmqXTj1QxDXErrfHeB3hNgnh54P9hOmNfypUgkkaAWN2N8Oc4VZofSYKTa-O7Ig5D_PTegS-u5vSzv3r2_lrI1Gwua1xxYzjALX4r9XaKGVJrRhR4ESS87inD5tXhaRFnnfyNtIYv-3VBG-Cn3GM3u-WO3DdmwWE5f9GtGccwP6b9W2n8r97wDsMpWQuMoiparG7k7DfwWrwCFjaqn4JCy"/>
+</div>
+<button class="absolute bottom-1 right-1 bg-primary text-white p-2 rounded-full shadow-md active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<div class="mt-md space-y-xs">
+<h1 class="font-headline-xl text-headline-xl text-on-background">Alex Rivera</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Senior Product Designer &amp; UX Architect</p>
+</div>
+<!-- Quick Info Row -->
+<div class="flex items-center gap-md mt-lg">
+<div class="flex flex-col items-center px-4 py-2 bg-surface-container rounded-lg">
+<span class="font-label-md text-label-md text-outline">Salary Range</span>
+<span class="font-headline-md text-headline-md text-primary">$140k - $180k</span>
+</div>
+<div class="flex flex-col items-center px-4 py-2 bg-surface-container rounded-lg">
+<span class="font-label-md text-label-md text-outline">Location</span>
+<span class="font-headline-md text-headline-md text-primary">Austin, TX</span>
+</div>
+</div>
+</section>
+<!-- Skills Section -->
+<section class="space-y-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md">Professional Skills</h2>
+<button class="text-primary font-label-md text-label-md">Add Skill</button>
+</div>
+<div class="flex flex-wrap gap-sm">
+<span class="px-md py-xs bg-primary-fixed text-on-primary-fixed font-label-md text-label-md rounded-full">Product Design</span>
+<span class="px-md py-xs bg-primary-fixed text-on-primary-fixed font-label-md text-label-md rounded-full">Figma</span>
+<span class="px-md py-xs bg-primary-fixed text-on-primary-fixed font-label-md text-label-md rounded-full">React</span>
+<span class="px-md py-xs bg-primary-fixed text-on-primary-fixed font-label-md text-label-md rounded-full">Strategy</span>
+<span class="px-md py-xs bg-primary-fixed text-on-primary-fixed font-label-md text-label-md rounded-full">Prototyping</span>
+<span class="px-md py-xs bg-primary-fixed text-on-primary-fixed font-label-md text-label-md rounded-full">+4 more</span>
+</div>
+</section>
+<!-- Resume Card -->
+<section class="glass-card rounded-lg p-lg shadow-md border-primary/5 flex items-center gap-lg">
+<div class="w-14 h-14 bg-secondary-container text-on-secondary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px]">description</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md">Resume_2024.pdf</h3>
+<p class="font-body-md text-body-md text-outline">Updated 2 days ago</p>
+</div>
+<button class="bg-primary text-on-primary px-lg h-10 rounded-full font-label-md text-label-md active:scale-95 transition-transform">
+                Update
+            </button>
+</section>
+<!-- Settings List -->
+<section class="bg-surface-container-lowest rounded-lg overflow-hidden border border-surface-variant/30">
+<h2 class="font-label-md text-label-md text-outline uppercase px-lg py-md tracking-widest">Settings</h2>
+<div class="divide-y divide-surface-variant/30">
+<!-- Toggle Item -->
+<div class="flex items-center justify-between px-lg py-lg hover:bg-surface-container transition-colors cursor-pointer" onclick="toggleSwitch('notif-switch')">
+<div class="flex items-center gap-lg">
+<span class="material-symbols-outlined text-secondary">notifications</span>
+<span class="font-body-lg text-body-lg">Notifications</span>
+</div>
+<div class="w-12 h-6 bg-primary-container rounded-full relative transition-colors duration-200" id="notif-switch">
+<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full transition-all duration-200 shadow-sm translate-x-0"></div>
+</div>
+</div>
+<!-- Regular Menu Items -->
+<div class="flex items-center justify-between px-lg py-lg hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex items-center gap-lg">
+<span class="material-symbols-outlined text-secondary">account_circle</span>
+<span class="font-body-lg text-body-lg">Account Details</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+<div class="flex items-center justify-between px-lg py-lg hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex items-center gap-lg">
+<span class="material-symbols-outlined text-secondary">lock</span>
+<span class="font-body-lg text-body-lg">Privacy &amp; Security</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+<div class="flex items-center justify-between px-lg py-lg hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex items-center gap-lg">
+<span class="material-symbols-outlined text-error">logout</span>
+<span class="font-body-lg text-body-lg text-error">Log Out</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Help -->
+<p class="text-center font-label-md text-label-md text-outline pb-lg">
+            App Version 2.4.1 (Stable)<br/>
+            Help Center • Terms of Service
+        </p>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full h-[72px] flex justify-around items-center px-4 pb-safe bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-[0_-4px_20px_rgba(26,26,46,0.08)] z-50 rounded-t-lg">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md">Discover</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-md text-label-md">Matches</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-md text-label-md">Chats</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-md text-label-md">Alerts</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary font-bold hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</button>
+</nav>
+<script>
+        function toggleSwitch(id) {
+            const switchEl = document.getElementById(id);
+            const knob = switchEl.querySelector('div');
+            
+            if (switchEl.classList.contains('bg-primary-container')) {
+                // Turn OFF
+                switchEl.classList.remove('bg-primary-container');
+                switchEl.classList.add('bg-outline-variant');
+                knob.classList.remove('right-1', 'translate-x-0');
+                knob.classList.add('left-1');
+            } else {
+                // Turn ON
+                switchEl.classList.add('bg-primary-container');
+                switchEl.classList.remove('bg-outline-variant');
+                knob.classList.remove('left-1');
+                knob.classList.add('right-1', 'translate-x-0');
+            }
+        }
+
+        // Add small hover effects via JS for interactions not easily caught by TW
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'transform 0.2s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

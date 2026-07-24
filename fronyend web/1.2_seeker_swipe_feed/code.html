@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SwipeHire - Discover</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#c7c4d8",
+                    "on-tertiary-fixed": "#410001",
+                    "on-primary-container": "#dad7ff",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "primary-container": "#4f46e5",
+                    "on-primary-fixed": "#0f0069",
+                    "tertiary-container": "#b03229",
+                    "outline": "#777587",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "surface-tint": "#4d44e3",
+                    "surface-container": "#efecff",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2f2e43",
+                    "surface": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "on-tertiary-container": "#ffd0ca",
+                    "tertiary": "#8e1914",
+                    "on-surface-variant": "#464555",
+                    "background": "#fcf8ff",
+                    "on-surface": "#1a1a2e",
+                    "surface-variant": "#e2e0fc",
+                    "tertiary-fixed": "#ffdad5",
+                    "secondary-fixed": "#e4dfff",
+                    "inverse-primary": "#c3c0ff",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary-container": "#fffbff",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#dad7f3",
+                    "on-error": "#ffffff",
+                    "primary": "#3525cd",
+                    "primary-fixed": "#e2dfff",
+                    "surface-container-highest": "#e2e0fc",
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1a2e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#170065",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#7161e4",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f5f2ff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-high": "#e8e5ff",
+                    "secondary": "#5846ca",
+                    "coral": "#FF6B5C",
+                    "indigo": "#4F46E5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1.25rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "xl": "48px",
+                    "xs": "8px",
+                    "lg": "32px",
+                    "card-gutter": "16px",
+                    "container-padding": "20px",
+                    "md": "24px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .swipe-card-shadow { box-shadow: 0px 10px 30px rgba(26, 26, 46, 0.05); }
+        .active-card-shadow { box-shadow: 0px 20px 40px rgba(26, 26, 46, 0.12); }
+        .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .card-stack {
+            perspective: 1000px;
+            height: calc(100vh - 280px);
+            position: relative;
+        }
+        
+        .swipe-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            touch-action: none;
+        }
+
+        .swipe-card:nth-last-child(1) { transform: translateZ(0px) translateY(0px); z-index: 30; }
+        .swipe-card:nth-last-child(2) { transform: translateZ(-20px) translateY(12px) scale(0.96); z-index: 20; opacity: 0.8; }
+        .swipe-card:nth-last-child(3) { transform: translateZ(-40px) translateY(24px) scale(0.92); z-index: 10; opacity: 0.5; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-5 py-4 bg-background z-50">
+<span class="font-headline-md text-headline-md font-extrabold text-primary">SwipeHire</span>
+<button class="relative p-2 hover:bg-surface-container-low transition-transform duration-200 active:scale-98 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-coral rounded-full border-2 border-background"></span>
+</button>
+</header>
+<!-- Filter Chips -->
+<div class="px-5 pb-4 overflow-x-auto no-scrollbar flex gap-2">
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-indigo/10 text-indigo rounded-full font-label-sm text-label-sm whitespace-nowrap">
+<span>Remote</span>
+<span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-indigo/10 text-indigo rounded-full font-label-sm text-label-sm whitespace-nowrap">
+<span>$120k+</span>
+<span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-indigo/10 text-indigo rounded-full font-label-sm text-label-sm whitespace-nowrap">
+<span>Product Design</span>
+<span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+</div>
+<!-- Main Content: Card Stack -->
+<main class="px-container-padding pt-2">
+<div class="card-stack" id="cardContainer">
+<!-- Card 3 (Bottom) -->
+<div class="swipe-card bg-surface-container-lowest rounded-2xl swipe-card-shadow border border-outline-variant/20 overflow-hidden">
+<div class="p-md flex flex-col h-full">
+<div class="w-16 h-16 rounded-xl bg-surface-variant mb-4 overflow-hidden flex items-center justify-center">
+<div class="w-full h-full bg-cover" data-alt="A clean, minimalist tech company logo featuring abstract geometric shapes in indigo and teal. The logo is centered on a soft white studio background with professional, diffused lighting. The overall aesthetic is modern, corporate yet approachable, matching a friendly-professional brand identity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD2KJiHQRCELdTS3-s66QKgivsTIHAvT1xeP38jkiO9u-xYZgjrid16QcQKCW0lhJDp5hnCzOZchn_hSPsNNE-bJlu0DLK0uReJuRrtYU-m2X6u09MXolXiVLsYKnelSGpQPjo0_5CDpdP7WSiyAwPpme4dYSNIzGkCtLp03S7PWWWjIMG7vThjFpzdNg7jPhYDGCWvt1XdZMRIzqiSJehxO3Gk_AqjgVtE2Wej3aiw85M3GDpP0gPYai1XditlPUhpXzlPocUOa2Q')"></div>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Senior UX Designer</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">Lumina Systems</p>
+<p class="font-label-md text-label-md text-outline mb-4">San Francisco, CA (Hybrid)</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-3 py-1 bg-indigo/5 text-indigo rounded-full font-label-sm text-label-sm">Figma</span>
+<span class="px-3 py-1 bg-indigo/5 text-indigo rounded-full font-label-sm text-label-sm">Prototyping</span>
+<span class="px-3 py-1 bg-indigo/5 text-indigo rounded-full font-label-sm text-label-sm">SaaS</span>
+</div>
+<div class="mt-auto">
+<p class="font-headline-sm text-headline-sm text-primary mb-2">$140k – $180k</p>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Join our core design team to redefine how enterprise users interact with complex data visualization tools...</p>
+</div>
+</div>
+</div>
+<!-- Card 2 (Middle) -->
+<div class="swipe-card bg-surface-container-lowest rounded-2xl swipe-card-shadow border border-outline-variant/20 overflow-hidden">
+<div class="p-md flex flex-col h-full">
+<div class="w-16 h-16 rounded-xl bg-surface-variant mb-4 overflow-hidden flex items-center justify-center">
+<div class="w-full h-full bg-cover" data-alt="A sophisticated circular brand mark for a creative agency. The design uses bold coral typography and thin indigo line work against a pristine white backdrop. The lighting is high-key and optimistic, evoking a sense of creativity and professional clarity in a modern digital workspace." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBOyiiHVAiSxE9ujNCRDNJ1RGFD35W6yjlHYzTzbZkAr-F8n_wtjBWei5S4QdVVNFqzcRcRNuSS4NmUV0gMYmY-FS30GmdlXxvcv9jBftl4G78isn95U2tm7mIua3YaknWWJtJi4Jr2yaYTTLoBs-Wr7CxZ4skz8LQvEmHcCNGggOzKiuj_WSmYUtz-mHgPWhWPsCXllnhOXGcOUWvI4OPto6dov-Rq7DPzKTfn6-wFI7B8CyB6K3GghSPdPbGT39gD4YBZCkmGbf8')"></div>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Creative Director</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">Studio Bloom</p>
+<p class="font-label-md text-label-md text-outline mb-4">Brooklyn, NY (Remote)</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-3 py-1 bg-indigo/5 text-indigo rounded-full font-label-sm text-label-sm">Brand Strategy</span>
+<span class="px-3 py-1 bg-indigo/5 text-indigo rounded-full font-label-sm text-label-sm">Leadership</span>
+<span class="px-3 py-1 bg-indigo/5 text-indigo rounded-full font-label-sm text-label-sm">Art Direction</span>
+</div>
+<div class="mt-auto">
+<p class="font-headline-sm text-headline-sm text-primary mb-2">$160k – $210k</p>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Lead a world-class team of designers and copywriters for high-growth startups in the fintech space...</p>
+</div>
+</div>
+</div>
+<!-- Card 1 (Top) -->
+<div class="swipe-card bg-surface-container-lowest rounded-2xl active-card-shadow border border-outline-variant/20 overflow-hidden" id="topCard">
+<div class="p-md flex flex-col h-full">
+<div class="w-16 h-16 rounded-xl bg-surface-variant mb-4 overflow-hidden flex items-center justify-center">
+<div class="w-full h-full bg-cover" data-alt="A vibrant tech-focused company logo using an energetic coral and deep indigo color scheme. The visual style is flat, modern, and high-contrast, set in a bright, clean environment that feels professional and innovative. The imagery reflects a fast-paced, forward-thinking startup culture." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAkeevGdPJLynDiVWPnYp2f1H2AxdacSxjHW7o7BASDk76HdAyCm89FQChK6oohTUWAcFl4e58rue_GmjwGoy5s9KzlfcsGjEUNzK8JyPtRdDAE3_y5B4bS5HcRo7qXAp38_VQjBBop4twgmbrAGGUif5U-fh0X-pKisE-SY7XJ52GzU-mzL7Y-HE7yPsAdIJkfwJ3jWTPuLnVyNMRwG_tzKOWkVZpvUZY0-vInLMCAL8MKwEpZQvgnoXroMrmL9iEUMgyytH1cLgY')"></div>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Lead Product Designer</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">Nexus Tech</p>
+<p class="font-label-md text-label-md text-outline mb-4">Austin, TX (Remote)</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-3 py-1 bg-indigo/5 text-indigo rounded-full font-label-sm text-label-sm">Mobile UI</span>
+<span class="px-3 py-1 bg-indigo/5 text-indigo rounded-full font-label-sm text-label-sm">Design Systems</span>
+<span class="px-3 py-1 bg-indigo/5 text-indigo rounded-full font-label-sm text-label-sm">React</span>
+</div>
+<div class="mt-auto">
+<p class="font-headline-sm text-headline-sm text-primary mb-2">$135k – $175k</p>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">We are looking for a visionary designer to own the end-to-end experience of our mobile consumer application...</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Interaction Buttons -->
+<div class="flex justify-center items-center gap-8 mt-12 mb-20">
+<button class="w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center text-outline transition-all duration-200 active:scale-90 hover:bg-surface-variant/20" id="btnSkip">
+<span class="material-symbols-outlined text-3xl">close</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-indigo transition-all duration-200 active:scale-90 hover:bg-indigo/5">
+<span class="material-symbols-outlined text-2xl">tune</span>
+</button>
+<button class="w-16 h-16 rounded-full bg-coral shadow-lg flex items-center justify-center text-white transition-all duration-200 active:scale-90 hover:opacity-90" id="btnLike">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">check</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/70 backdrop-blur-md glass-nav shadow-[0px_-10px_30px_rgba(26,26,46,0.05)] rounded-t-3xl">
+<button class="flex flex-col items-center justify-center text-primary font-bold transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-label-sm">Discover</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant transition-all duration-200 active:scale-95 hover:opacity-80">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm">Matches</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant transition-all duration-200 active:scale-95 hover:opacity-80">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-sm text-label-sm">Chats</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant transition-all duration-200 active:scale-95 hover:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-sm text-label-sm">Alerts</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant transition-all duration-200 active:scale-95 hover:opacity-80">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+<script>
+        const topCard = document.getElementById('topCard');
+        const btnLike = document.getElementById('btnLike');
+        const btnSkip = document.getElementById('btnSkip');
+        const container = document.getElementById('cardContainer');
+
+        function swipe(direction) {
+            const rotation = direction === 'right' ? 20 : -20;
+            const xTranslation = direction === 'right' ? 500 : -500;
+            
+            topCard.style.transform = `translateX(${xTranslation}px) rotate(${rotation}deg)`;
+            topCard.style.opacity = '0';
+            
+            setTimeout(() => {
+                const cardToMove = topCard;
+                cardToMove.style.transition = 'none';
+                cardToMove.style.transform = 'translateZ(-40px) translateY(24px) scale(0.92)';
+                cardToMove.style.opacity = '0.5';
+                
+                // Move to back of stack in DOM for simulation
+                container.prepend(cardToMove);
+                
+                // Update new top card
+                updateStack();
+                
+                setTimeout(() => {
+                    cardToMove.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+                }, 50);
+            }, 400);
+        }
+
+        function updateStack() {
+            const cards = container.querySelectorAll('.swipe-card');
+            cards.forEach((card, index) => {
+                card.classList.remove('active-card-shadow');
+                if (index === cards.length - 1) {
+                    card.style.transform = 'translateZ(0px) translateY(0px) scale(1)';
+                    card.style.opacity = '1';
+                    card.classList.add('active-card-shadow');
+                    card.id = 'topCard';
+                } else if (index === cards.length - 2) {
+                    card.style.transform = 'translateZ(-20px) translateY(12px) scale(0.96)';
+                    card.style.opacity = '0.8';
+                } else {
+                    card.style.transform = 'translateZ(-40px) translateY(24px) scale(0.92)';
+                    card.style.opacity = '0.5';
+                }
+            });
+        }
+
+        btnLike.addEventListener('click', () => swipe('right'));
+        btnSkip.addEventListener('click', () => swipe('left'));
+
+        // Basic touch drag simulation for visual feedback
+        let startX = 0;
+        topCard.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            topCard.style.transition = 'none';
+        });
+
+        topCard.addEventListener('touchmove', (e) => {
+            const x = e.touches[0].clientX - startX;
+            const rotate = x * 0.1;
+            topCard.style.transform = `translateX(${x}px) rotate(${rotate}deg)`;
+        });
+
+        topCard.addEventListener('touchend', (e) => {
+            topCard.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+            const x = e.changedTouches[0].clientX - startX;
+            if (Math.abs(x) > 120) {
+                swipe(x > 0 ? 'right' : 'left');
+            } else {
+                topCard.style.transform = 'translateX(0px) rotate(0deg)';
+            }
+        });
+    </script>
+</body></html>

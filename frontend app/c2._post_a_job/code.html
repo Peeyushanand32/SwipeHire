@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SwipeHire | Post a Job</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "coral": "#FF7F61" // Brand specific action color
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #3525cd !important; box-shadow: 0 0 0 4px rgba(53, 37, 205, 0.1); }
+        .active-pill { background: #3525cd; color: white; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-background dark:bg-background flex items-center justify-between px-margin-mobile h-16 w-full">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed-dim tracking-tight">Post a Job</h1>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">more_vert</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 mt-16 mb-32 px-margin-mobile pt-lg">
+<form class="space-y-lg max-w-md mx-auto" id="job-form">
+<!-- Progress Indicator (Atmospheric) -->
+<div class="flex items-center justify-between mb-lg">
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-surface-container mx-2 rounded-full"></div>
+<div class="h-1 flex-1 bg-surface-container rounded-full"></div>
+</div>
+<!-- Header Card (Visual Anchor) -->
+<div class="relative w-full aspect-[16/7] rounded-lg overflow-hidden mb-xl shadow-md group">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A clean, minimalist high-tech office space with a bright indigo accent wall and soft morning light streaming through large windows. The scene captures the essence of a modern, professional yet approachable startup environment, echoing the brand's indigo and white aesthetic. Gentle depth of field with a focus on a sleek desk surface." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNL99E4-JKDRC45cxM04CyVgZtbQ1qMHtWKptcTZRmWSBxeRjQev8wzlVgPV1Tnp0VMDtag9wAvHmUEHl_WA-3qrq35moVG74o_m5xCUNBWqcC9JjkKs2AhnEIvz7-gen_BE3ocUcC8e8sOSSOuOBFoy_uf4ZLS9GSRsS9O1PVAR6b1gJbaYx9lALRpqfKVgW7uQyC04MV1gt4PT8uQvrnEf9YoTgjmbmT-o1c1SbZDwCQ64lFNSCDOTakYl3qHbLbN97rSDHKQHjj')"></div>
+<div class="absolute bottom-md left-md z-20">
+<span class="bg-primary text-white text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-widest mb-1 inline-block">New Listing</span>
+<p class="text-white font-headline-md text-headline-md">Reach 5k+ Candidates</p>
+</div>
+</div>
+<!-- Job Title -->
+<section class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1" for="job-title">Job Title</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-transparent rounded-lg px-md py-lg font-body-lg text-body-lg placeholder:text-outline/50 transition-all" id="job-title" placeholder="e.g. Senior UX Designer" type="text"/>
+</div>
+</section>
+<!-- Description -->
+<section class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1" for="job-desc">Job Description</label>
+<textarea class="w-full bg-surface-container-low border-transparent rounded-lg px-md py-lg font-body-lg text-body-lg placeholder:text-outline/50 transition-all resize-none" id="job-desc" placeholder="Tell us about the role, the team, and the mission..." rows="4"></textarea>
+</section>
+<!-- Skills Tagging -->
+<section class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Required Skills</label>
+<div class="bg-surface-container-low rounded-lg p-md flex flex-wrap gap-xs">
+<span class="bg-secondary-container/20 text-on-secondary-fixed-variant px-sm py-xs rounded-full font-label-md text-label-md flex items-center gap-1">
+                        Figma <button class="material-symbols-outlined text-sm" type="button">close</button>
+</span>
+<span class="bg-secondary-container/20 text-on-secondary-fixed-variant px-sm py-xs rounded-full font-label-md text-label-md flex items-center gap-1">
+                        Tailwind <button class="material-symbols-outlined text-sm" type="button">close</button>
+</span>
+<div class="flex-1 min-w-[120px]">
+<input class="w-full bg-transparent border-none p-0 font-body-md text-body-md focus:ring-0" placeholder="Add skill..." type="text"/>
+</div>
+</div>
+</section>
+<!-- Location & Job Type Grid -->
+<div class="grid grid-cols-2 gap-md">
+<section class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1" for="location">Location</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-md">location_on</span>
+<input class="w-full bg-surface-container-low border-transparent rounded-lg pl-10 pr-md py-lg font-body-lg text-body-lg placeholder:text-outline/50" id="location" placeholder="Remote / City" type="text"/>
+</div>
+</section>
+<section class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1" for="job-type">Job Type</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-transparent rounded-lg px-md py-lg font-body-lg text-body-lg appearance-none" id="job-type">
+<option>Full-time</option>
+<option>Contract</option>
+<option>Freelance</option>
+<option>Part-time</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</section>
+</div>
+<!-- Salary Range -->
+<section class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Annual Salary Range (USD)</label>
+<div class="flex items-center gap-sm">
+<div class="relative flex-1">
+<span class="absolute left-md top-1/2 -translate-y-1/2 text-outline font-body-md">$</span>
+<input class="w-full bg-surface-container-low border-transparent rounded-lg pl-8 pr-md py-lg font-body-lg text-body-lg placeholder:text-outline/50" placeholder="Min" type="number"/>
+</div>
+<span class="text-outline">—</span>
+<div class="relative flex-1">
+<span class="absolute left-md top-1/2 -translate-y-1/2 text-outline font-body-md">$</span>
+<input class="w-full bg-surface-container-low border-transparent rounded-lg pl-8 pr-md py-lg font-body-lg text-body-lg placeholder:text-outline/50" placeholder="Max" type="number"/>
+</div>
+</div>
+</section>
+<!-- Advanced Perks Toggle (Micro-interaction) -->
+<div class="p-md bg-surface-container-high rounded-lg flex items-center justify-between group active:scale-[0.98] transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg text-on-surface">Add Company Perks</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Health, Equity, Unlimited PTO</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</form>
+</main>
+<!-- Sticky Bottom Actions -->
+<div class="fixed bottom-0 left-0 w-full glass-panel bg-white/80 dark:bg-surface-dim/80 px-margin-mobile pt-md pb-safe flex flex-col gap-sm z-50">
+<button class="h-14 w-full bg-[#FF7F61] text-white rounded-full font-headline-md text-headline-md shadow-lg shadow-[#FF7F61]/20 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2" form="job-form" type="submit">
+            Post Job <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+<button class="h-12 w-full text-secondary font-body-lg text-body-lg rounded-full border border-secondary/20 hover:bg-secondary/5 active:scale-95 transition-all" type="button">
+            Save as Draft
+        </button>
+</div>
+<!-- Navigation Drawer (Predicted Shared Component - Contextual Hide) -->
+<aside class="fixed inset-0 z-[60] pointer-events-none opacity-0 transition-opacity duration-300" id="drawer">
+<div class="absolute inset-0 bg-on-background/40 backdrop-blur-sm"></div>
+<div class="absolute top-0 left-0 h-full w-80 bg-surface-container-low dark:bg-surface-container-lowest shadow-xl flex flex-col py-lg gap-sm -translate-x-full transition-transform duration-300 ease-out">
+<div class="px-lg pb-lg border-b border-outline-variant/30">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a friendly recruiter in their late 30s with a warm smile, wearing a modern indigo blazer. The background is a softly blurred office environment with natural lighting, maintaining the clean SwipeHire brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxaE2XE5ih1bjyTExGm9H_im133WKH4IN_eVQggauaKweh1FwMd2WVgHZwWE5N28Jix8SrD_pMiz6LlM-JwBa2tPmKfDPlp_GdB-iD-ueNFtVbXKC1QQ9enJxLW7SiXW0qL3XQrBeRqD3zhKKrVnlLrX4bjEnI_LL_-8Q1mzntxQx52lPC0v0xwQbAazvoKYO8GDBzE6n9pBRPtLLzlKO1kZfepLvKRcYZ_9HsSZxuvDuXa3tvvSjfEbyz6uwD8Es9FQQ3l9n81LBo"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Sarah Jenkins</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Talent Acquisition Lead</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-xs pt-md">
+<div class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 flex items-center px-lg py-md gap-md cursor-pointer transition-all">
+<span class="material-symbols-outlined">home</span> <span class="font-body-lg text-body-lg">Home</span>
+</div>
+<div class="bg-secondary-container text-on-secondary-container rounded-full mx-2 flex items-center px-lg py-md gap-md cursor-pointer transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span> <span class="font-body-lg text-body-lg font-bold">Post</span>
+</div>
+<div class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 flex items-center px-lg py-md gap-md cursor-pointer transition-all">
+<span class="material-symbols-outlined">group</span> <span class="font-body-lg text-body-lg">Candidates</span>
+</div>
+<div class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 flex items-center px-lg py-md gap-md cursor-pointer transition-all">
+<span class="material-symbols-outlined">forum</span> <span class="font-body-lg text-body-lg">Chats</span>
+</div>
+<div class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 flex items-center px-lg py-md gap-md cursor-pointer transition-all">
+<span class="material-symbols-outlined">business</span> <span class="font-body-lg text-body-lg">Company</span>
+</div>
+</nav>
+</div>
+</aside>
+<script>
+        // Simple drawer toggle logic
+        const menuBtn = document.querySelector('header button:first-child');
+        const drawer = document.getElementById('drawer');
+        const drawerContent = drawer.querySelector('div:last-child');
+        const overlay = drawer.querySelector('div:first-child');
+
+        function toggleDrawer() {
+            const isOpen = !drawer.classList.contains('opacity-0');
+            if(isOpen) {
+                drawerContent.classList.add('-translate-x-full');
+                drawer.classList.add('opacity-0');
+                drawer.classList.add('pointer-events-none');
+            } else {
+                drawer.classList.remove('opacity-0');
+                drawer.classList.remove('pointer-events-none');
+                setTimeout(() => {
+                    drawerContent.classList.remove('-translate-x-full');
+                }, 10);
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleDrawer);
+        overlay.addEventListener('click', toggleDrawer);
+
+        // Micro-interaction for form completion
+        const inputs = document.querySelectorAll('input, textarea, select');
+        const progress = document.querySelector('.flex-1.bg-primary');
+        
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                const filled = Array.from(inputs).filter(i => i.value.length > 0).length;
+                const total = inputs.length;
+                const percentage = (filled / total) * 100;
+                // Just a visual hint, not a full logic
+            });
+        });
+
+        // Submit intercept
+        document.getElementById('job-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Posting...';
+            btn.classList.add('opacity-80');
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Published!';
+                btn.style.backgroundColor = '#10B981'; // Green success
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.style.backgroundColor = '';
+                    btn.classList.remove('opacity-80');
+                }, 2000);
+            }, 1500);
+        });
+    </script>
+</body></html>

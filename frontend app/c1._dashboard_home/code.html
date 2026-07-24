@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SwipeHire | Recruiter Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            background-color: #fcf8ff;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top AppBar (From JSON logic) -->
+<header class="fixed top-0 w-full z-50 bg-background flex items-center justify-between px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">menu</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight font-extrabold">SwipeHire</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">notifications</button>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile">
+<!-- Verification Banner -->
+<section class="mb-lg">
+<div class="bg-[#e7f5ed] border border-[#a3cfbb] rounded-xl p-md flex items-center gap-3 animate-in fade-in slide-in-from-top duration-500">
+<div class="bg-[#198754] rounded-full p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-[#0f5132]">Company verified</p>
+<p class="text-[11px] text-[#146c43] opacity-80">Your listings receive 40% more visibility.</p>
+</div>
+</div>
+</section>
+<!-- Profile Hero Mini -->
+<section class="mb-lg flex items-center justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background">Welcome back, Sarah</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Here's your recruitment overview</p>
+</div>
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate recruiter in her 30s with a friendly expression. She is set against a clean, softly blurred modern office background with neutral tones. The lighting is bright and professional, following a clean light-mode aesthetic that matches a premium tech dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6_kWBRyxqOpbJM1wK5ydrlFQWGdxnLxIinNNZVCFNddTuX4TiiAK5n-yfRWXIHPOmzMDhGzyltsXxAk4PsjJSj_knmyvLlkxIBomYRbipzDaKGJFZYg5D-Xvdd08BivKzv_AvEkxm4QAXUvNhMM0AMG4PjklWdjiWXsRML9mMSEw1ff5OCXGwPYlo0OwGdJV3jCAoJmWNGgRUTfKFumh90CZuZNhwPq2Q8B0I8iNF82F0mUC7x-1ItqsgUeyfUqIkHVE4isch41I2"/>
+</div>
+</section>
+<!-- Stats Grid (2x2) -->
+<section class="grid grid-cols-2 gap-md mb-xl">
+<div class="glass-card p-md rounded-lg shadow-[0_8px_20px_rgba(26,26,46,0.04)] flex flex-col gap-xs transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary text-xl">work</span>
+<span class="text-[28px] font-bold text-primary">12</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Active jobs</p>
+</div>
+<div class="glass-card p-md rounded-lg shadow-[0_8px_20px_rgba(26,26,46,0.04)] flex flex-col gap-xs transition-transform active:scale-95">
+<span class="material-symbols-outlined text-secondary text-xl">group</span>
+<span class="text-[28px] font-bold text-secondary">842</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Total interested</p>
+</div>
+<div class="glass-card p-md rounded-lg shadow-[0_8px_20px_rgba(26,26,46,0.04)] flex flex-col gap-xs transition-transform active:scale-95">
+<span class="material-symbols-outlined text-tertiary text-xl">star</span>
+<span class="text-[28px] font-bold text-tertiary">48</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Shortlisted</p>
+</div>
+<div class="glass-card p-md rounded-lg shadow-[0_8_20px_rgba(26,26,46,0.04)] flex flex-col gap-xs transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary-container text-xl">chat_bubble</span>
+<span class="text-[28px] font-bold text-primary-container">15</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Active chats</p>
+</div>
+</section>
+<!-- Job Listings -->
+<section class="mb-lg">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-headline-md text-on-background">Posted Jobs</h3>
+<button class="text-primary font-label-md text-label-md flex items-center gap-1">
+                    View all <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<div class="space-y-md">
+<!-- Job Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h4 class="font-body-lg text-body-lg text-on-background font-bold">Senior Product Designer</h4>
+<p class="font-label-md text-label-md text-on-surface-variant">Design • Remote</p>
+</div>
+<span class="bg-[#e7f5ed] text-[#198754] text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Active</span>
+</div>
+<div class="flex items-center justify-between pt-sm border-t border-outline-variant">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-on-background font-bold">124</span>
+<span class="text-[10px] text-on-surface-variant">Applied</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-background font-bold">8</span>
+<span class="text-[10px] text-on-surface-variant">Interviews</span>
+</div>
+</div>
+<button class="bg-primary text-white p-2 rounded-full flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+</div>
+<!-- Job Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h4 class="font-body-lg text-body-lg text-on-background font-bold">Lead Full-stack Developer</h4>
+<p class="font-label-md text-label-md text-on-surface-variant">Engineering • New York</p>
+</div>
+<span class="bg-[#fff3cd] text-[#856404] text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Draft</span>
+</div>
+<div class="flex items-center justify-between pt-sm border-t border-outline-variant">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-on-background font-bold">0</span>
+<span class="text-[10px] text-on-surface-variant">Applied</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-background font-bold">0</span>
+<span class="text-[10px] text-on-surface-variant">Interviews</span>
+</div>
+</div>
+<button class="bg-outline text-white p-2 rounded-full flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-sm">publish</span>
+</button>
+</div>
+</div>
+<!-- Job Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-lg shadow-sm hover:shadow-md transition-shadow opacity-70">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h4 class="font-body-lg text-body-lg text-on-background font-bold">Marketing Manager</h4>
+<p class="font-label-md text-label-md text-on-surface-variant">Marketing • London</p>
+</div>
+<span class="bg-surface-variant text-on-surface-variant text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Filled</span>
+</div>
+<div class="flex items-center justify-between pt-sm border-t border-outline-variant">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-on-background font-bold">342</span>
+<span class="text-[10px] text-on-surface-variant">Applied</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-background font-bold">12</span>
+<span class="text-[10px] text-on-surface-variant">Interviews</span>
+</div>
+</div>
+<button class="bg-surface-container-high text-on-surface p-2 rounded-full flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB for quick posting -->
+<button class="fixed bottom-24 right-margin-mobile w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center z-50 active:scale-90 transition-transform group">
+<span class="material-symbols-outlined text-[32px] group-hover:rotate-90 transition-transform duration-300">add</span>
+</button>
+<!-- Bottom Navigation Bar (Mandatory Shell) -->
+<nav class="fixed bottom-0 left-0 w-full h-[72px] flex justify-around items-center px-4 pb-safe bg-surface/80 backdrop-blur-md z-50 shadow-[0_-4px_20px_rgba(26,26,46,0.08)]">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center text-primary font-bold hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined fill-icon">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<!-- Post -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-md text-label-md">Post</span>
+</a>
+<!-- Candidates -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Candidates</span>
+</a>
+<!-- Chats -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300 relative" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-md text-label-md">Chats</span>
+<div class="absolute top-0 right-1 w-2 h-2 bg-error rounded-full"></div>
+</a>
+<!-- Company -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">business</span>
+<span class="font-label-md text-label-md">Company</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for stats cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('shadow-xl');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('shadow-xl');
+            });
+        });
+
+        // Pull to refresh effect simulation
+        let startY;
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].pageY;
+        }, {passive: true});
+
+        document.addEventListener('touchmove', (e) => {
+            const y = e.touches[0].pageY;
+            if (window.scrollY === 0 && y > startY + 50) {
+                // Potential Refresh UI trigger
+            }
+        }, {passive: true});
+    </script>
+</body></html>

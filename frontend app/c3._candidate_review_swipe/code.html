@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SwipeHire | Candidate Review</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "coral": "#FF7F50"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .swipe-card {
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease;
+            user-select: none;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .custom-shadow {
+            shadow-color: rgba(26, 26, 46, 0.08);
+            box-shadow: 0 8px 20px rgba(26, 26, 46, 0.08);
+        }
+        body {
+            background-color: #fcf8ff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-background flex items-center justify-between px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-2 rounded-full">menu</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">SwipeHire</h1>
+</div>
+<div class="flex items-center">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-2 rounded-full">notifications</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-32 px-margin-mobile flex flex-col min-h-screen">
+<!-- Context Header -->
+<div class="mb-lg">
+<div class="flex justify-between items-end mb-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Senior UX Designer</h2>
+<p class="font-label-md text-label-md text-outline">24 interested candidates</p>
+</div>
+<button class="bg-surface-container-high p-2 rounded-full material-symbols-outlined text-primary">filter_list</button>
+</div>
+<!-- Tabs -->
+<div class="flex gap-md border-b border-outline-variant">
+<button class="pb-sm border-b-2 border-primary text-primary font-bold text-body-md transition-all">Interested</button>
+<button class="pb-sm text-outline font-medium text-body-md transition-all hover:text-on-surface">Shortlisted (6)</button>
+</div>
+</div>
+<!-- Swipe Deck Container -->
+<div class="relative flex-grow flex items-center justify-center perspective-1000">
+<!-- Background Card (Stacking Effect) -->
+<div class="absolute w-full h-[520px] bg-surface-container rounded-lg transform translate-y-4 scale-95 opacity-50 z-0"></div>
+<!-- Primary Swipe Card -->
+<div class="swipe-card relative z-10 w-full max-w-sm h-[540px] bg-surface-container-lowest rounded-lg custom-shadow overflow-hidden flex flex-col border border-outline-variant/30" id="candidateCard">
+<!-- Candidate Image -->
+<div class="h-1/2 relative group">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a creative female professional in her late 20s. She is smiling confidently, wearing modern glasses and a stylish blazer. The background is a soft-focus architectural office space with warm wooden textures and abundant natural light. The overall mood is approachable, intelligent, and highly professional, fitting a high-end recruitment interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRItUrP8kZDiFSZ7M3ibp5FdgNZ17vT0JlyZgMSb_sQ1AztvenBUAj5j1yDm_EnEi0ZO3HzLsSq9t_RdL1p1FLgHa-iGxdHmCZkJQGhMKKNtCvuY3V-lHmlu09S7Lx0y8lt2ChWmWIbgYy5NkBCvdtBos6kuKWE4IHg-TvV-VD3eV2JAZWli1oiOMynAXJWHO16RpTz4yYDN7tInJvZJfWb6ouJ9MNd0genweMyqqtPrzgE2xLKR3nrtDuSAple3wESMZtdzJ1MPpu"/>
+<div class="absolute bottom-0 left-0 w-full p-md bg-gradient-to-t from-on-background/80 to-transparent">
+<h3 class="font-headline-lg text-headline-lg text-white">Elena Rodriguez</h3>
+<p class="font-body-md text-white/90">Lead Product Designer</p>
+</div>
+</div>
+<!-- Candidate Info -->
+<div class="flex-grow p-md flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-xs text-outline mb-base">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-label-md text-label-md">San Francisco, CA (Remote)</span>
+</div>
+<div class="flex items-center gap-xs text-secondary-container">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="font-label-md text-label-md">$160k — $195k</span>
+</div>
+</div>
+<a class="text-primary font-bold text-label-md flex items-center gap-base hover:underline" href="#">
+                            View resume <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+<!-- Skills Chips -->
+<div class="flex flex-wrap gap-xs mt-base">
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-sm py-1 rounded-full font-label-md text-label-md">Figma</span>
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-sm py-1 rounded-full font-label-md text-label-md">Design Systems</span>
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-sm py-1 rounded-full font-label-md text-label-md">React</span>
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-sm py-1 rounded-full font-label-md text-label-md">Agile</span>
+<span class="bg-surface-container-high text-outline px-sm py-1 rounded-full font-label-md text-label-md">+4 more</span>
+</div>
+<p class="mt-md font-body-md text-on-surface-variant line-clamp-3">
+                        Passionate about building scalable design systems and mentoring cross-functional teams. Previously at Stripe and Airbnb leading core infrastructure projects.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Action Bubbles -->
+<div class="mt-lg flex justify-center items-center gap-lg">
+<!-- Pass Button -->
+<button class="w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center border border-outline-variant hover:bg-surface-container active:scale-90 transition-all" onclick="handleSwipe('left')">
+<span class="material-symbols-outlined text-[28px] text-outline">close</span>
+</button>
+<!-- Shortlist Button -->
+<button class="w-16 h-16 rounded-full bg-white shadow-xl flex items-center justify-center border-2 border-secondary-container hover:bg-secondary-fixed active:scale-90 transition-all" onclick="handleSwipe('up')">
+<span class="material-symbols-outlined text-[32px] text-secondary-container" style="font-variation-settings: 'FILL' 0;">star</span>
+</button>
+<!-- Message Button -->
+<button class="w-14 h-14 rounded-full bg-[#FF7F50] shadow-lg flex items-center justify-center hover:opacity-90 active:scale-90 transition-all" onclick="handleSwipe('right')">
+<span class="material-symbols-outlined text-[28px] text-white">chat_bubble</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full h-[72px] flex justify-around items-center px-4 pb-safe bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-[0_-4px_20px_rgba(26,26,46,0.08)] z-50 rounded-t-lg">
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md">Discover</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-md text-label-md">Matches</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-md text-label-md">Chats</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-md text-label-md">Alerts</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</button>
+</nav>
+<script>
+        function handleSwipe(direction) {
+            const card = document.getElementById('candidateCard');
+            let transform = '';
+            
+            if (direction === 'left') {
+                transform = 'translateX(-150%) rotate(-20deg)';
+            } else if (direction === 'right') {
+                transform = 'translateX(150%) rotate(20deg)';
+            } else if (direction === 'up') {
+                transform = 'translateY(-150%) scale(0.9)';
+            }
+
+            card.style.transform = transform;
+            card.style.opacity = '0';
+
+            // Reset after animation
+            setTimeout(() => {
+                card.style.transition = 'none';
+                card.style.transform = 'translateY(50px) scale(0.95)';
+                card.style.opacity = '0';
+                
+                setTimeout(() => {
+                    card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease';
+                    card.style.transform = 'translateX(0) rotate(0) scale(1)';
+                    card.style.opacity = '1';
+                }, 50);
+            }, 400);
+        }
+
+        // Horizontal Swipe Interaction Mock
+        let startX = 0;
+        const card = document.getElementById('candidateCard');
+
+        card.addEventListener('touchstart', e => {
+            startX = e.touches[0].clientX;
+            card.style.transition = 'none';
+        });
+
+        card.addEventListener('touchmove', e => {
+            const currentX = e.touches[0].clientX;
+            const diffX = currentX - startX;
+            const rotation = diffX / 20;
+            card.style.transform = `translateX(${diffX}px) rotate(${rotation}deg)`;
+            
+            // Visual feedback colors
+            if (diffX > 50) {
+                card.style.borderColor = 'rgba(79, 70, 229, 0.3)';
+            } else if (diffX < -50) {
+                card.style.borderColor = 'rgba(186, 26, 26, 0.3)';
+            } else {
+                card.style.borderColor = 'transparent';
+            }
+        });
+
+        card.addEventListener('touchend', e => {
+            const endX = e.changedTouches[0].clientX;
+            const diffX = endX - startX;
+            card.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+            
+            if (Math.abs(diffX) > 120) {
+                handleSwipe(diffX > 0 ? 'right' : 'left');
+            } else {
+                card.style.transform = 'translateX(0) rotate(0)';
+                card.style.borderColor = 'transparent';
+            }
+        });
+    </script>
+</body></html>

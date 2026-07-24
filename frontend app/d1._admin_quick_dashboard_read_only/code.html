@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SwipeHire Admin | High-Level Oversight</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fcf8ff;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background selection:bg-primary/20">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 bg-background flex items-center justify-between px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-md">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">SwipeHire</h1>
+</div>
+<div class="flex items-center gap-xs">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-20 pb-32 px-margin-mobile max-w-md mx-auto">
+<!-- Dashboard Greeting -->
+<section class="mb-lg">
+<p class="font-label-md text-label-md text-primary uppercase tracking-widest mb-base">Global Statistics</p>
+<h2 class="font-headline-xl text-headline-xl text-on-background">Admin Insights</h2>
+</section>
+<!-- KPI Grid -->
+<div class="grid grid-cols-2 gap-md mb-lg">
+<!-- Total Users -->
+<div class="glass-card p-md rounded-lg shadow-sm flex flex-col gap-xs border-l-4 border-primary">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-label-md text-green-600">+12%</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Total Users</p>
+<p class="font-headline-lg text-headline-lg">124.8k</p>
+</div>
+</div>
+<!-- Revenue -->
+<div class="glass-card p-md rounded-lg shadow-sm flex flex-col gap-xs border-l-4 border-secondary">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-label-md text-green-600">+5.4%</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Monthly Rev</p>
+<p class="font-headline-lg text-headline-lg">$89.2k</p>
+</div>
+</div>
+<!-- Companies -->
+<div class="glass-card p-md rounded-lg shadow-sm flex flex-col gap-xs">
+<span class="material-symbols-outlined text-outline">business</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Companies</p>
+<p class="font-headline-md text-headline-md">3,412</p>
+</div>
+</div>
+<!-- Active Jobs -->
+<div class="glass-card p-md rounded-lg shadow-sm flex flex-col gap-xs">
+<span class="material-symbols-outlined text-outline">work</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Live Jobs</p>
+<p class="font-headline-md text-headline-md">8,290</p>
+</div>
+</div>
+<!-- Matches -->
+<div class="glass-card p-md rounded-lg shadow-sm flex flex-col gap-xs col-span-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Successful Matches</p>
+</div>
+<p class="font-headline-md text-headline-md">42,910</p>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full mt-xs">
+<div class="bg-primary h-2 rounded-full" style="width: 78%"></div>
+</div>
+</div>
+</div>
+<!-- Pending Verifications Notice -->
+<section class="mb-lg">
+<div class="bg-primary-container p-lg rounded-lg shadow-md relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-sm mb-xs">
+<span class="material-symbols-outlined text-on-primary-container">verified_user</span>
+<h3 class="font-headline-md text-headline-md text-on-primary-container">Pending Verifications</h3>
+</div>
+<p class="font-body-md text-body-md text-on-primary-container/80 mb-md">
+                        There are <span class="font-bold">42</span> company profiles and <span class="font-bold">128</span> user identities awaiting review.
+                    </p>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-primary-container bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Corporate headshot of a female HR executive with professional attire against a soft-lit studio background, maintaining a high-end corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq_0mrSUeY2piRwBHdMo3zlfTYXeTfgfntJUF5q6tV06Y3p3-sZtrAwZ-FTQ35IBAwU62G6cuvWjkV-5advwYT7ZC6KPE9UCugP-ZdMNanr4U6NtXSTTL0BGIOUhkNup8Hqo4SCtVRPt8oP8ZbOFfLU3Qh8oV5qpA5o531PROSjZP4jW-QuAoN81sZ_F_UqvyVUPuhl9LcfQtax2knj_ZT3NYUuB9MkraY72M5P6N2T7MRv_F9Jnh7nV_blVyIgJa7z-aO3QKUUC0-"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-primary-container bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a modern technology entrepreneur with a friendly smile, photographed in a brightly lit, minimalist office space with indigo accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrIwZOwQzJBevFztpiKsdFmkwcc0-TCju7gwNlY67v9X8ijb00WSHr6PK_ns527Du4bP0u8vvH8agirzjl7N_I63OMd4dcHSJzOpLH6J2SdJ-1fl8LUIMylAJfCMoZp6qU4R5T3_hbfXalic2k2Jtzw8AT2l5xp0tES_fx8okrnKqj_G-eTeUKJbOmjtNktpxXQrBMxqkdsvLTWl-U3ebboMIpc9ST0K5VGItfIPa00UpyzP8W5OZt6n_az08PMlMB2xld59Reeo-m"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-primary-container bg-surface-container-high flex items-center justify-center text-[10px] font-bold text-primary bg-primary-fixed">
+                                +168
+                            </div>
+</div>
+<span class="font-label-md text-label-md bg-on-primary-container text-primary-container px-md py-xs rounded-full">Manage on web</span>
+</div>
+</div>
+<!-- Subtle graphic element -->
+<div class="absolute -right-10 -bottom-10 opacity-10">
+<span class="material-symbols-outlined text-[160px]">shield</span>
+</div>
+</div>
+</section>
+<!-- Read Only Activity Feed -->
+<section class="mb-lg">
+<h3 class="font-headline-md text-headline-md text-on-background mb-md">Recent Platform Activity</h3>
+<div class="flex flex-col gap-sm">
+<div class="flex gap-md items-start p-sm rounded-lg hover:bg-surface-container transition-colors">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white text-sm">trending_up</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-background">New company "Aether Tech" joined</p>
+<p class="font-label-md text-label-md text-outline">2 minutes ago</p>
+</div>
+</div>
+<div class="flex gap-md items-start p-sm rounded-lg hover:bg-surface-container transition-colors">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white text-sm">rocket_launch</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-background">1,000th match achieved today</p>
+<p class="font-label-md text-label-md text-outline">15 minutes ago</p>
+</div>
+</div>
+<div class="flex gap-md items-start p-sm rounded-lg hover:bg-surface-container transition-colors">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white text-sm">person_add</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-background">500 new candidates registered</p>
+<p class="font-label-md text-label-md text-outline">1 hour ago</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Shell) -->
+<nav class="fixed bottom-0 left-0 w-full h-[72px] flex justify-around items-center px-4 pb-safe bg-surface/80 backdrop-blur-md shadow-[0_-4px_20px_rgba(26,26,46,0.08)] z-50">
+<button class="flex flex-col items-center justify-center text-primary font-bold active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Entities</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">System</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for KPI cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.transform = 'scale(0.98)';
+                card.style.transition = 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+
+        // Handle navigation active states (visual only for this demo)
+        const navButtons = document.querySelectorAll('nav button');
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navButtons.forEach(b => {
+                    b.classList.remove('text-primary', 'font-bold');
+                    b.classList.add('text-on-surface-variant');
+                    const icon = b.querySelector('.material-symbols-outlined');
+                    if(icon) icon.style.fontVariationSettings = "'FILL' 0";
+                });
+                btn.classList.add('text-primary', 'font-bold');
+                btn.classList.remove('text-on-surface-variant');
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if(icon) icon.style.fontVariationSettings = "'FILL' 1";
+            });
+        });
+    </script>
+</body></html>

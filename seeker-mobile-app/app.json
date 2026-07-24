@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "SwipeHire Job Seeker",
+    "slug": "swipehire-seeker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "permissions": [
+        "android.permission.DETECT_SCREEN_CAPTURE"
+      ]
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}

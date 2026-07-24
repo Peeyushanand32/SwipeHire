@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Welcome to SwipeHire</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Using the provided Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "brand-coral": "#FF6B5C"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .carousel-container {
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-slide {
+            scroll-snap-align: start;
+            flex: 0 0 100%;
+        }
+        .dot-active {
+            width: 24px;
+            background-color: #3525cd;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md overflow-hidden h-screen w-full flex flex-col">
+<!-- Top AppBar (Simplified for Onboarding) -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 bg-transparent">
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight font-extrabold">
+            SwipeHire
+        </div>
+<button class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors px-4 py-2 rounded-full active:scale-95 duration-200">
+            Skip
+        </button>
+</header>
+<!-- Main Carousel Canvas -->
+<main class="flex-grow relative mt-16 mb-32">
+<div class="carousel-container h-full w-full flex overflow-x-auto" id="carousel">
+<!-- Slide 1 -->
+<section class="carousel-slide flex flex-col items-center justify-center px-margin-mobile text-center gap-lg">
+<div class="relative w-full aspect-square max-w-[320px] bg-surface-container-low rounded-xl overflow-hidden shadow-xl">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist 3D illustration of a smartphone displaying a modern job card interface. The card features a vibrant UI with 'Accept' and 'Decline' buttons in bright green and amber. The background is a soft, airy gradient of lavender and cool white, reflecting a professional yet fluid recruitment atmosphere. Soft studio lighting creates gentle shadows and highlights on the device surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRnvR_11h-5vWBbHjHkatBY3iATy7UHbCn-TiBewFfJCRGqkxrXNiBWXfY76IszJ8R3U2pPCggqqQuzzWG5nUZ_-Jrgu3rbXlrHVePlEYHavkqIInrkYjAFQGfkKZHGVYwVcmO1SIqZpJ0nzJgnAaby2y1ySMfR-Uu-HaUUsuqj0roMSMLTW7fb3nhQ01lEFf7Qo4f358nOV2n6mkOYkR-VFN1GIM5VDBoXzKU01zrAuK9SPtq7pOLLbIiaF0k8S10if-JEzP5cNAx"/>
+</div>
+<div class="space-y-sm max-w-xs">
+<h2 class="font-headline-xl text-headline-xl text-primary leading-tight">Swipe on jobs you like</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant px-4">Find your next opportunity with a simple gesture. Speed and precision in every swipe.</p>
+</div>
+</section>
+<!-- Slide 2 -->
+<section class="carousel-slide flex flex-col items-center justify-center px-margin-mobile text-center gap-lg">
+<div class="relative w-full aspect-square max-w-[320px] bg-surface-container-low rounded-xl overflow-hidden shadow-xl">
+<img class="w-full h-full object-cover" data-alt="A premium 3D composition showing abstract notification bubbles emerging from a sleek workstation desk. The bubbles contain corporate logos and high-contrast checkmark icons, symbolizing successful job matches. The scene uses a sophisticated palette of indigo and soft violet, set against a pristine, well-lit modern office environment. The mood is optimistic and efficient." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsTP1-miSnsulqlW5PrP1T0jLewapmFMFdnSAKT90E3zHWk7vq-RMs1XrWslHr-M4OJIOvv2gzaNcqM_HKMUVQvjpPY0urgTikARqJ8wvlgB8C_O892oEE5yc2SdN8huTd3duUHjDw9No4dtHUgjf2UjaJYEKqtG_D_8RxWqs0CcVB_v-oejEoNgnD3WhepVRm5kmFfL_9lUGuziCl7Mn2WeOoucwwr-ZXn-XU1Ipgcm8g3tbyTlr6kDKEVzQMCPpwG_BbmstLPZCf"/>
+</div>
+<div class="space-y-sm max-w-xs">
+<h2 class="font-headline-xl text-headline-xl text-primary leading-tight">Companies reach out to you</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant px-4">No more cold emails. Let top recruiters find you based on your profile and swipes.</p>
+</div>
+</section>
+<!-- Slide 3 -->
+<section class="carousel-slide flex flex-col items-center justify-center px-margin-mobile text-center gap-lg">
+<div class="relative w-full aspect-square max-w-[320px] bg-surface-container-low rounded-xl overflow-hidden shadow-xl">
+<img class="w-full h-full object-cover" data-alt="A stylized 3D visualization of a collaborative chat interface. Glowing message bubbles in various shades of blue and coral float in a tactile, glass-morphic space. The central focus is a digital handshake icon, representing a successful hire. The overall aesthetic is professional fluidity, with soft lighting and a sense of depth and tactile interaction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVQpgLmajLhP9gARzvCLEiXlj0iiWpexiQdzSMEK95gYFr_Heeos8Pkcmkg1hpVWm1fAn00tqq9E1DUUdz9Ci--iJWAX8V6AQaPZhIgfRQmTg4Hc7XCcoEG7a9xAxZ8zENUQDQneEcmXQ6RQLjczH7UgRMIC_XcwLl3mjPXvdfidQJvmovxXefk5Cd7NX1hFtpnXYL4syrYrZEJ60xnEFrdzCq4BH2cWiMY0UXfOUMeNU8BQrTFyrvA19dyyBO2SSvrprOdKPsAmMm"/>
+</div>
+<div class="space-y-sm max-w-xs">
+<h2 class="font-headline-xl text-headline-xl text-primary leading-tight">Chat and get hired</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant px-4">Direct communication with decision makers. Close the deal through integrated chat.</p>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Actions Layer -->
+<footer class="fixed bottom-0 left-0 w-full p-margin-mobile flex flex-col items-center gap-lg bg-gradient-to-t from-background via-background to-transparent pb-10">
+<!-- Page Indicator Dots -->
+<div class="flex gap-2 mb-2">
+<div class="dot-active h-2 w-2 rounded-full bg-outline-variant transition-all duration-300" id="dot-0"></div>
+<div class="h-2 w-2 rounded-full bg-outline-variant transition-all duration-300" id="dot-1"></div>
+<div class="h-2 w-2 rounded-full bg-outline-variant transition-all duration-300" id="dot-2"></div>
+</div>
+<!-- Action Button -->
+<button class="w-full h-[56px] bg-brand-coral text-white font-headline-md text-headline-md rounded-full shadow-lg hover:opacity-90 active:scale-95 transition-all duration-200">
+            Get started
+        </button>
+</footer>
+<script>
+        const carousel = document.getElementById('carousel');
+        const dots = [
+            document.getElementById('dot-0'),
+            document.getElementById('dot-1'),
+            document.getElementById('dot-2')
+        ];
+
+        carousel.addEventListener('scroll', () => {
+            const scrollLeft = carousel.scrollLeft;
+            const width = carousel.offsetWidth;
+            const activeIndex = Math.round(scrollLeft / width);
+
+            dots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.add('dot-active');
+                    dot.classList.remove('bg-outline-variant');
+                    dot.classList.add('bg-primary');
+                } else {
+                    dot.classList.remove('dot-active');
+                    dot.classList.add('bg-outline-variant');
+                    dot.classList.remove('bg-primary');
+                }
+            });
+        });
+
+        // Touch interaction for smoother feel
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        carousel.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+        carousel.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        carousel.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        carousel.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body></html>

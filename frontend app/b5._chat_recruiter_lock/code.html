@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "accent-coral": "#FF7F6E"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .chat-container { height: calc(100vh - 136px); overflow-y: auto; scrollbar-width: none; }
+        .chat-container::-webkit-scrollbar { display: none; }
+        .message-incoming { border-bottom-left-radius: 4px; }
+        .message-outgoing { border-bottom-right-radius: 4px; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-header { backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md px-margin-mobile h-16 flex items-center justify-between">
+<div class="flex items-center gap-md">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="font-headline-md text-headline-md leading-tight">Design Studio</h1>
+<span class="font-label-md text-label-md text-outline">Senior Product Designer</span>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Chat Canvas -->
+<main class="pt-20 pb-24 px-margin-mobile chat-container flex flex-col gap-lg">
+<!-- Date Marker -->
+<div class="flex justify-center my-md">
+<span class="bg-surface-container px-md py-xs rounded-full font-label-md text-label-md text-on-surface-variant">Today</span>
+</div>
+<!-- Incoming Message -->
+<div class="flex flex-col items-start max-w-[85%] gap-xs">
+<div class="flex items-center gap-sm mb-1">
+<div class="w-6 h-6 rounded-full bg-cover bg-center" data-alt="A professional circular logo for a creative design agency named Design Studio, featuring clean geometric typography in a high-end minimalist style. The colors are muted indigos and crisp whites, set against a soft studio lighting background to convey professionalism and creativity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDswFNcPnYq5C87Fa6AGPp91PAr1B-lhI6KWilmcRObFSORcp7UOHZPgw8BJMGPgqwjRIVxzvr_VxuTvUSfv0FGSq6DdvZsfq6yAMXxkK_tqrnOB0JprXKT_fgDyM2U1MWbve_1h6YD24xIotGhKPuYWoISPCZl1WneAAPGceIk33IvIBw4CUfkAX-M4uDVVGYf3gChoZVNZ_T3l3AB3stCPQsEHRZSdDW4gbeKXWsnhWcU_GyJLfZk4ohyQh1XswuHiZ4CzJMK0uvI')"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Sarah from Design Studio</span>
+</div>
+<div class="message-incoming bg-surface-container-lowest p-md rounded-lg shadow-sm">
+<p class="font-body-md text-body-md text-on-surface">Hi there! We loved your portfolio. Specifically the case study on fluid interaction models. Are you available for a quick chat tomorrow morning?</p>
+</div>
+<span class="font-label-md text-label-md text-outline ml-1">10:42 AM</span>
+</div>
+<!-- Outgoing Message -->
+<div class="flex flex-col items-end max-w-[85%] self-end gap-xs">
+<div class="message-outgoing bg-secondary text-on-secondary p-md rounded-lg shadow-md">
+<p class="font-body-md text-body-md">Thank you so much! I'm really glad that case study resonated with you. I'm definitely available tomorrow. Would 10:00 AM EST work for you?</p>
+</div>
+<div class="flex items-center gap-xs mr-1">
+<span class="font-label-md text-label-md text-outline">10:45 AM</span>
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">done_all</span>
+</div>
+</div>
+<!-- Incoming Message -->
+<div class="flex flex-col items-start max-w-[85%] gap-xs">
+<div class="flex items-center gap-sm mb-1">
+<div class="w-6 h-6 rounded-full bg-cover bg-center" data-alt="A small, professional avatar for a female hiring manager named Sarah, with a friendly expression. She is wearing a modern blazer in a minimalist, bright office environment with soft bokeh background. High-key lighting, professional photography style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBJvFSUfE7GhbgJG0q7BfEUx_exru-dGbEv0z2TBbDjGZA1LuYGwH6te8-8_RNiDDrlPWemMTs-G3AZPWnIFizB-YqPTQ9ZmRtoEHUK9W3TpAQNpnWdYceRpYczzOLftvbx75QRDuZwRZS4OloqfWfjqzd1wGmDbEtMq8GiDmUmO22dfxc-iNrFkTLonsw-YYJ27Zf5zCyq7_awnotHGTXQqJpyrUnLVyNd0d7GwDwwh-kDexTM5GwGfEZ-hCb5ImNAq1qBJppeH50V')"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Sarah</span>
+</div>
+<div class="message-incoming bg-surface-container-lowest p-md rounded-lg shadow-sm">
+<p class="font-body-md text-body-md text-on-surface">10:00 AM EST works perfectly. I'll send over a calendar invite in a moment!</p>
+</div>
+<span class="font-label-md text-label-md text-outline ml-1">11:02 AM</span>
+</div>
+<!-- Locked State / Conditional Section -->
+<div class="hidden mt-lg flex flex-col items-center text-center px-lg py-xl bg-surface-container-low rounded-lg border border-dashed border-outline-variant" id="locked-state">
+<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary text-[32px]">lock</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                The company will start the conversation. You'll be able to reply once they message you.
+            </p>
+</div>
+</main>
+<!-- Bottom Action Bar / Input Area -->
+<footer class="fixed bottom-0 left-0 w-full bg-surface/80 backdrop-blur-md p-md pb-safe z-50">
+<div class="flex items-center gap-md" id="active-input">
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">add</span>
+</button>
+<div class="flex-1 relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-full px-lg py-md font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Type a message..." type="text"/>
+</div>
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-[#FF7F6E] text-white shadow-lg active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<!-- Hidden navigation for demo context -->
+<div class="hidden">
+<span class="material-symbols-outlined">explore</span>
+<span class="material-symbols-outlined">favorite</span>
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="material-symbols-outlined">notifications</span>
+<span class="material-symbols-outlined">person</span>
+</div>
+</footer>
+<script>
+        // Micro-interaction for scroll position
+        const chatContainer = document.querySelector('.chat-container');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+
+        // Toggle demonstration: In a real app, this would be reactive to the conversation state
+        function toggleState(isLocked) {
+            const lockedState = document.getElementById('locked-state');
+            const activeInput = document.getElementById('active-input');
+            
+            if (isLocked) {
+                lockedState.classList.remove('hidden');
+                activeInput.classList.add('opacity-50', 'pointer-events-none');
+            } else {
+                lockedState.classList.add('hidden');
+                activeInput.classList.remove('opacity-50', 'pointer-events-none');
+            }
+        }
+
+        // Default to active state for this view as it contains messages
+        toggleState(false);
+    </script>
+</body></html>

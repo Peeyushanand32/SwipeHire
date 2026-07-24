@@ -1,0 +1,149 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               String            @id @default(cuid())
+  email            String            @unique
+  phone            String?           @unique
+  passwordHash     String
+  role             String            // SEEKER | RECRUITER | ADMIN
+  createdAt        DateTime          @default(now())
+  seekerProfile    SeekerProfile?
+  recruiterProfile RecruiterProfile?
+  notifications    Notification[]
+  messages         Message[]
+  pushTokens       PushToken[]
+}
+
+model SeekerProfile {
+  id             String     @id @default(cuid())
+  userId         String     @unique
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName       String
+  headline       String?
+  skills         String     // Stored as JSON array string, e.g. "[\"React\",\"Node.js\"]"
+  expectedSalary Int?
+  city           String?
+  resumeUrl      String?
+  avatarUrl      String?
+  interests      Interest[]
+}
+
+model Company {
+  id           String            @id @default(cuid())
+  name         String
+  status       String            @default("PENDING") // PENDING | VERIFIED | REJECTED | SUSPENDED
+  gstNumber    String?
+  city         String?
+  createdAt    DateTime          @default(now())
+  recruiters   RecruiterProfile[]
+  jobs         Job[]
+  subscription Subscription?
+}
+
+model Subscription {
+  id        String    @id @default(cuid())
+  companyId String    @unique
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  plan      String    @default("FREE") // FREE | PRO | ENTERPRISE
+  active    Boolean   @default(true)
+  expiresAt DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model RecruiterProfile {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId  String
+  company    Company  @relation(fields: [companyId], references: [id])
+  fullName   String
+  postedJobs Job[]
+}
+
+model Job {
+  id          String           @id @default(cuid())
+  companyId   String
+  company     Company          @relation(fields: [companyId], references: [id])
+  postedById  String
+  postedBy    RecruiterProfile @relation(fields: [postedById], references: [id])
+  title       String
+  description String
+  skills      String           // Stored as JSON array string
+  salaryMin   Int?
+  salaryMax   Int?
+  city        String?
+  isActive    Boolean          @default(true)
+  createdAt   DateTime         @default(now())
+  interests   Interest[]
+}
+
+model Interest {
+  id            String        @id @default(cuid())
+  seekerId      String
+  seeker        SeekerProfile @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  jobId         String
+  job           Job           @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  status        String        @default("INTERESTED") // INTERESTED | CONTACTED | EXPIRED | WITHDRAWN
+  shortlisted   Boolean       @default(false)
+  shortlistedAt DateTime?
+  passed        Boolean       @default(false)
+  passedAt      DateTime?
+  respondByAt   DateTime      // createdAt + 24h
+  reminded      Boolean       @default(false)
+  expiresAt     DateTime      // createdAt + 14 days
+  createdAt     DateTime      @default(now())
+  conversation  Conversation?
+
+  @@unique([seekerId, jobId])
+  @@index([jobId, status])
+}
+
+model Conversation {
+  id          String    @id @default(cuid())
+  interestId  String    @unique
+  interest    Interest  @relation(fields: [interestId], references: [id], onDelete: Cascade)
+  startedById String    // Recruiter User ID
+  createdAt   DateTime  @default(now())
+  messages    Message[]
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id])
+  senderRole     String       // SEEKER | RECRUITER | ADMIN
+  body           String
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId, createdAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // PROFILE_VIEWED | SHORTLISTED | FIRST_MESSAGE | RECRUITER_REMINDER | INTEREST_EXPIRED
+  body      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+}
+
+model PushToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  platform  String   // "android" | "ios"
+  createdAt DateTime @default(now())
+}

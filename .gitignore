@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Next.js & Build outputs
+.next/
+out/
+build/
+dist/
+
+# Expo
+.expo/
+.expo-shared/
+
+# Database & Environment
+*.db
+*.db-journal
+.env
+.env.local
+.env.production
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db

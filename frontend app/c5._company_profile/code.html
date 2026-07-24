@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#e2e0fc",
+                      "on-surface-variant": "#464555",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#ffdad5",
+                      "inverse-primary": "#c3c0ff",
+                      "primary-container": "#4f46e5",
+                      "surface-container-highest": "#e2e0fc",
+                      "on-tertiary-container": "#ffd0ca",
+                      "on-error": "#ffffff",
+                      "tertiary-container": "#b03229",
+                      "on-primary-fixed": "#0f0069",
+                      "surface-dim": "#dad7f3",
+                      "tertiary": "#8e1914",
+                      "surface-tint": "#4d44e3",
+                      "on-primary-container": "#dad7ff",
+                      "on-tertiary-fixed-variant": "#8c1713",
+                      "on-secondary-fixed-variant": "#422cb3",
+                      "secondary": "#5846ca",
+                      "background": "#fcf8ff",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "outline": "#777587",
+                      "on-background": "#1a1a2e",
+                      "secondary-container": "#7161e4",
+                      "inverse-on-surface": "#f2efff",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#e2dfff",
+                      "surface-bright": "#fcf8ff",
+                      "surface-container-low": "#f5f2ff",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#c7bfff",
+                      "inverse-surface": "#2f2e43",
+                      "tertiary-fixed-dim": "#ffb4aa",
+                      "outline-variant": "#c7c4d8",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "on-primary": "#ffffff",
+                      "on-surface": "#1a1a2e",
+                      "on-tertiary-fixed": "#410001",
+                      "surface-container-high": "#e8e5ff",
+                      "surface": "#fcf8ff",
+                      "primary": "#3525cd",
+                      "secondary-fixed": "#e4dfff",
+                      "surface-container": "#efecff",
+                      "on-secondary-fixed": "#170065",
+                      "on-secondary-container": "#fffbff",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "32px",
+                      "xs": "8px",
+                      "sm": "12px",
+                      "md": "16px",
+                      "lg": "24px",
+                      "margin-mobile": "20px",
+                      "base": "4px",
+                      "gutter-mobile": "16px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-xl": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                      "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top AppBar - Following JSON: small_center_aligned -->
+<header class="fixed top-0 w-full z-50 bg-background flex items-center justify-between px-margin-mobile h-16 w-full">
+<button class="text-primary hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">SwipeHire</h1>
+<button class="text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="pt-20 px-margin-mobile max-w-2xl mx-auto">
+<!-- Verification Banner - Custom High-End Component -->
+<section class="mb-lg">
+<div class="bg-primary-container text-on-primary-container p-md rounded-lg flex items-center gap-md shadow-lg shadow-primary/10">
+<div class="bg-on-primary-container/20 p-xs rounded-full">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[16px] leading-tight">Verified Company</h3>
+<p class="font-label-md opacity-80">Your profile is visible to top candidates.</p>
+</div>
+</div>
+</section>
+<!-- Company Profile Content -->
+<div class="space-y-lg">
+<!-- Logo Upload Section -->
+<section class="flex flex-col items-center">
+<div class="relative group cursor-pointer">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container border-2 border-outline-variant shadow-sm transition-transform active:scale-95">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist logo of a modern tech startup with bold geometric shapes, set against a crisp white background. The style is professional and corporate, using a palette of deep indigo and soft grey to convey stability and innovation. High-end product photography lighting ensures soft shadows and high clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCbWgHyDXf-b2sYAtPYc5PSLTCNEWztVs2igjA9pvF7cCwOFAUg8F4z2Ws48xvE_9K6U8cXxyj9SZva4XT3EqO_iGveE1cTT3e095mQ-yuFAKOnasIpwrj-1JH1Lz_iz2cxqRIcvJkapcoU8iOeBj-FNq6Sy4onf2ZDllx7fkt8uwdE6Bd4JBpwpl0jFgBGyRwtyeKjAXIfyYSCluL7fGu-aE8R5y2mZhwBSJPnmekPm0UWr652OiJCPBmSLMNCgfIYOZRAEVHCRUt"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-primary text-on-primary p-1.5 rounded-full shadow-md">
+<span class="material-symbols-outlined text-[18px]">add_a_photo</span>
+</div>
+</div>
+<p class="mt-md font-label-md text-on-surface-variant">Tap to update company logo</p>
+</section>
+<!-- Editable Details Form -->
+<div class="space-y-md">
+<!-- Company Name -->
+<div class="group">
+<label class="block font-label-md text-on-surface-variant mb-xs ml-base">Company Name</label>
+<input class="w-full bg-surface border border-outline-variant rounded-md px-md py-sm font-body-lg text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" type="text" value="InnovateX Systems"/>
+</div>
+<!-- City -->
+<div class="group">
+<label class="block font-label-md text-on-surface-variant mb-xs ml-base">Headquarters City</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline-variant rounded-md px-md py-sm pl-11 font-body-lg text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" type="text" value="San Francisco, CA"/>
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">location_on</span>
+</div>
+</div>
+<!-- GST / Tax ID -->
+<div class="group">
+<label class="block font-label-md text-on-surface-variant mb-xs ml-base">GST / Tax Identification Number</label>
+<input class="w-full bg-surface border border-outline-variant rounded-md px-md py-sm font-body-lg text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" type="text" value="22AAAAA0000A1Z5"/>
+</div>
+<!-- Description -->
+<div class="group">
+<label class="block font-label-md text-on-surface-variant mb-xs ml-base">Company Description</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded-md px-md py-sm font-body-lg text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all no-scrollbar" rows="4">We are a fast-growing technology firm specializing in cloud-native recruitment solutions. Our mission is to bridge the gap between visionary companies and world-class talent through seamless, design-led digital experiences.</textarea>
+</div>
+</div>
+<!-- Action Button -->
+<div class="pt-md pb-xl">
+<button class="w-full bg-[#FF7F50] text-white h-[56px] rounded-full font-headline-md flex items-center justify-center gap-sm shadow-lg shadow-[#FF7F50]/20 active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined">save</span>
+                    Save changes
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar - Following JSON: label_icon -->
+<nav class="fixed bottom-0 left-0 w-full h-[72px] bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md flex justify-around items-center px-4 pb-safe shadow-[0_-4px_20px_rgba(26,26,46,0.08)] z-50">
+<!-- Home / Discover -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[24px]">explore</span>
+<span class="font-label-md text-label-md">Discover</span>
+</a>
+<!-- Post (From Drawer JSON Context) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[24px]">add_circle</span>
+<span class="font-label-md text-label-md">Post</span>
+</a>
+<!-- Candidates / Matches -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[24px]">group</span>
+<span class="font-label-md text-label-md">Candidates</span>
+</a>
+<!-- Chats -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-[24px]">forum</span>
+<span class="font-label-md text-label-md">Chats</span>
+</a>
+<!-- Company - ACTIVE -->
+<a class="flex flex-col items-center justify-center text-primary font-bold active:scale-90 transition-all duration-300" href="#">
+<div class="bg-primary/10 px-4 py-1 rounded-full flex flex-col items-center">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">business</span>
+<span class="font-label-md text-label-md">Company</span>
+</div>
+</a>
+</nav>
+<!-- Overlay Decoration / Atmosphere -->
+<div class="fixed top-0 right-0 -z-10 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
+<div class="fixed bottom-32 left-0 -z-10 w-80 h-80 bg-secondary/5 rounded-full blur-[120px]"></div>
+<script>
+        // Micro-interaction for input fields
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label')?.classList.add('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label')?.classList.remove('text-primary');
+            });
+        });
+
+        // Simple button active state simulation
+        const saveBtn = document.querySelector('button.bg-\\[\\#FF7F50\\]');
+        saveBtn.addEventListener('click', function() {
+            const originalText = this.innerHTML;
+            this.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Saving...';
+            this.disabled = true;
+            this.style.opacity = '0.8';
+            
+            setTimeout(() => {
+                this.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Changes Saved';
+                this.style.backgroundColor = '#10b981'; // Green success
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.backgroundColor = '#FF7F50';
+                    this.disabled = false;
+                    this.style.opacity = '1';
+                }, 2000);
+            }, 1200);
+        });
+    </script>
+</body></html>

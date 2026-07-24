@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SwipeHire | Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(252, 248, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcf8ff;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#c7c4d8",
+                        "on-tertiary-fixed": "#410001",
+                        "on-primary-container": "#dad7ff",
+                        "on-secondary-fixed-variant": "#422cb3",
+                        "on-tertiary-fixed-variant": "#8c1713",
+                        "primary-container": "#4f46e5",
+                        "on-primary-fixed": "#0f0069",
+                        "tertiary-container": "#b03229",
+                        "outline": "#777587",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-tint": "#4d44e3",
+                        "surface-container": "#efecff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2f2e43",
+                        "surface": "#fcf8ff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "secondary-fixed-dim": "#c7bfff",
+                        "on-tertiary-container": "#ffd0ca",
+                        "tertiary": "#8e1914",
+                        "on-surface-variant": "#464555",
+                        "background": "#fcf8ff",
+                        "on-surface": "#1a1a2e",
+                        "surface-variant": "#e2e0fc",
+                        "tertiary-fixed": "#ffdad5",
+                        "secondary-fixed": "#e4dfff",
+                        "inverse-primary": "#c3c0ff",
+                        "inverse-on-surface": "#f2efff",
+                        "on-secondary-container": "#fffbff",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dad7f3",
+                        "on-error": "#ffffff",
+                        "primary": "#3525cd",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-highest": "#e2e0fc",
+                        "error": "#ba1a1a",
+                        "on-background": "#1a1a2e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#170065",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#7161e4",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f5f2ff",
+                        "surface-bright": "#fcf8ff",
+                        "surface-container-high": "#e8e5ff",
+                        "secondary": "#5846ca"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "16px",
+                        "xl": "48px",
+                        "xs": "8px",
+                        "lg": "32px",
+                        "card-gutter": "16px",
+                        "container-padding": "20px",
+                        "md": "24px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-5 py-4 sticky top-0 z-40 bg-background/80 backdrop-blur-md">
+<span class="font-headline-md text-headline-md font-extrabold text-primary">SwipeHire</span>
+<div class="flex items-center gap-4">
+<button class="transition-transform duration-200 active:scale-98 hover:bg-surface-container-low p-2 rounded-full">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</header>
+<main class="pb-24">
+<!-- Shortlisted Section -->
+<section class="mt-2">
+<div class="px-5 mb-4">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Shortlisted you</h2>
+</div>
+<div class="flex overflow-x-auto gap-4 px-5 no-scrollbar pb-2">
+<!-- Avatar 1 -->
+<div class="flex flex-col items-center gap-2 min-w-[72px] relative">
+<div class="w-[72px] h-[72px] rounded-full border-2 border-[#FF6B5C] p-0.5 relative group cursor-pointer transition-all active:scale-95">
+<img class="w-full h-full rounded-full object-cover" data-alt="A clean, minimalist logo of a modern tech startup focused on AI technology, featuring soft geometric shapes and a professional blue and white color scheme. The lighting is bright and optimistic, set against a pristine light-mode background consistent with a high-end job hunting application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFfi8UXsW2SjH9jbD85N664bQyoXeao_zz3JvRqjhy_I0z0ZXPZ7UMDqu2R8TGKjwl_KtpnmFOOdqjZuN_Q_hor_wzwsjDYxE78jGhRcUBzdJ7aILVpfiwTbhwDc0bQr4AA8lapynciaDLpbRZxBCeDYQrOdTMfO7z6PHRH02VAXT9yEn615uB-V9QvbiglsZW-GSvZb4Wb5rM6_dwbFQzDTVL3ObapDajR-D9dE81mxoJFsPLIbY5IqhyTsURppPQs2yQ43sxDNw"/>
+<div class="absolute bottom-0 right-0 bg-[#FF6B5C] text-white rounded-full p-1 border-2 border-background">
+<span class="material-symbols-outlined text-[14px] leading-none" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate w-full text-center">Linear</span>
+</div>
+<!-- Avatar 2 -->
+<div class="flex flex-col items-center gap-2 min-w-[72px] relative">
+<div class="w-[72px] h-[72px] rounded-full border-2 border-[#FF6B5C] p-0.5 relative cursor-pointer active:scale-95 transition-all">
+<img class="w-full h-full rounded-full object-cover" data-alt="Corporate logo for a high-growth fintech company, designed with sleek typography and vibrant teal accents. The visual style is modern-professional with a focus on trust and innovation, presented in a crisp, high-resolution circular format perfect for a mobile UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlsDQQAJc6RcQK3vVJFIknW0zfKlvi7os3AzJbQ7mW_amN_sYiv8eRx9DOFHOFXT08jmvBW20wsoHT2G9mxeoFKl89BNueouLQqjwrr5aFenLFytABY1VJGxQd_BS5j3UVSHGBgyGlC6ZZ9MPaieSxW4IndXXowQmLILnFB9gtNpdlW-NIEzvQQbvxSlurrTSxFbSviW9Sc2_NkZiy12NOmWWerP_PSO0noIA1wcd4b50TmJZWAowdWyZS7il0NokfaKLc6P1DXuo"/>
+<div class="absolute bottom-0 right-0 bg-[#FF6B5C] text-white rounded-full p-1 border-2 border-background">
+<span class="material-symbols-outlined text-[14px] leading-none" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate w-full text-center">Revolut</span>
+</div>
+<!-- Avatar 3 -->
+<div class="flex flex-col items-center gap-2 min-w-[72px] relative">
+<div class="w-[72px] h-[72px] rounded-full border-2 border-[#FF6B5C] p-0.5 relative cursor-pointer active:scale-95 transition-all">
+<img class="w-full h-full rounded-full object-cover" data-alt="Logo for a sustainable energy corporation, using organic green tones and soft, rounded iconography. The branding feels friendly yet established, set against a bright white background that emphasizes clarity and a forward-thinking mission." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe0aWOgOEAXqflaf248uIVM1yYaR1FRRDDCMscCWn-AffN-iFT2Cv5wYCvEKsAFefEoN9z-XR4ucxAnWkUOtN7tUWlPdHwte6r37vTdgKL-Dt4Bf4aGgX8f9uYifqXqEHJv5VIyOMhsDUSlQM8Rf0bcATmh0l_q3y7y4HpFWrPfvsckxKVarnmuWa7Kl7akqdedzARc0WGvt_Ojn354-2BZ7bD2UTeLrH72pze5_ay4clvNjsId9kTr43jJgWp-Vc9sxtRYqwrmfc"/>
+<div class="absolute bottom-0 right-0 bg-[#FF6B5C] text-white rounded-full p-1 border-2 border-background">
+<span class="material-symbols-outlined text-[14px] leading-none" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate w-full text-center">EcoStream</span>
+</div>
+<!-- Avatar 4 -->
+<div class="flex flex-col items-center gap-2 min-w-[72px] relative">
+<div class="w-[72px] h-[72px] rounded-full border-2 border-outline-variant p-0.5 relative cursor-pointer active:scale-95 transition-all">
+<img class="w-full h-full rounded-full object-cover" data-alt="A sophisticated luxury brand logo for a design agency, utilizing elegant serif typography and muted pastel lavender tones. The aesthetic is chic and high-end, perfectly aligned with a professional career discovery platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs0UP7whLfg0WkJxzl9oGp3suDld4W36SzCH2vAfspPPGDxDsPaPq7CF_o_UquGEltLkWlsXHETipmwyZnjEXHW7Cf8qc0ZHW33zGq2_0TIAW0azMhZiA5XsjQgQ6S_2Ce7gtt1NZvCNPjeTNVYXTXryic3-LHLWGSc3SssHNG2XhxaJz_79CxPgEEqJIwTmlY6GwGk5Z0rb9mulqM1PWhyBWz4eKm3GkpdxvKNP7zvOFL2YRnKJFc5DaOp82ZqhblWBg8YvKqrGg"/>
+<div class="absolute bottom-0 right-0 bg-primary text-white rounded-full p-1 border-2 border-background">
+<span class="material-symbols-outlined text-[14px] leading-none" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate w-full text-center">Vogue UI</span>
+</div>
+</div>
+</section>
+<!-- Chats List -->
+<section class="mt-8 px-5">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Messages</h2>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-sm text-label-sm">3 New</span>
+</div>
+<!-- Conversation Row 1 (Unread) -->
+<div class="flex items-center gap-4 py-4 cursor-pointer hover:bg-surface-container-low transition-colors rounded-[20px] px-2 -mx-2">
+<div class="w-14 h-14 rounded-[20px] overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Detailed professional portrait of a tech recruiter in a bright, modern office space. Soft natural lighting from a large window creates a friendly-professional atmosphere. The image uses a clean, high-key palette consistent with the SwipeHire brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf7eFqZbA0xFSBY4lO6ayhm6RlrPqZaY772uDbaME1X7Bq2G_R3oKbvrOhHUQYabCu4nCc5njlUW8MU6VrpQKz9Y0NxEc_RYjkG_cNvrkzOBZF99fD-SkNnqAA7AoN5uuTVTqmPM9jZPVP4fuUaIeTHT8kadi3wxL0fR1nmPm19B_xEYKpPKftyvP9shi7uepp0EW0ex-cCWs3dyFF6S0Zd9OVd_Gq3fsEHUW8DhxktY4o8rbYyfx9aL4qHComsGyxb8f-_GfGDcI"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start mb-0.5">
+<span class="font-body-md text-body-md text-on-surface truncate">Sarah from Linear</span>
+<span class="font-label-sm text-label-sm text-primary">10:42 AM</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-secondary-fixed-variant mb-1">Product Designer • SF (Remote)</p>
+<p class="font-body-md text-body-md text-on-surface font-bold truncate">"We'd love to chat more about your portfolio..."</p>
+</div>
+<div class="w-2.5 h-2.5 bg-primary rounded-full"></div>
+</div>
+<!-- Conversation Row 2 (Unread) -->
+<div class="flex items-center gap-4 py-4 cursor-pointer hover:bg-surface-container-low transition-colors rounded-[20px] px-2 -mx-2">
+<div class="w-14 h-14 rounded-[20px] overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="An artistic, modern office interior with warm wood accents and lush indoor plants. The scene is illuminated by soft, diffused light, evoking a sense of calm and professional creativity. The color palette features warm earth tones balanced by clean white surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaC-BODxR98KxVZXfXlP_hMWchZaBqofb9UPeMfy08acVcbSZLB8rVKpNRGljBJ5n-iZSImndiy944E7hivqr61RnmkC4uEnKrgAJEa3Muv-eufbxJjzPBIiXl4gzlTbdcBujyFkElPRmiOcQB3BTkq7JUBwLcfyHMnbucnWM-XE7sAuK7XPbxpBGZ4tQhjBqB1-ZkZBvHXXbrQCwIQje8utUHcVHIVNHg80uUDWnEVBrMBGIBgyFonXi8YYMmZtHnJ1q0BDdAQyM"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start mb-0.5">
+<span class="font-body-md text-body-md text-on-surface truncate">Marcus • Revolut</span>
+<span class="font-label-sm text-label-sm text-primary">09:15 AM</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-secondary-fixed-variant mb-1">Senior iOS Engineer</p>
+<p class="font-body-md text-body-md text-on-surface font-bold truncate">Awesome! Can you do a quick call tomorrow?</p>
+</div>
+<div class="w-2.5 h-2.5 bg-primary rounded-full"></div>
+</div>
+<!-- Conversation Row 3 (Read) -->
+<div class="flex items-center gap-4 py-4 cursor-pointer hover:bg-surface-container-low transition-colors rounded-[20px] px-2 -mx-2">
+<div class="w-14 h-14 rounded-[20px] overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Corporate headquarters lobby with sleek, architectural lines and a bright, airy feeling. The space is filled with high-end furniture and minimalist decor. High-key lighting creates a sense of openness and forward-moving progress in a professional context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA8V7j-VTCstOXKF9sMy1ZZcRF5sqwKlwsU7JOuf1N37qHk9TseOpSyKh6rmXjHUQUVruy1RC7-kO1MGkvUDq_GjzMT07FDWpAYBBT32zt8xHSr-3z-HTZUcbaKjNMVOGm8APrvx-IKJlgGpunqOmI-IsWqrZC9Dc64dk1hToCAcqDohA_2HeiBUkyKbm3wZ7WAzJfaynmR_15miulyeyYtTBBQwMmwVSwAvS8d62TTUv9iCTVEF2Tq4eUgSQw6BDbqZCpnLHjGdY"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start mb-0.5">
+<span class="font-body-md text-body-md text-on-surface truncate">EcoStream Team</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Yesterday</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">UX Research Lead</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Thanks for applying. We've received your info.</p>
+</div>
+</div>
+<!-- Conversation Row 4 (Read) -->
+<div class="flex items-center gap-4 py-4 cursor-pointer hover:bg-surface-container-low transition-colors rounded-[20px] px-2 -mx-2">
+<div class="w-14 h-14 rounded-[20px] overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A friendly, smiling creative professional in a casual yet polished workspace. The background shows a hint of a vibrant, design-focused studio. Soft bokeh effects and warm, natural lighting emphasize the 'Friendly-Professional' brand personality of SwipeHire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0CDVagnEQGaQmRgkUQR6A11c_kQMPP-TrtfcXb9hkIzmB5RUOfyX8weEG99RsnJFC9-9FVaZfLyJOs8WKAwjF_sNKtX4C0yTSORlhG-lyquVaJl6eMfY48DK2Obfwxfy_JdOZOrIwIkqGl0HxYQJ5AxPWiI5zFSvWatz0oHd4sWedJZ7jGwoE-uUOGseaSBEbKhM2ufO4P0hqYQ4tf9_2SrWPlI3uxuku4ZmMwTZv5A5gpxmBdpGnUwctkzwEI4WRAMmFNUOf688"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start mb-0.5">
+<span class="font-body-md text-body-md text-on-surface truncate">Vogue UI Recruitment</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Tuesday</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Visual Designer</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">The team was very impressed with your skills!</p>
+</div>
+</div>
+</section>
+<!-- Friendly Empty State Trigger (Hidden by default, used for interaction logic) -->
+<section class="hidden flex flex-col items-center justify-center px-10 py-16 text-center" id="empty-state">
+<div class="w-48 h-48 mb-6 relative">
+<div class="absolute inset-0 bg-secondary/10 rounded-full animate-pulse"></div>
+<span class="material-symbols-outlined text-[80px] text-secondary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">forum</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">No active chats yet</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Swipe right on some more jobs to start matching and chatting!</p>
+<button class="bg-[#FF6B5C] text-white font-label-md text-label-md px-8 py-4 rounded-full shadow-lg transition-transform active:scale-95">
+                Start Swiping
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 glass-nav rounded-t-[32px] shadow-[0px_-10px_30px_rgba(26,26,46,0.05)]">
+<!-- Discover -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined mb-1">explore</span>
+<span class="font-label-sm text-label-sm">Discover</span>
+</button>
+<!-- Matches -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined mb-1">favorite</span>
+<span class="font-label-sm text-label-sm">Matches</span>
+</button>
+<!-- Chats (Active) -->
+<button class="flex flex-col items-center justify-center text-primary font-bold transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="font-label-sm text-label-sm">Chats</span>
+</button>
+<!-- Alerts -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined mb-1">notifications</span>
+<span class="font-label-sm text-label-sm">Alerts</span>
+</button>
+<!-- Profile -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for conversation rows
+        document.querySelectorAll('section > div.flex.items-center.gap-4').forEach(row => {
+            row.addEventListener('click', function() {
+                // Remove unread dot for demo
+                const dot = this.querySelector('.bg-primary.rounded-full');
+                if (dot) {
+                    dot.style.opacity = '0';
+                    setTimeout(() => dot.remove(), 200);
+                }
+                
+                // Pulsing effect
+                this.style.backgroundColor = 'rgba(79, 70, 229, 0.05)';
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                }, 300);
+            });
+        });
+
+        // Simple horizontal scroll wheel support
+        const scroller = document.querySelector('.no-scrollbar');
+        if (scroller) {
+            scroller.addEventListener('wheel', (evt) => {
+                evt.preventDefault();
+                scroller.scrollLeft += evt.deltaY;
+            });
+        }
+    </script>
+</body></html>

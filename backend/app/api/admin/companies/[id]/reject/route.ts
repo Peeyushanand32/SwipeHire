@@ -1,0 +1,25 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { getAuthUser, unauthorizedResponse, forbiddenResponse, errorResponse } from '@/lib/auth';
+
+export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+  try {
+    const user = await getAuthUser(req);
+    if (!user) return unauthorizedResponse();
+
+    if (user.role !== 'ADMIN') {
+      return forbiddenResponse('Only Admins can reject companies');
+    }
+
+    const companyId = params.id;
+
+    const company = await prisma.company.update({
+      where: { id: companyId },
+      data: { status: 'REJECTED' },
+    });
+
+    return NextResponse.json({ success: true, company });
+  } catch (error: any) {
+    return errorResponse(error.message || 'Internal server error', 500);
+  }
+}

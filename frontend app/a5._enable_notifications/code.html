@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SwipeHire | Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "brand-coral": "#FF6B5C"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md-mobile": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md-mobile": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg-mobile": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f7fb;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .perspective-card {
+            perspective: 1000px;
+        }
+        .floating-element {
+            animation: floating 4s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex items-center justify-center p-margin-mobile overflow-hidden">
+<!-- Content Canvas -->
+<main class="relative w-full max-w-[400px] h-[751px] md:h-[700px] flex flex-col justify-end">
+<!-- Background Decoration (Abstract Shapes) -->
+<div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+<div class="absolute top-10 -right-10 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-20 -left-20 w-80 h-80 bg-brand-coral/10 rounded-full blur-3xl"></div>
+</div>
+<!-- Notification Permission Card -->
+<section class="fade-in bg-surface-container-lowest rounded-lg shadow-[0_20px_50px_rgba(26,26,46,0.12)] p-8 flex flex-col items-center text-center relative overflow-hidden border border-surface-variant/50">
+<!-- Illustration Area -->
+<div class="mb-lg relative w-full h-48 flex items-center justify-center">
+<div class="absolute inset-0 flex items-center justify-center opacity-10">
+<span class="material-symbols-outlined text-[160px] text-primary">notifications_active</span>
+</div>
+<!-- Main Animated Illustration Component -->
+<div class="relative z-10 w-full h-full flex items-center justify-center floating-element">
+<div class="relative">
+<!-- Abstract Notification Icon Group -->
+<div class="bg-brand-coral w-20 h-20 rounded-[28%] rotate-[10deg] flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-white text-4xl -rotate-[10deg]" style="font-variation-settings: 'FILL' 1;">notifications</span>
+</div>
+<!-- Floating Badge 1 -->
+<div class="absolute -top-4 -right-4 bg-primary w-12 h-12 rounded-full flex items-center justify-center shadow-md border-4 border-white">
+<span class="material-symbols-outlined text-white text-xl">chat_bubble</span>
+</div>
+<!-- Floating Badge 2 -->
+<div class="absolute -bottom-2 -left-6 bg-secondary w-10 h-10 rounded-full flex items-center justify-center shadow-md border-4 border-white">
+<span class="material-symbols-outlined text-white text-lg">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Typography Header -->
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background mb-sm tracking-tight">
+                Stay in the loop
+            </h1>
+<p class="font-body-md-mobile text-body-md-mobile text-on-surface-variant mb-xl leading-relaxed max-w-[280px]">
+                Get notified when a company shortlists or messages you.
+            </p>
+<!-- Actions Container -->
+<div class="w-full space-y-md">
+<button class="w-full h-14 bg-brand-coral hover:bg-[#ff5a4a] text-white rounded-full font-label-md text-label-md flex items-center justify-center gap-xs shadow-[0_4px_12px_rgba(255,107,92,0.3)] transition-all active:scale-95 duration-200" onclick="handlePermission()">
+<span>Enable notifications</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+<button class="w-full h-10 text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors active:scale-95 duration-200" onclick="dismiss()">
+                    Maybe later
+                </button>
+</div>
+<!-- Subtle Texture Overlays -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-coral via-primary to-secondary"></div>
+</section>
+<!-- Decorative Card Stack Behind (Visual Depth) -->
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[92%] h-20 -z-10 bg-surface-container-high rounded-lg shadow-sm opacity-60"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[85%] h-10 -z-20 bg-surface-container rounded-lg shadow-sm opacity-30 -mb-4"></div>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        function handlePermission() {
+            // Haptic/Click Feedback Simulation
+            const btn = event.currentTarget;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span>';
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> <span>Enabled</span>';
+                btn.classList.replace('bg-brand-coral', 'bg-secondary');
+                
+                // Simulate transition after success
+                setTimeout(() => {
+                    alert('Notifications enabled! You will now receive job updates.');
+                    dismiss();
+                }, 800);
+            }, 1200);
+        }
+
+        function dismiss() {
+            const main = document.querySelector('main');
+            main.style.transition = 'all 0.5s cubic-bezier(0.7, 0, 0.3, 1)';
+            main.style.opacity = '0';
+            main.style.transform = 'scale(0.9) translateY(40px)';
+            
+            setTimeout(() => {
+                // In a real app, this would route back or close the modal
+                console.log('Permission screen dismissed');
+            }, 500);
+        }
+    </script>
+</body></html>

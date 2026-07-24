@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SwipeHire | Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .notification-unread {
+            background-color: rgba(79, 70, 229, 0.08);
+            position: relative;
+        }
+        .notification-unread::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 40%;
+            background-color: #3525cd;
+            border-radius: 0 4px 4px 0;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 glass-header">
+<div class="flex items-center justify-between px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">menu</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">SwipeHire</h1>
+</div>
+<div class="flex items-center gap-xs">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200" data-weight="fill" style="font-variation-settings: 'FILL' 1;">notifications</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 px-margin-mobile max-w-2xl mx-auto">
+<header class="mb-lg flex items-center justify-between">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Notifications</h2>
+<p class="font-body-md text-on-surface-variant">Stay updated on your career progress</p>
+</div>
+<button class="font-label-md text-primary bg-primary/5 px-md py-xs rounded-full hover:bg-primary/10 transition-colors">
+                Mark all read
+            </button>
+</header>
+<!-- Notification List -->
+<div class="space-y-base">
+<!-- Item: Shortlisted (Unread) -->
+<div class="notification-unread group flex items-start gap-md p-md rounded-lg transition-all hover:bg-surface-container-high cursor-pointer">
+<div class="h-12 w-12 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 text-white">
+<span class="material-symbols-outlined">stars</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-body-lg text-on-surface font-bold">A company shortlisted you</h3>
+<span class="font-label-md text-outline">2m ago</span>
+</div>
+<p class="font-body-md text-on-surface-variant mt-1">TechNexus Solutions added you to their "Senior Product Designer" shortlist. Get ready for a potential interview!</p>
+<div class="mt-md flex gap-sm">
+<button class="bg-primary text-white font-label-md px-lg py-sm rounded-full active:scale-95 transition-transform">View Company</button>
+</div>
+</div>
+</div>
+<!-- Item: Messaged (Unread) -->
+<div class="notification-unread group flex items-start gap-md p-md rounded-lg transition-all hover:bg-surface-container-high cursor-pointer">
+<div class="h-12 w-12 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0 text-white">
+<span class="material-symbols-outlined">chat_bubble</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-body-lg text-on-surface font-bold">A company messaged you</h3>
+<span class="font-label-md text-outline">45m ago</span>
+</div>
+<p class="font-body-md text-on-surface-variant mt-1">Sarah from CreativePulse sent you a message: "Hi! We loved your portfolio. Are you available for..."</p>
+<div class="mt-md">
+<div class="bg-surface-container-lowest p-sm rounded-md border border-outline-variant flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female recruiter with a warm smile, corporate setting background with soft bokeh, high-quality professional photography style, consistent with a modern recruitment app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA43vxZWTR3NghG_kDE9OiKeCLIHzuvRItXWzIZFTLol-8RDfsA944TXuemAk3Zs9aewJwPg2P07P7sHs6AfXO3hNApCSTjnQ_wm3jnQIRjBlW2-2FgSUKG3B5-KVfu-nvXOy2ZM3YUrnw0wcR3_ya0ZfaVcNgDGBds80Ob55GDhidhnCEf1HMww7ImaTON_xG247SMFWRO_Y9e7-SycMk09k_g35_rMS9_pB_dnfuM4vCpyQ6_Y6SQAsUM1OEYKgek3vTRgR_3ypHp"/>
+</div>
+<span class="font-label-md text-on-surface-variant">Tap to reply to Sarah</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item: Interest Expired -->
+<div class="group flex items-start gap-md p-md rounded-lg transition-all hover:bg-surface-container cursor-pointer">
+<div class="h-12 w-12 rounded-full bg-surface-container-highest flex items-center justify-center flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined">timer_off</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-body-lg text-on-surface">Your interest expired</h3>
+<span class="font-label-md text-outline">3h ago</span>
+</div>
+<p class="font-body-md text-on-surface-variant mt-1">Your expression of interest for "Fullstack Engineer" at CloudScale has expired as the position was filled.</p>
+</div>
+</div>
+<!-- Item: General Tip -->
+<div class="group flex items-start gap-md p-md rounded-lg transition-all hover:bg-surface-container cursor-pointer">
+<div class="h-12 w-12 rounded-full bg-tertiary-fixed flex items-center justify-center flex-shrink-0 text-tertiary">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-body-lg text-on-surface">Optimize your profile</h3>
+<span class="font-label-md text-outline">Yesterday</span>
+</div>
+<p class="font-body-md text-on-surface-variant mt-1">Users with a completed "Skills" section get 40% more matches. Update yours today to increase visibility.</p>
+</div>
+</div>
+<!-- Item: Match Success -->
+<div class="group flex items-start gap-md p-md rounded-lg transition-all hover:bg-surface-container cursor-pointer">
+<div class="h-12 w-12 rounded-full bg-secondary-fixed flex items-center justify-center flex-shrink-0 text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined">favorite</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-body-lg text-on-surface">New Match!</h3>
+<span class="font-label-md text-outline">1d ago</span>
+</div>
+<p class="font-body-md text-on-surface-variant mt-1">It's a match! You and GreenTech were both interested in each other. Start a conversation now.</p>
+</div>
+</div>
+</div>
+<!-- Empty State Helper (Hidden by default) -->
+<div class="hidden flex-col items-center justify-center py-xl text-center">
+<div class="w-48 h-48 mb-lg opacity-40">
+
+</div>
+<h3 class="font-headline-md text-on-surface">All caught up!</h3>
+<p class="font-body-md text-on-surface-variant max-w-xs mx-auto">Check back later for updates on your applications and messages.</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-[72px] flex justify-around items-center px-4 pb-safe bg-surface/80 backdrop-blur-md shadow-[0_-4px_20px_rgba(26,26,46,0.08)] z-50 rounded-t-lg">
+<!-- Discover -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md">Discover</span>
+</a>
+<!-- Matches -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-md text-label-md">Matches</span>
+</a>
+<!-- Chats -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-md text-label-md">Chats</span>
+</a>
+<!-- Notifications (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-primary font-bold hover:opacity-80 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="font-label-md text-label-md">Alerts</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for notification rows
+        document.querySelectorAll('.group').forEach(row => {
+            row.addEventListener('click', function() {
+                // Remove unread styling when clicked
+                if (this.classList.contains('notification-unread')) {
+                    this.classList.remove('notification-unread');
+                    this.style.transition = 'background-color 0.5s ease';
+                }
+            });
+        });
+
+        // Add haptic-like scale effect to all buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', () => {
+                btn.style.transform = 'scale(0.96)';
+            });
+            btn.addEventListener('touchend', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

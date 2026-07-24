@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SwipeHire - Your Next Career Move</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Using the predicted Shared Components JSON styles and Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #4F46E5; /* Indigo background as per prompt */
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .logo-container {
+            animation: fadeInScale 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .loading-bar {
+            width: 140px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-progress {
+            width: 40%;
+            height: 100%;
+            background: white;
+            border-radius: 9999px;
+            position: absolute;
+            animation: loadingMove 2s infinite ease-in-out;
+        }
+
+        @keyframes loadingMove {
+            0% { left: -40%; }
+            100% { left: 100%; }
+        }
+
+        .splash-particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center m-0 p-0">
+<!-- Atmospheric Shader Background (Subtle motion for premium feel) -->
+<div class="fixed inset-0 z-0 opacity-20">
+
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 flex flex-col items-center justify-between h-full py-16 px-margin-mobile text-center">
+<!-- Spacer for centering logic -->
+<div></div>
+<!-- Logo and Branding Section -->
+<div class="logo-container flex flex-col items-center gap-md">
+<!-- Icon Symbol -->
+<div class="w-20 h-20 bg-white rounded-lg flex items-center justify-center shadow-xl mb-base transition-transform active:scale-95 duration-300">
+<span class="material-symbols-outlined text-primary text-[48px]" style="font-variation-settings: 'FILL' 1;">
+                    swipe
+                </span>
+</div>
+<!-- Headline String from JSON -->
+<h1 class="font-headline-lg-mobile text-white tracking-tighter text-[40px] leading-tight">
+                SwipeHire
+            </h1>
+<!-- Tagline from Prompt -->
+<p class="font-body-lg text-white/80 max-w-[200px] leading-relaxed">
+                Swipe your way to your next job
+            </p>
+</div>
+<!-- Loading Indicator -->
+<div class="flex flex-col items-center gap-sm">
+<div class="loading-bar">
+<div class="loading-progress"></div>
+</div>
+<span class="font-label-md text-white/50 tracking-widest uppercase">
+                Preparing your deck
+            </span>
+</div>
+</main>
+<!-- Floating Atmosphere Elements -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'splash-particle';
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                
+                // Random drift animation
+                const duration = Math.random() * 10 + 10;
+                particle.animate([
+                    { transform: 'translate(0, 0)' },
+                    { transform: `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px)` }
+                ], {
+                    duration: duration * 1000,
+                    iterations: Infinity,
+                    direction: 'alternate',
+                    easing: 'linear'
+                });
+                
+                body.appendChild(particle);
+            }
+        });
+
+        // Simple haptic-like interaction on press
+        document.body.addEventListener('touchstart', () => {
+            document.body.style.transform = 'scale(0.995)';
+            document.body.style.transition = 'transform 0.4s cubic-bezier(0.2, 0, 0.2, 1)';
+        });
+        document.body.addEventListener('touchend', () => {
+            document.body.style.transform = 'scale(1)';
+        });
+    </script>
+</body></html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SwipeHire Chat - Seeker View</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#c7c4d8",
+                    "on-tertiary-fixed": "#410001",
+                    "on-primary-container": "#dad7ff",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "primary-container": "#4f46e5",
+                    "on-primary-fixed": "#0f0069",
+                    "tertiary-container": "#b03229",
+                    "outline": "#777587",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "surface-tint": "#4d44e3",
+                    "surface-container": "#efecff",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2f2e43",
+                    "surface": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "on-tertiary-container": "#ffd0ca",
+                    "tertiary": "#8e1914",
+                    "on-surface-variant": "#464555",
+                    "background": "#fcf8ff",
+                    "on-surface": "#1a1a2e",
+                    "surface-variant": "#e2e0fc",
+                    "tertiary-fixed": "#ffdad5",
+                    "secondary-fixed": "#e4dfff",
+                    "inverse-primary": "#c3c0ff",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary-container": "#fffbff",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#dad7f3",
+                    "on-error": "#ffffff",
+                    "primary": "#3525cd",
+                    "primary-fixed": "#e2dfff",
+                    "surface-container-highest": "#e2e0fc",
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1a2e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#170065",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#7161e4",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f5f2ff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-high": "#e8e5ff",
+                    "secondary": "#5846ca"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "xl": "48px",
+                    "xs": "8px",
+                    "lg": "32px",
+                    "card-gutter": "16px",
+                    "container-padding": "20px",
+                    "md": "24px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcf8ff;
+        }
+        .chat-container {
+            height: calc(100vh - 150px);
+        }
+        /* Soft Shadow for Cards as per Style Guidance */
+        .card-shadow {
+            box-shadow: 0px 10px 30px rgba(26, 26, 46, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background">
+<!-- Top AppBar (From JSON Reference: Small Type) -->
+<header class="fixed top-0 left-0 w-full z-50 bg-background flex justify-between items-center px-5 py-4">
+<div class="flex items-center gap-sm">
+<button class="flex items-center justify-center w-10 h-10 transition-transform duration-200 active:scale-98 hover:bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A professional close-up logo of a modern tech company. The design is minimalist, featuring clean geometric shapes and a vibrant indigo and coral color scheme. It is set against a soft, bright white background, conveying a friendly yet professional atmosphere typical of a high-end recruitment platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSx6jjY-RLJhKh-wSm-4pWdnl9eU1fQUX-Jq51jZzHv9i2Qj3sU9-UP0wFbav98t5NcX5a0vzyWJe_0oRoHmj8fFZyhJ7EES46tQV4aLCKc4kmIhfmqB4CR6fX7LvrMwVNJlu7n422b94Q6n4Bz6dfWBAknirlTGYUlszH9g-_odGugAGdGX_Gp14tLQFKT0MLovoVSO7wWL7RPZZzl05g2e7FoM9JvJmtwSxzb-cQMSoOCElD0cSvMJEshNglncjiQoRFu7UNFI4"/>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-surface leading-tight">Designscape Studio</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Senior Product Designer</p>
+</div>
+</div>
+</div>
+<div class="flex items-center">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Chat Canvas -->
+<main class="pt-24 pb-32 px-container-padding chat-container flex flex-col overflow-y-auto">
+<!-- Match Notification Card -->
+<div class="flex flex-col items-center mb-lg">
+<div class="bg-secondary-fixed/30 px-sm py-xs rounded-full mb-md">
+<span class="font-label-sm text-label-sm text-secondary">It's a Match! Jan 24, 10:45 AM</span>
+</div>
+<div class="card-shadow bg-surface-container-lowest rounded-[20px] p-md w-full max-w-sm flex flex-col items-center text-center">
+<div class="flex -space-x-4 mb-sm">
+<div class="w-14 h-14 rounded-full border-4 border-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A smiling, confident young professional woman with a friendly expression. She has a clean, modern aesthetic, wearing business casual attire. The portrait is set in a bright, airy studio with soft, natural lighting and a blurred minimalist background, reflecting an optimistic and approachable career-focused vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFppYXOHezglMVDoyPti_DFJI-2s75vMEaRRkS6JumsqqF0LMpjDk8dXECcisNU-Jw2tm3CQ-TAxRCMfEk965xRqmDccw13FvAuUAJ1F27hU7MLYDHfnAoISVCcb00EoibP51bqrjV7vHXFttoSIp7tP9qTamEx7spIYSSbmXuRj0SquRHvn3lzXDFNfcRFUwnIZfuli_vSZ2YRV53UpZziJSak8cSQQ4J8i6h5vcgD3aWvDDqS1eN-KVwbRK23NQBo6POijk-oZA"/>
+</div>
+<div class="w-14 h-14 rounded-full border-4 border-surface-container-lowest overflow-hidden bg-primary-container flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A sleek corporate logo for a design studio, featuring abstract interconnected lines representing creativity and collaboration. The palette uses deep indigo and vibrant coral accents on a crisp white background. The visual style is high-end, contemporary, and professional, suitable for a leading creative agency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjpjnkC8An6V12mwQVLb5ORmC1Dbnov_HJJ6eVOJ78PdX-5wt2cLVg4mGedEmmFBBVjM0km7jqNkwZ6d1w3uhmMxTH70eF1W07t2vkH5sVPkfmPDHkzBmyVb_zXSxOXYIdQYk8f6wr5_obr9Ft13o3ir6PlzaiBJW1mOtiBmbrq2avAIvq62fv29STtzD9qzVsSYG-A43XPQ4Cc_m5X40B60PgwCZBsQXQ0iKDMia5K4ZYll_u4ONu6Jo1E8nAjiqRhlC-rc_GUD4"/>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-xs">You and Designscape Studio swiped right!</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Start your journey toward becoming their next Senior Product Designer.</p>
+</div>
+</div>
+<!-- System Message -->
+<div class="flex justify-center mb-md">
+<span class="font-label-sm text-label-sm text-outline px-md py-1 border border-outline-variant/30 rounded-full">
+                Waiting for recruiter to initiate
+            </span>
+</div>
+<!-- Placeholder for messages (Empty in this state) -->
+<div class="flex-grow"></div>
+</main>
+<!-- Locked State Interaction Area (Mobile Footer replacement) -->
+<div class="fixed bottom-0 left-0 w-full p-container-padding bg-background/80 backdrop-blur-md z-50">
+<div class="card-shadow bg-surface-container-lowest rounded-[20px] p-md border border-outline-variant/20 flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center mb-sm text-primary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-snug max-w-[280px]">
+                The company will start the conversation. You'll be able to reply once they message you.
+            </p>
+<div class="mt-md w-full h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-1/3 animate-[shimmer_2s_infinite_linear]"></div>
+</div>
+</div>
+<!-- Bottom Tab Bar (From JSON Reference: Hidden text links on mobile, iconic nav) -->
+<!-- Note: Suppressed as per "Semantic Shell Mandate" for Task-Focused screens with a "Back" action -->
+</div>
+<!-- Extra Atmospheric Elements -->
+<div class="fixed inset-0 pointer-events-none -z-10 opacity-30 overflow-hidden">
+<div class="absolute top-[-10%] right-[-10%] w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[300px] h-[300px] bg-secondary/10 rounded-full blur-[80px]"></div>
+</div>
+<script>
+        // Micro-interaction for the "shimmer" loading bar
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shimmer {
+                0% { transform: translateX(-100%); }
+                100% { transform: translateX(300%); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Simple scroll to bottom on load (even if empty, ensures correct positioning)
+        window.addEventListener('load', () => {
+            const container = document.querySelector('main');
+            container.scrollTop = container.scrollHeight;
+        });
+    </script>
+</body></html>

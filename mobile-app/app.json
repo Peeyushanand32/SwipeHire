@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "SwipeHire",
+    "slug": "swipehire",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "swipehire",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.swipehire.app"
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}

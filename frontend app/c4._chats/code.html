@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SwipeHire | Recruiter Chats</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcf8ff; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chat-scroll::-webkit-scrollbar { display: none; }
+        .chat-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .slide-up { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 w-full bg-background dark:bg-background">
+<button aria-label="Menu" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">SwipeHire</h1>
+<button aria-label="Notifications" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="pt-20 px-margin-mobile">
+<header class="mb-lg">
+<h2 class="font-headline-xl text-headline-xl text-on-background">Messages</h2>
+<p class="font-body-md text-on-surface-variant">Review and respond to candidate inquiries.</p>
+</header>
+<!-- Search Bar -->
+<div class="relative mb-lg">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg h-12 pl-12 pr-4 focus:ring-2 focus:ring-primary font-body-md" placeholder="Search candidates or roles" type="text"/>
+</div>
+<!-- Chat List -->
+<div class="space-y-base">
+<!-- Chat Item 1 (Unread) -->
+<div class="flex items-center p-md bg-surface-container-lowest rounded-lg shadow-sm hover:bg-surface-container-low transition-all cursor-pointer active:scale-[0.98]" onclick="openChat('Marcus Chen', 'Senior UX Designer')">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A professional studio portrait of a young Asian male designer with a creative and friendly expression. He is wearing a minimalist dark turtleneck against a soft, light lavender background. High-key professional lighting with clean, sharp focus, perfectly reflecting a modern recruiter app aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbkzFxAzSxfgzhb-DYRumIR9xRhLDkhQaON1zCGIryd3Kk7WkWqertLe98u4kKbJwgcb98MCz_1GA-kVAPlQt3U5HsKrK2-sw4E9nyQMgZUpXYWDAFcR0TK6PfHjlLYz0hYroTSlEEmFSRJ6qhGWCQZ-gRjzcT6yd4QQbuQgDmG8vCfJXqoPoLb3fjWe4VpzyYoniEypUtU5rwsNCYdXtmNI8_MWMdhpaoZT9PL5j200f36PkMCvCfj48m9XdRwcfUUpWpMOaXlkYO"/>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-primary border-2 border-surface-container-lowest rounded-full"></div>
+</div>
+<div class="ml-md flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md truncate text-on-surface">Marcus Chen</h3>
+<span class="font-label-md text-label-md text-primary">2m ago</span>
+</div>
+<p class="font-label-md text-label-md text-secondary mb-1">Senior UX Designer</p>
+<p class="font-body-md text-body-md text-on-surface truncate font-bold">Thanks for reaching out! I'd love to chat more about...</p>
+</div>
+<div class="ml-xs">
+<div class="w-2.5 h-2.5 bg-primary rounded-full"></div>
+</div>
+</div>
+<!-- Chat Item 2 -->
+<div class="flex items-center p-md bg-surface-container-lowest rounded-lg shadow-sm hover:bg-surface-container-low transition-all cursor-pointer active:scale-[0.98]" onclick="openChat('Sarah Jenkins', 'Product Manager')">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A sophisticated professional portrait of a woman in her late 30s with a confident smile. She is wearing a modern cream-colored blazer. The background is a blurred office setting with soft indigo and violet tones. Professional corporate photography style, bright and inviting for a premium recruitment platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPs1Ino5PLLcwzQVP4rxleNwBEm9wrkMwPaMihOnpgZkppfZlztZdOXNxl8HT6vLiepVyGxDi7n03gDHxD4Wy0AqKMKFbbsTylW7SZdy8klLsTvh17zJQCWOYcjQ8TbUImEAdOQvLs8QflJX_SrNE67ZjD-rbfayAyubWs6Mvx5tKsDVbddf3yJPKwK8VzkZ63WT7Rr175nLIrr9SVZdLq_12ruZznVL_8miMvWG9ZZW1zYzZo-fR0io603DRU9N-bYfLwMGLONVtD"/>
+<div class="ml-md flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md truncate text-on-surface">Sarah Jenkins</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">45m ago</span>
+</div>
+<p class="font-label-md text-label-md text-secondary mb-1">Product Manager</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">I've attached my portfolio for the team to review.</p>
+</div>
+</div>
+<!-- Chat Item 3 -->
+<div class="flex items-center p-md bg-surface-container-lowest rounded-lg shadow-sm hover:bg-surface-container-low transition-all cursor-pointer active:scale-[0.98]" onclick="openChat('David Rivera', 'Full Stack Developer')">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A high-quality profile photo of a Hispanic man with glasses, looking approachable and professional. He is in a brightly lit modern workspace with clean lines and hints of indoor plants. The image has a fresh, tech-oriented feel with soft depth of field and a professional color palette of light blues and whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuLC5sKkwh5pn4O98HSj9xd677EjXGbKH4chPiWBioBaMwVDHn25jirhbbqWGAeCjOfcimkjB2392h08CkSjFluARErv7odP7eFgD3s1tbdykOVKsc3wpwSpzHkLCY77yv3V0fvMEk_eTQ-HGIKrjFEklQ13yG-MFOM4_83yIAYsmMCpriYBJiTN5h2cYfr8TqpgU_xgTo52T1H8VZDK8_DxSF1Saz7FMdGBd9HoybdNuSlgvjki7o7vK-ixTNTHmsfMEec9c9WK4u"/>
+<div class="ml-md flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md truncate text-on-surface">David Rivera</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">3h ago</span>
+</div>
+<p class="font-label-md text-label-md text-secondary mb-1">Full Stack Developer</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">The technical interview sounds great. Wednesday at 2pm?</p>
+</div>
+</div>
+<!-- Chat Item 4 -->
+<div class="flex items-center p-md bg-surface-container-lowest rounded-lg shadow-sm hover:bg-surface-container-low transition-all cursor-pointer active:scale-[0.98]" onclick="openChat('Elena Volkov', 'Creative Director')">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A professional headshot of an Eastern European woman with artistic style. She has short hair and modern glasses. Lighting is soft and directional, creating a premium feel. The background is a clean white wall with a subtle gradient of primary indigo light. Sharp, high-resolution aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWyWb9VvXRzSgb1R2dZwm-lvaSOOAOkAVlWqpAIGQ5dh9-7bsPTJNpMyf44VMrny7vPex5Cv2UMCAD9mUNaTtte2VDZrj-UcRtsFt8iGgNFf77VR2FocT2HrHrSLl9WuuLBihLyBCfVxxXptnrXhK0ceGOLFgnA4s4scweI4w_qdr0fsNm3ohDZzUpBacXw8p-QTkqnNBw5mDrvHDSLuVvr8kD0MsjVcyRauOO6uuahDzMxsXMG0318p71d_6Cxxa0xXDKWOnuTPLy"/>
+<div class="ml-md flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md truncate text-on-surface">Elena Volkov</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">Yesterday</span>
+</div>
+<p class="font-label-md text-label-md text-secondary mb-1">Creative Director</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">I am really impressed by the company mission.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 left-0 w-full h-[72px] flex justify-around items-center px-4 pb-safe bg-surface/80 backdrop-blur-md shadow-[0_-4px_20px_rgba(26,26,46,0.08)] z-50">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-md text-label-md">Post</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Candidates</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary font-bold hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-label-md text-label-md">Chats</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">business</span>
+<span class="font-label-md text-label-md">Company</span>
+</button>
+</nav>
+<!-- Chat Overlay -->
+<div class="fixed inset-0 bg-background z-[60] hidden flex flex-col slide-up" id="chatOverlay">
+<header class="h-16 flex items-center px-md bg-surface-container-lowest shadow-sm border-b border-surface-variant/20">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container active:scale-95" onclick="closeChat()">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="ml-sm flex-1">
+<h4 class="font-headline-md text-headline-md text-on-surface leading-tight" id="activeChatName">Name</h4>
+<p class="font-label-md text-label-md text-secondary" id="activeChatTitle">Title</p>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container active:scale-95">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</header>
+<div class="flex-1 overflow-y-auto chat-scroll p-md space-y-md flex flex-col" id="messageArea">
+<!-- Message Bubble Left -->
+<div class="max-w-[85%] fade-in">
+<div class="bg-surface-container-high text-on-surface p-md rounded-2xl rounded-tl-none">
+<p class="font-body-md text-body-md">Hello! I saw the Senior UX Designer role you posted and I'm very interested. I've worked on similar products for 5 years.</p>
+</div>
+<span class="text-[10px] text-outline ml-1 mt-1 block">10:42 AM</span>
+</div>
+<!-- Message Bubble Right -->
+<div class="max-w-[85%] self-end fade-in">
+<div class="bg-primary text-on-primary p-md rounded-2xl rounded-tr-none">
+<p class="font-body-md text-body-md">Hi there! Your portfolio looks impressive. We are looking for someone with strong design system experience. Have you worked with Figma variables before?</p>
+</div>
+<span class="text-[10px] text-outline mr-1 mt-1 block text-right">10:45 AM</span>
+</div>
+<!-- Message Bubble Left -->
+<div class="max-w-[85%] fade-in">
+<div class="bg-surface-container-high text-on-surface p-md rounded-2xl rounded-tl-none">
+<p class="font-body-md text-body-md">Absolutely! I actually lead the migration to variables at my current role. I'd love to chat more about your specific needs.</p>
+</div>
+<span class="text-[10px] text-outline ml-1 mt-1 block">10:47 AM</span>
+</div>
+</div>
+<div class="p-md bg-surface-container-lowest border-t border-surface-variant/30 flex items-end gap-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-primary active:scale-90">
+<span class="material-symbols-outlined">add</span>
+</button>
+<div class="flex-1 bg-surface-container rounded-xl p-xs flex items-center">
+<textarea class="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface py-2 px-2 resize-none" placeholder="Write a message..." rows="1"></textarea>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-on-primary active:scale-90 ml-xs">
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+        function openChat(name, title) {
+            const overlay = document.getElementById('chatOverlay');
+            const nameEl = document.getElementById('activeChatName');
+            const titleEl = document.getElementById('activeChatTitle');
+            
+            nameEl.textContent = name;
+            titleEl.textContent = title;
+            
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Scroll to bottom
+            const messageArea = document.getElementById('messageArea');
+            setTimeout(() => {
+                messageArea.scrollTop = messageArea.scrollHeight;
+            }, 50);
+        }
+
+        function closeChat() {
+            const overlay = document.getElementById('chatOverlay');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Auto-expand textarea
+        const tx = document.getElementsByTagName("textarea");
+        for (let i = 0; i < tx.length; i++) {
+          tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+          tx[i].addEventListener("input", OnInput, false);
+        }
+
+        function OnInput() {
+          this.style.height = 0;
+          this.style.height = (this.scrollHeight) + "px";
+        }
+    </script>
+</body></html>

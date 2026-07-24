@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SwipeHire | Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad5",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-tertiary-container": "#ffd0ca",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#b03229",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#dad7f3",
+                    "tertiary": "#8e1914",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-fixed-variant": "#8c1713",
+                    "on-secondary-fixed-variant": "#422cb3",
+                    "secondary": "#5846ca",
+                    "background": "#fcf8ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "on-background": "#1a1a2e",
+                    "secondary-container": "#7161e4",
+                    "inverse-on-surface": "#f2efff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-low": "#f5f2ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c7bfff",
+                    "inverse-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1a2e",
+                    "on-tertiary-fixed": "#410001",
+                    "surface-container-high": "#e8e5ff",
+                    "surface": "#fcf8ff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e4dfff",
+                    "surface-container": "#efecff",
+                    "on-secondary-fixed": "#170065",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "sm": "12px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "gutter-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcf8ff; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .chat-row-active { background-color: rgba(53, 37, 205, 0.04); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-background flex items-center justify-between px-margin-mobile h-16 w-full">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">menu</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">SwipeHire</h1>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">notifications</button>
+</header>
+<main class="pt-20 px-margin-mobile">
+<!-- Search Bar -->
+<div class="mb-lg">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-12 pl-12 pr-4 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary/20 text-body-md font-body-md transition-all" placeholder="Search conversations..." type="text"/>
+</div>
+</div>
+<!-- Shortlisted Section -->
+<section class="mb-lg overflow-hidden">
+<h2 class="font-headline-md text-headline-md mb-md text-on-surface flex items-center gap-2">
+                Shortlisted you 
+                <span class="bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold">New</span>
+</h2>
+<div class="flex gap-md overflow-x-auto hide-scrollbar pb-2">
+<!-- Avatar Item 1 -->
+<div class="flex flex-col items-center gap-xs shrink-0 cursor-pointer active:scale-95 transition-transform">
+<div class="relative">
+<div class="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-primary to-secondary">
+<div class="w-full h-full rounded-full border-2 border-background overflow-hidden bg-white">
+<img class="w-full h-full object-cover" data-alt="A clean, professional minimalist logo of a modern tech company named 'Vortex' featuring a stylized blue circular icon on a crisp white background. The aesthetic is high-end corporate tech, utilizing bright lighting and sharp edges to convey innovation and efficiency in a professional recruitment context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8O7x8M6bQboSiwTNWbn_M7pTa0h4EODmH9o2kcCqWtggpCGspYN3zx7uc_tH0cXBWP3UP1Jn9WaXXx3wT7I6HLpWDqhDFieXEoCMfUVMJ4uyRS2cUcVb8HCDaXtD2X7In2cDt7xjXqKM2Aif9itRDDmtqWnDF9hclz75OZd8F0aIq7MZWVtul3Szktd5dONlhukrP2yfRqfgblDRJvfW91ZAVWuf_idQtAbhWtCY_0iPZ8pCr-k2mBRxVUPMLFp297-AHzZmmo-l"/>
+</div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary p-1 rounded-full border-2 border-background">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant">Vortex</span>
+</div>
+<!-- Avatar Item 2 -->
+<div class="flex flex-col items-center gap-xs shrink-0 cursor-pointer active:scale-95 transition-transform">
+<div class="relative">
+<div class="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-primary to-secondary">
+<div class="w-full h-full rounded-full border-2 border-background overflow-hidden bg-white">
+<img class="w-full h-full object-cover" data-alt="A sophisticated corporate logo for 'Lumina Creative' showing a vibrant violet geometric petal shape. The design is modern and artistic, set against a pristine white studio background with soft ambient shadows. The overall mood is creative yet professional, fitting for a top-tier design agency profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUWS5MbqYHOt60AkWQctpydDM2e0tyLmICczf3fH-0p9ZA9MVqyUyTgTnh8jWUc3ufc9df_pzY4aoVZX22uSaTS12wy1CXNhqIIxRWS5Vdg2IPsOD8XjJRMYDHYvk_z-nPbtN2wZpD4IUu4-Whz5AVHCQIyOpxclAOoe2H6yqYmvowal3SB_Fa4TmZh89L0w-ZV-Ei9J3zfXYiWzj27OFHnbxPsZCkCq6Sy6fX9JOdpcc6ULB0dDG0jGJY7XzK6tfkYVIrWiOgbumv"/>
+</div>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary p-1 rounded-full border-2 border-background">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant">Lumina</span>
+</div>
+<!-- Avatar Item 3 -->
+<div class="flex flex-col items-center gap-xs shrink-0 cursor-pointer active:scale-95 transition-transform">
+<div class="relative">
+<div class="w-16 h-16 rounded-full p-0.5 bg-outline-variant">
+<div class="w-full h-full rounded-full border-2 border-background overflow-hidden bg-white">
+<img class="w-full h-full object-cover" data-alt="A minimalist logo for a company called 'Pulse Systems' featuring a sleek emerald green waveform icon. The presentation is clean and high-contrast, set in a bright light-mode environment. The visual style communicates stability, growth, and professional reliability in the fintech sector." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr3LPKjKz4bgqhcvkREqg9VpTsBTjXZfaA7eC5IblQ26aXicp0YkNbNy98C_Kh2aeWGd4fdn3ngFAtuTQtaqKoYqRBx9xtoeC898vp8TvjeaZT3y9ezTveiyaGWYqbm_wsOJ3hUfMGVE4gTiaIQdwJsSb9zwulCb78el8n-37hxxa3rCdM9kKcuEaoM4ofSh2fwdubAiQDYDt-GXdrqvzj1HpfnTW3bnoHKuoGZA1eQQRrC4z0eYP2Aj1UFVysu43T5D7RW80O_ZAB"/>
+</div>
+</div>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant">Pulse</span>
+</div>
+<!-- Avatar Item 4 -->
+<div class="flex flex-col items-center gap-xs shrink-0 cursor-pointer active:scale-95 transition-transform">
+<div class="relative">
+<div class="w-16 h-16 rounded-full p-0.5 bg-outline-variant">
+<div class="w-full h-full rounded-full border-2 border-background overflow-hidden bg-white">
+<img class="w-full h-full object-cover" data-alt="A modern professional logo for 'Apex Dynamics' using a bold indigo triangle motif. The design is centered on a clean white field with soft high-key lighting, emphasizing a corporate and ambitious tech-driven identity. The aesthetic is minimal, efficient, and sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiAaMSwRj2i9gh8tSgpjegZFNK3VKHiBfpW4HyZ3jy5LmtuvGVJEohueNMbS-LetTlDvv-t19uOPyN8hQI4MQZibemtOn5GSu_d3a9MM7C-EKn3ztaEk_kf8D_H_Pif6RY7vxZ50QgZyZ8ScOORoRKi6z1hhtZR1pRQaT_TdXSfSfziZZKz3NUz_S0hVPfXt_nL5tKcDNmH-S1QMQF2fZfITJkkKUVHbK7xkploz2t6PkaNL1JLCRFBgQuJJfcUS-Npju9cTZffpHn"/>
+</div>
+</div>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant">Apex</span>
+</div>
+<!-- View More -->
+<div class="flex flex-col items-center gap-xs shrink-0 cursor-pointer active:scale-95 transition-transform">
+<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-dashed border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-outline">add</span>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant">More</span>
+</div>
+</div>
+</section>
+<!-- Conversations List -->
+<section class="space-y-base">
+<h2 class="font-headline-md text-headline-md mb-md text-on-surface">Messages</h2>
+<!-- Chat Item 1 (Unread) -->
+<div class="flex items-center gap-md p-md rounded-lg hover:bg-surface-container transition-all cursor-pointer group relative">
+<div class="shrink-0 w-14 h-14 rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional logo for 'Hyperion Tech' featuring a modern orange and charcoal geometric design. High-quality corporate branding on a bright white background, crisp details, soft ambient shadows, and a clean professional aesthetic suitable for a high-growth tech startup." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3XfEYSpSmS6MlufnSB4mfz-3ELA2evVDZ8TkNyg-bktnoyNFsTCoCRtzGUnf6lwW_DcOqPDhfFJBgb-_ekBvPqf6Z_4z6XRf-MIBn6W7paGXDhRwXTeaUp4KqUvmLM0qvAqcg_dmkkIM2Z7J-ws8nZ3aab1QqkozryedIE4qjF5jeX_r0o51VxT2M0kX2DufKJQTSZwDBBQmLNWzgxFhFNq4Z7iC_EFYfeo9Pvi1UdJ9Vu4TjhYXcqdESJRnazsdkzTuE3eZsu-1w"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-0.5">
+<h3 class="font-body-lg text-body-lg text-on-surface truncate">Hyperion Tech</h3>
+<span class="text-label-md font-label-md text-primary">2:14 PM</span>
+</div>
+<p class="font-label-md text-label-md text-secondary mb-1">Senior UI Designer</p>
+<p class="font-body-md text-body-md text-on-surface font-semibold truncate">Hey Alex! We loved your portfolio. Are you free for a call tomorrow at...</p>
+</div>
+<div class="w-2.5 h-2.5 bg-primary rounded-full shrink-0"></div>
+</div>
+<!-- Chat Item 2 -->
+<div class="flex items-center gap-md p-md rounded-lg hover:bg-surface-container transition-all cursor-pointer group">
+<div class="shrink-0 w-14 h-14 rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Corporate logo for 'Nexa Global' showing a sophisticated interlocking blue and silver ring pattern. The lighting is bright and even, highlighting a professional and global presence. Minimalist composition on a white background with subtle depth and elegant branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhoB94gWUsbqjGEqFr15ScMnu6G7TkIUuSNtywa3rE041bGmf_6bZKg9peb2AwMt_Xru90QxwUU8ZbeB162qlt4aMs3LSNVpftXfrhcVZJ7bnzoAbyMg3YTrV-9cFYEdL2LoRN-osvdPcqxPEYyX7huEAXznYnRJKbchE-dybi1nOgsg8qnnBI32c6XaSnwuHW5P90BSZAGTwaJFDesva7edevIKIWHmkEmtSSDBbtf-64tIcI1YbayD7TyIFHaN9UUW-dX2BkkI89"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-0.5">
+<h3 class="font-body-lg text-body-lg text-on-surface truncate">Nexa Global</h3>
+<span class="text-label-md font-label-md text-on-surface-variant">Yesterday</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Product Manager</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Thank you for the update. We will get back to you by Friday.</p>
+</div>
+</div>
+<!-- Chat Item 3 -->
+<div class="flex items-center gap-md p-md rounded-lg hover:bg-surface-container transition-all cursor-pointer group">
+<div class="shrink-0 w-14 h-14 rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A vibrant and creative logo for 'Pixel Path Studio' using a colorful mosaic of purple and indigo blocks. Modern digital agency style, bright light-mode aesthetic, clean edges, and professional composition that suggests innovation and high-quality creative work." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Ix9sWrFbq3W4Rf4Bib25kcAQFgWIDotls94qqkNiQcw-wqWX-SH0_QYi-GlQIWTNAUHSGeX3Sbbw83rgXbs9st8Wgi-rMBMG6mGcne5veUhFYpjYhpBB9K3GX6IaH_OgPJFdzfx4Avdqr2i8nkoU4kmCmfQ0bjrrEI2TEjHfxWidRDqR11GBAKQ66uAPE-fMc_GkpLHssQRODDHcEJU17gTKUsPfJtm02uooDI6bmiOgj48w2w173ku_fn_uoqRZ2sDug4eTcS5U"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-0.5">
+<h3 class="font-body-lg text-body-lg text-on-surface truncate">Pixel Path Studio</h3>
+<span class="text-label-md font-label-md text-on-surface-variant">Tuesday</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Lead Developer</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">The technical assessment has been sent to your email. Good luck!</p>
+</div>
+</div>
+<!-- Chat Item 4 -->
+<div class="flex items-center gap-md p-md rounded-lg hover:bg-surface-container transition-all cursor-pointer group">
+<div class="shrink-0 w-14 h-14 rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A sleek professional logo for 'CloudScale Inc.' featuring a modern cyan and dark blue cloud-inspired abstract icon. Clean corporate branding on a bright white background, high-key lighting, emphasizing modern infrastructure and professional reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD5qEWGdtacj_tUPdwdJEaYE5SPnsbb4_uo_lCS89MRcwW77d4F0PUTnNkNj86yqKoirGBSFwQ4oIPvVUiDYGWWwRijjlbUuexAVjAVIOga4YHEPELgjbSOljd-U9_XPYk7li4U8fo6Jnxg6XtKzJM2xSwLjfRQJ1tsxHrXnDyfm5aX5TMAFDSLV6V4mxpWLB-ElxvfxccOLl2UZmcAUJoeb1QOCM8twoP6tvjALB84px28jm7XSgGJYvYhRAIVTqX0TZaXFg5ctjv"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-0.5">
+<h3 class="font-body-lg text-body-lg text-on-surface truncate">CloudScale Inc.</h3>
+<span class="text-label-md font-label-md text-on-surface-variant">Oct 12</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">DevOps Engineer</p>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">We've decided to move forward with other candidates. Thank you for applying.</p>
+</div>
+</div>
+</section>
+<!-- Empty State (Hidden by default, used if list empty) -->
+<div class="hidden flex flex-col items-center justify-center py-20 text-center animate-in fade-in duration-700" id="empty-state">
+<div class="w-48 h-48 bg-surface-container rounded-full flex items-center justify-center mb-lg">
+<span class="material-symbols-outlined text-outline text-[64px]" style="font-variation-settings: 'opsz' 48;">chat_bubble_outline</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">No chats yet</h3>
+<p class="font-body-md text-body-md text-on-surface-variant px-xl">Start swiping to find your perfect career match and start a conversation!</p>
+<button class="mt-lg px-xl h-14 bg-primary text-on-primary rounded-full font-headline-md shadow-lg active:scale-95 transition-all">Start Discovering</button>
+</div>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 left-0 w-full h-[72px] flex justify-around items-center px-4 pb-safe bg-surface/80 backdrop-blur-md z-50 shadow-[0_-4px_20px_rgba(26,26,46,0.08)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md">Discover</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-md text-label-md">Matches</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-label-md text-label-md">Chats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-md text-label-md">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('section > div > div, .space-y-base > div').forEach(item => {
+            item.addEventListener('touchstart', function() {
+                this.classList.add('scale-[0.98]');
+            });
+            item.addEventListener('touchend', function() {
+                this.classList.remove('scale-[0.98]');
+            });
+            
+            // On click effect
+            item.addEventListener('click', function() {
+                if(this.classList.contains('group')) {
+                   const dot = this.querySelector('.bg-primary');
+                   if(dot) dot.classList.add('hidden');
+                }
+            });
+        });
+
+        // Search highlight logic
+        const searchInput = document.querySelector('input');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>
