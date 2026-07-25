@@ -74,6 +74,12 @@ export async function DELETE(
     const { id } = params;
     const existingJob = await prisma.job.findUnique({
       where: { id },
+      include: {
+        company: true,
+        interests: {
+          include: { seeker: true },
+        },
+      },
     });
 
     if (!existingJob) {
@@ -85,12 +91,34 @@ export async function DELETE(
       return forbiddenResponse('You can only delete jobs posted by your company');
     }
 
-    await prisma.job.delete({
-      where: { id },
+    const jobTitle = existingJob.title;
+    const companyName = existingJob.company?.name || 'Company';
+
+    // Notify all seekers who applied or were shortlisted before deleting job
+    await prisma.$transaction(async (tx) => {
+      for (const interest of existingJob.interests) {
+        if (interest.seeker?.userId) {
+          await tx.notification.create({
+            data: {
+              userId: interest.seeker.userId,
+              type: 'JOB_DELETED',
+              body: `ℹ️ Job Update: The job opening "${jobTitle}" at ${companyName} (where you applied / were shortlisted) has been closed & deleted by the recruiter.`,
+            },
+          });
+        }
+      }
+
+      await tx.job.delete({
+        where: { id },
+      });
     });
 
-    return NextResponse.json({ success: true, message: 'Job deleted successfully' });
+    return NextResponse.json({
+      success: true,
+      message: 'Job deleted successfully and notification alerts sent to all applicants.',
+    });
   } catch (error: any) {
+    console.error('Delete job error:', error);
     return errorResponse(error.message || 'Failed to delete job', 500);
   }
 }
