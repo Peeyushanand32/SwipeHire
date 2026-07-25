@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  Modal,
+  ScrollView,
   Alert,
+  Linking,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { apiFetch } from '../../lib/api';
@@ -21,6 +24,7 @@ export default function RecruiterChatsScreen() {
   const [messages, setMessages] = useState<any[]>([]);
   const [messageText, setMessageText] = useState('');
   const [sending, setSending] = useState(false);
+  const [profileModalCandidate, setProfileModalCandidate] = useState<any>(null);
 
   const fetchCandidateMatches = async () => {
     try {
@@ -31,7 +35,15 @@ export default function RecruiterChatsScreen() {
       setInterests([
         {
           id: 'int_1',
-          seeker: { fullName: 'Alex Morgan', headline: 'Senior React Developer', city: 'Bengaluru' },
+          seeker: {
+            fullName: 'Alex Morgan',
+            headline: 'Senior React Developer',
+            city: 'Bengaluru',
+            expectedSalary: 2200000,
+            skills: ['React', 'React Native', 'TypeScript', 'Tailwind'],
+            email: 'alex.morgan@example.com',
+            phone: '+91 99887 76655',
+          },
           job: { title: 'Senior Frontend Engineer' },
           status: 'INTERESTED',
         },
@@ -71,7 +83,7 @@ export default function RecruiterChatsScreen() {
       setMessageText('');
       Alert.alert(
         'Message Sent! 💬',
-        `First message sent to ${selectedInterest.seeker?.fullName}. Seeker has received notification and can now reply!`
+        `First message sent to ${selectedInterest.seeker?.fullName}. Candidate has received notification and can now reply!`
       );
       openConversation(selectedInterest);
       fetchCandidateMatches();
@@ -87,7 +99,9 @@ export default function RecruiterChatsScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Candidate Messages</Text>
-        <Text style={styles.subtitle}>Initiate first message to candidate matches</Text>
+        <Text style={styles.subtitle}>
+          Tap any candidate card or profile name to view full resume details
+        </Text>
       </View>
 
       {loading ? (
@@ -109,10 +123,15 @@ export default function RecruiterChatsScreen() {
             <TouchableOpacity onPress={() => setSelectedInterest(null)} style={styles.backBtn}>
               <Text style={styles.backBtnText}>← All Candidates</Text>
             </TouchableOpacity>
-            <View>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => setProfileModalCandidate(selectedInterest)}
+            >
               <Text style={styles.candidateName}>{selectedInterest.seeker?.fullName}</Text>
-              <Text style={styles.jobRefText}>Applied for: {selectedInterest.job?.title}</Text>
-            </View>
+              <Text style={styles.jobRefText}>
+                Applied for: {selectedInterest.job?.title} • Tap for Full Profile 👤
+              </Text>
+            </TouchableOpacity>
           </View>
 
           {/* Messages */}
@@ -129,7 +148,12 @@ export default function RecruiterChatsScreen() {
                     isRecruiter ? styles.recruiterBubble : styles.seekerBubble,
                   ]}
                 >
-                  <Text style={[styles.bubbleText, isRecruiter ? styles.recruiterText : styles.seekerText]}>
+                  <Text
+                    style={[
+                      styles.bubbleText,
+                      isRecruiter ? styles.recruiterText : styles.seekerText,
+                    ]}
+                  >
                     {item.body}
                   </Text>
                 </View>
@@ -145,7 +169,7 @@ export default function RecruiterChatsScreen() {
               onChangeText={setMessageText}
               placeholder={
                 messages.length === 0
-                  ? 'Send first message to unlock chat...'
+                  ? 'Send first message to unlock candidate chat...'
                   : 'Type a message to candidate...'
               }
               placeholderTextColor="#94A3B8"
@@ -170,30 +194,147 @@ export default function RecruiterChatsScreen() {
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.listContent}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.candidateCard} onPress={() => openConversation(item)}>
-              <View style={styles.avatar}>
+            <View style={styles.candidateCard}>
+              <TouchableOpacity
+                style={styles.avatar}
+                onPress={() => setProfileModalCandidate(item)}
+              >
                 <Text style={styles.avatarText}>
                   {item.seeker?.fullName ? item.seeker.fullName.slice(0, 2).toUpperCase() : 'CD'}
                 </Text>
-              </View>
+              </TouchableOpacity>
 
-              <View style={{ flex: 1 }}>
+              <TouchableOpacity style={{ flex: 1 }} onPress={() => setProfileModalCandidate(item)}>
                 <Text style={styles.candidateName}>{item.seeker?.fullName || 'Candidate'}</Text>
                 <Text style={styles.headlineText}>
                   {item.seeker?.headline || 'Job Seeker'} • {item.seeker?.city || 'India'}
                 </Text>
-                <Text style={styles.jobRefText}>Applied: {item.job?.title}</Text>
-              </View>
+                <Text style={styles.jobRefText}>Applied: {item.job?.title} • Tap for Profile 👤</Text>
+              </TouchableOpacity>
 
-              <View style={styles.statusBox}>
+              <TouchableOpacity style={styles.statusBox} onPress={() => openConversation(item)}>
                 <Text style={styles.statusText}>
-                  {item.status === 'CONTACTED' ? '💬 Chatting' : '⚡ Start Chat'}
+                  {item.status === 'CONTACTED' ? '💬 Chat' : '⚡ Start Chat'}
                 </Text>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           )}
         />
       )}
+
+      {/* FULL CANDIDATE PROFILE MODAL */}
+      <Modal
+        visible={!!profileModalCandidate}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setProfileModalCandidate(null)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Full Candidate Profile</Text>
+              <TouchableOpacity onPress={() => setProfileModalCandidate(null)}>
+                <Text style={styles.closeBtn}>✕ Close</Text>
+              </TouchableOpacity>
+            </View>
+
+            {profileModalCandidate && (
+              <ScrollView contentContainerStyle={styles.modalContent}>
+                {/* Profile Card Header */}
+                <View style={styles.profileHeaderBox}>
+                  <View style={styles.largeAvatar}>
+                    <Text style={styles.largeAvatarText}>
+                      {profileModalCandidate.seeker?.fullName
+                        ? profileModalCandidate.seeker.fullName.slice(0, 2).toUpperCase()
+                        : 'CD'}
+                    </Text>
+                  </View>
+                  <Text style={styles.profileName}>{profileModalCandidate.seeker?.fullName}</Text>
+                  <Text style={styles.profileHeadline}>
+                    {profileModalCandidate.seeker?.headline}
+                  </Text>
+                  <Text style={styles.appliedJobText}>
+                    Applying for: {profileModalCandidate.job?.title}
+                  </Text>
+                </View>
+
+                {/* Location & Salary */}
+                <View style={styles.infoSection}>
+                  <Text style={styles.sectionHeading}>LOCATION & EXPECTED SALARY</Text>
+                  <Text style={styles.infoValue}>
+                    📍 {profileModalCandidate.seeker?.city || 'Remote / India'}
+                  </Text>
+                  <Text style={styles.salaryValue}>
+                    💰 Expected:{' '}
+                    {profileModalCandidate.seeker?.expectedSalary
+                      ? `₹${(profileModalCandidate.seeker.expectedSalary / 100000).toFixed(1)} Lakhs / year`
+                      : 'Negotiable Package'}
+                  </Text>
+                </View>
+
+                {/* Skills */}
+                <View style={styles.infoSection}>
+                  <Text style={styles.sectionHeading}>SKILLS & EXPERTISE</Text>
+                  <View style={styles.modalSkillsRow}>
+                    {(profileModalCandidate.seeker?.skills || []).map(
+                      (skill: string, idx: number) => (
+                        <View key={idx} style={styles.modalSkillChip}>
+                          <Text style={styles.modalSkillText}>{skill}</Text>
+                        </View>
+                      )
+                    )}
+                  </View>
+                </View>
+
+                {/* Contact Info */}
+                <View style={styles.infoSection}>
+                  <Text style={styles.sectionHeading}>CONTACT INFORMATION</Text>
+                  <Text style={styles.infoValue}>
+                    ✉️ Email: {profileModalCandidate.seeker?.email || 'Registered Candidate'}
+                  </Text>
+                  {profileModalCandidate.seeker?.phone && (
+                    <Text style={styles.infoValue}>
+                      📞 Phone: {profileModalCandidate.seeker.phone}
+                    </Text>
+                  )}
+                </View>
+
+                {/* Resume PDF Document Link */}
+                <View style={styles.infoSection}>
+                  <Text style={styles.sectionHeading}>RESUME DOCUMENT</Text>
+                  {profileModalCandidate.seeker?.resumeUrl ? (
+                    <TouchableOpacity
+                      style={styles.resumeBox}
+                      onPress={() => Linking.openURL(profileModalCandidate.seeker.resumeUrl)}
+                    >
+                      <Text style={styles.resumeIcon}>📄</Text>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.resumeTitle}>Uploaded PDF Resume</Text>
+                        <Text style={styles.resumeSubtitle}>Tap to open & view candidate CV</Text>
+                      </View>
+                      <Text style={styles.resumeOpenText}>Open ↗</Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <View style={styles.noResumeBox}>
+                      <Text style={styles.noResumeText}>📄 Standard Profile Resume Verified</Text>
+                    </View>
+                  )}
+                </View>
+
+                <TouchableOpacity
+                  style={styles.modalMsgBtn}
+                  onPress={() => {
+                    openConversation(profileModalCandidate);
+                    setProfileModalCandidate(null);
+                  }}
+                >
+                  <Text style={styles.modalActionText}>💬 Open Chat with Candidate</Text>
+                </TouchableOpacity>
+              </ScrollView>
+            )}
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -223,7 +364,7 @@ const styles = StyleSheet.create({
   center: {
     flex: 1,
     alignItems: 'center',
-    justify.content: 'center',
+    justifyContent: 'center',
   },
   loadingText: {
     fontSize: 12,
@@ -389,4 +530,91 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontSize: 13,
   },
+
+  /* Modal Styles */
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(15, 23, 42, 0.6)',
+    justifyContent: 'flex-end',
+  },
+  modalContainer: {
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    maxHeight: '85%',
+    paddingBottom: 24,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
+  },
+  modalTitle: { fontSize: 18, fontWeight: '900', color: '#0F172A' },
+  closeBtn: { fontSize: 14, fontWeight: '800', color: '#EF4444' },
+  modalContent: { padding: 20, gap: 16 },
+  profileHeaderBox: {
+    alignItems: 'center',
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F5F9',
+  },
+  largeAvatar: {
+    width: 64,
+    height: 64,
+    borderRadius: 20,
+    backgroundColor: '#7C6CF0',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  largeAvatarText: { color: '#FFFFFF', fontSize: 24, fontWeight: '900' },
+  profileName: { fontSize: 20, fontWeight: '900', color: '#0F172A' },
+  profileHeadline: { fontSize: 13, color: '#64748B', marginTop: 2, textAlign: 'center' },
+  appliedJobText: { fontSize: 12, fontWeight: '800', color: '#7C6CF0', marginTop: 6 },
+  infoSection: { gap: 6 },
+  sectionHeading: { fontSize: 10, fontWeight: '800', color: '#94A3B8', letterSpacing: 0.5 },
+  infoValue: { fontSize: 14, color: '#334155', fontWeight: '600' },
+  salaryValue: { fontSize: 14, color: '#16A34A', fontWeight: '800' },
+  modalSkillsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 2 },
+  modalSkillChip: {
+    backgroundColor: '#F3E8FF',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 8,
+  },
+  modalSkillText: { fontSize: 12, fontWeight: '700', color: '#7C6CF0' },
+  resumeBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#EFF6FF',
+    padding: 12,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#BFDBFE',
+    gap: 10,
+  },
+  resumeIcon: { fontSize: 24 },
+  resumeTitle: { fontSize: 13, fontWeight: '800', color: '#1E40AF' },
+  resumeSubtitle: { fontSize: 11, color: '#3B82F6' },
+  resumeOpenText: { fontSize: 12, fontWeight: '800', color: '#2563EB' },
+  noResumeBox: {
+    backgroundColor: '#F8FAFC',
+    padding: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  noResumeText: { fontSize: 12, color: '#64748B', fontWeight: '600' },
+  modalMsgBtn: {
+    backgroundColor: '#7C6CF0',
+    paddingVertical: 14,
+    borderRadius: 14,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  modalActionText: { fontSize: 14, fontWeight: '800', color: '#FFFFFF' },
 });
