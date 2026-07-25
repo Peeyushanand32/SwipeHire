@@ -23,6 +23,16 @@ interface CandidateQueueItem {
     avatarUrl: string | null;
     email: string;
     phone: string | null;
+    tenthSchool?: string | null;
+    tenthBoard?: string | null;
+    twelfthSchool?: string | null;
+    twelfthBoard?: string | null;
+    underGraduation?: string | null;
+    postGraduation?: string | null;
+    internships?: string | null;
+    experiences?: string | null;
+    liveProjectLink?: string | null;
+    liveProjectDesc?: string | null;
   };
 }
 
@@ -34,6 +44,9 @@ export default function RecruiterCandidateReviewPage() {
   const [selectedJobId, setSelectedJobId] = useState(initialJobId);
   const [queue, setQueue] = useState<CandidateQueueItem[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Full Profile Modal State
+  const [selectedCandidate, setSelectedCandidate] = useState<CandidateQueueItem['candidate'] | null>(null);
 
   // First message modal state
   const [activeInterestId, setActiveInterestId] = useState<string | null>(null);
@@ -160,11 +173,11 @@ export default function RecruiterCandidateReviewPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-sans">
       <div>
         <h1 className="text-2xl font-black text-[#1A1A2E]">Candidate Review Queue</h1>
         <p className="text-sm text-[#464555]">
-          Review candidates who swiped interested on your jobs, inspect their resumes, and shortlist or initiate contact
+          Click on any candidate's name or photo to open their full academic, experience & live project profile
         </p>
       </div>
 
@@ -213,23 +226,30 @@ export default function RecruiterCandidateReviewPage() {
                 item.shortlisted ? 'border-[#22C55E] ring-2 ring-[#22C55E]/20' : 'border-[#E8E5FF]'
               }`}
             >
-              {/* Header: Photo, Name, Headline */}
+              {/* Header: Photo, Name, Headline - CLICKABLE TO OPEN FULL PROFILE MODAL */}
               <div className="flex items-start justify-between pb-3 border-b border-[#EFECFF]">
-                <div className="flex items-center gap-3">
+                <div
+                  onClick={() => setSelectedCandidate(item.candidate)}
+                  className="flex items-center gap-3 cursor-pointer group"
+                  title="Click to view full candidate profile"
+                >
                   {item.candidate.avatarUrl ? (
                     <img
                       src={item.candidate.avatarUrl}
                       alt={item.candidate.fullName}
-                      className="w-12 h-12 rounded-2xl object-cover border-2 border-[#4F46E5] shadow-md"
+                      className="w-12 h-12 rounded-2xl object-cover border-2 border-[#4F46E5] shadow-md group-hover:scale-105 transition-transform"
                     />
                   ) : (
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#4F46E5] to-[#7C6CF0] text-white font-black text-base flex items-center justify-center shadow-md">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#4F46E5] to-[#7C6CF0] text-white font-black text-base flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                       {item.candidate.fullName.slice(0, 2).toUpperCase()}
                     </div>
                   )}
                   <div>
-                    <h3 className="text-base font-extrabold text-[#1A1A2E] leading-tight">
+                    <h3 className="text-base font-extrabold text-[#1A1A2E] leading-tight group-hover:text-[#4F46E5] transition-colors flex items-center gap-1.5">
                       {item.candidate.fullName}
+                      <span className="text-[10px] bg-[#EFECFF] text-[#4F46E5] px-2 py-0.5 rounded-full font-bold">
+                        🔍 View Profile
+                      </span>
                     </h3>
                     <p className="text-xs text-[#464555] font-semibold mt-0.5">
                       {item.candidate.headline || 'Job Seeker Candidate'}
@@ -276,7 +296,7 @@ export default function RecruiterCandidateReviewPage() {
                 {/* RESUME VIEW & DOWNLOAD BUTTON */}
                 <div className="pt-2 flex items-center justify-between bg-[#F0FDF4] p-3 rounded-2xl border border-[#22C55E]/30">
                   <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#22C55E] text-lg">description</span>
+                    <span className="text-[#22C55E] text-base">📄</span>
                     <span className="text-xs font-bold text-[#166534]">Candidate Resume</span>
                   </div>
 
@@ -287,7 +307,7 @@ export default function RecruiterCandidateReviewPage() {
                       rel="noreferrer"
                       className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#22C55E] hover:bg-[#16a34a] text-white text-xs font-extrabold shadow-sm transition-all transform active:scale-95"
                     >
-                      <span className="material-symbols-outlined text-sm">visibility</span> View Resume PDF ↗
+                      View Resume PDF ↗
                     </a>
                   ) : (
                     <span className="text-xs text-[#777587] font-semibold italic">No Resume Uploaded</span>
@@ -322,6 +342,133 @@ export default function RecruiterCandidateReviewPage() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* FULL CANDIDATE PROFILE MODAL */}
+      {selectedCandidate && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-2xl bg-white rounded-3xl p-6 card-shadow border border-[#E8E5FF] space-y-5 max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-[#EFECFF]">
+              <h2 className="text-lg font-extrabold text-[#1A1A2E]">Full Candidate Profile</h2>
+              <button
+                onClick={() => setSelectedCandidate(null)}
+                className="w-8 h-8 rounded-full bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A] font-bold flex items-center justify-center text-sm"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Profile Avatar & Info Header */}
+            <div className="flex flex-col items-center text-center p-4 rounded-2xl bg-[#FCF8FF] border border-[#E8E5FF] space-y-2">
+              {selectedCandidate.avatarUrl ? (
+                <img
+                  src={selectedCandidate.avatarUrl}
+                  alt={selectedCandidate.fullName}
+                  className="w-20 h-20 rounded-full object-cover border-4 border-[#4F46E5] shadow-md"
+                />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-[#4F46E5] to-[#7C6CF0] text-white font-black text-2xl flex items-center justify-center border-4 border-[#E8E5FF] shadow-md">
+                  {selectedCandidate.fullName.slice(0, 2).toUpperCase()}
+                </div>
+              )}
+              <h3 className="text-xl font-black text-[#1A1A2E]">{selectedCandidate.fullName}</h3>
+              <p className="text-xs font-bold text-[#4F46E5]">{selectedCandidate.headline || 'Job Seeker'}</p>
+            </div>
+
+            {/* Section 1: Contact & Location */}
+            <div className="bg-[#F8FAFC] p-4 rounded-2xl border border-[#E2E8F0] space-y-2">
+              <h4 className="text-xs font-black uppercase text-[#4F46E5] tracking-wider">📍 Contact & Salary</h4>
+              <div className="grid grid-cols-2 gap-2 text-xs text-[#334155]">
+                <p>📍 Location: <strong>{selectedCandidate.city || 'Remote / India'}</strong></p>
+                <p>💰 Expected CTC: <strong>{selectedCandidate.expectedSalary ? `₹${selectedCandidate.expectedSalary.toLocaleString()} / yr` : 'Negotiable'}</strong></p>
+                <p>✉️ Email: <strong>{selectedCandidate.email}</strong></p>
+                <p>📞 Phone: <strong>{selectedCandidate.phone || 'Not Provided'}</strong></p>
+              </div>
+            </div>
+
+            {/* Section 2: Verified Skills */}
+            <div className="bg-[#F8FAFC] p-4 rounded-2xl border border-[#E2E8F0] space-y-2">
+              <h4 className="text-xs font-black uppercase text-[#4F46E5] tracking-wider">⚡ Skills & Expertise</h4>
+              <div className="flex flex-wrap gap-1.5">
+                {selectedCandidate.skills.map((s, idx) => (
+                  <span key={idx} className="px-3 py-1 rounded-full bg-[#EFECFF] text-[#4F46E5] text-xs font-bold">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Section 3: Academic Qualifications */}
+            <div className="bg-[#F8FAFC] p-4 rounded-2xl border border-[#E2E8F0] space-y-2 text-xs text-[#334155]">
+              <h4 className="text-xs font-black uppercase text-[#4F46E5] tracking-wider">🎓 Academic Qualifications</h4>
+              {selectedCandidate.underGraduation && <p>🎓 UG: <strong>{selectedCandidate.underGraduation}</strong></p>}
+              {selectedCandidate.postGraduation && <p>🎓 PG: <strong>{selectedCandidate.postGraduation}</strong></p>}
+              {selectedCandidate.twelfthSchool && <p>🏫 12th: <strong>{selectedCandidate.twelfthSchool}</strong> ({selectedCandidate.twelfthBoard || 'Board'})</p>}
+              {selectedCandidate.tenthSchool && <p>🏫 10th: <strong>{selectedCandidate.tenthSchool}</strong> ({selectedCandidate.tenthBoard || 'Board'})</p>}
+              {!selectedCandidate.underGraduation && !selectedCandidate.tenthSchool && (
+                <p className="text-[#94A3B8] italic">No detailed education background provided.</p>
+              )}
+            </div>
+
+            {/* Section 4: Work & Internships */}
+            {(selectedCandidate.internships || selectedCandidate.experiences) && (
+              <div className="bg-[#F8FAFC] p-4 rounded-2xl border border-[#E2E8F0] space-y-2 text-xs text-[#334155]">
+                <h4 className="text-xs font-black uppercase text-[#4F46E5] tracking-wider">💼 Work Experience & Internships</h4>
+                {selectedCandidate.internships && <p>💼 Internships: <strong>{selectedCandidate.internships}</strong></p>}
+                {selectedCandidate.experiences && <p>🏢 Experience: <strong>{selectedCandidate.experiences}</strong></p>}
+              </div>
+            )}
+
+            {/* Section 5: Live Project Portfolio */}
+            {(selectedCandidate.liveProjectLink || selectedCandidate.liveProjectDesc) && (
+              <div className="bg-[#F3E8FF] p-4 rounded-2xl border border-[#DDD6FE] space-y-2">
+                <h4 className="text-xs font-black uppercase text-[#6D28D9] tracking-wider">🚀 Live Project Portfolio</h4>
+                {selectedCandidate.liveProjectLink && (
+                  <a
+                    href={selectedCandidate.liveProjectLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#6D28D9] text-white text-xs font-extrabold shadow-sm hover:bg-[#5B21B6]"
+                  >
+                    🚀 Test Live Project URL ↗
+                  </a>
+                )}
+                {selectedCandidate.liveProjectDesc && (
+                  <p className="text-xs text-[#475569] mt-1">{selectedCandidate.liveProjectDesc}</p>
+                )}
+              </div>
+            )}
+
+            {/* Resume Document Download Link */}
+            <div className="p-4 rounded-2xl bg-[#F0FDF4] border border-[#22C55E]/30 flex items-center justify-between">
+              <div>
+                <h4 className="text-xs font-bold text-[#166534]">Candidate Resume Document</h4>
+                <p className="text-[11px] text-[#22C55E]">PDF / DOCX Resume File</p>
+              </div>
+
+              {selectedCandidate.resumeUrl ? (
+                <a
+                  href={selectedCandidate.resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 rounded-full bg-[#22C55E] text-white text-xs font-extrabold shadow-sm hover:bg-[#16a34a]"
+                >
+                  Open Resume PDF ↗
+                </a>
+              ) : (
+                <span className="text-xs text-[#94A3B8] italic">No Resume Uploaded</span>
+              )}
+            </div>
+
+            <button
+              onClick={() => setSelectedCandidate(null)}
+              className="w-full py-3 rounded-full bg-[#4F46E5] text-white text-xs font-bold hover:bg-[#3525CD]"
+            >
+              Close Profile View
+            </button>
+          </div>
         </div>
       )}
 

@@ -62,6 +62,16 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         avatarUrl: item.seeker.avatarUrl,
         email: item.seeker.user.email,
         phone: item.seeker.user.phone,
+        tenthSchool: item.seeker.tenthSchool,
+        tenthBoard: item.seeker.tenthBoard,
+        twelfthSchool: item.seeker.twelfthSchool,
+        twelfthBoard: item.seeker.twelfthBoard,
+        underGraduation: item.seeker.underGraduation,
+        postGraduation: item.seeker.postGraduation,
+        internships: item.seeker.internships,
+        experiences: item.seeker.experiences,
+        liveProjectLink: item.seeker.liveProjectLink,
+        liveProjectDesc: item.seeker.liveProjectDesc,
       },
     }));
 
