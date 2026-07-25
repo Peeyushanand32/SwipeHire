@@ -299,6 +299,67 @@ export default function RecruiterChatsScreen() {
                   )}
                 </View>
 
+                {/* Academic Qualifications Section */}
+                <View style={styles.infoSection}>
+                  <Text style={styles.sectionHeading}>🎓 ACADEMIC QUALIFICATIONS</Text>
+                  {profileModalCandidate.seeker?.underGraduation ? (
+                    <Text style={styles.infoValue}>🎓 UG: {profileModalCandidate.seeker.underGraduation}</Text>
+                  ) : null}
+                  {profileModalCandidate.seeker?.postGraduation ? (
+                    <Text style={styles.infoValue}>🎓 PG: {profileModalCandidate.seeker.postGraduation}</Text>
+                  ) : null}
+                  {profileModalCandidate.seeker?.twelfthSchool ? (
+                    <Text style={styles.infoValue}>
+                      🏫 12th: {profileModalCandidate.seeker.twelfthSchool} ({profileModalCandidate.seeker.twelfthBoard || 'Board'})
+                    </Text>
+                  ) : null}
+                  {profileModalCandidate.seeker?.tenthSchool ? (
+                    <Text style={styles.infoValue}>
+                      🏫 10th: {profileModalCandidate.seeker.tenthSchool} ({profileModalCandidate.seeker.tenthBoard || 'Board'})
+                    </Text>
+                  ) : null}
+                </View>
+
+                {/* Work & Internships */}
+                {(profileModalCandidate.seeker?.internships || profileModalCandidate.seeker?.experiences) ? (
+                  <View style={styles.infoSection}>
+                    <Text style={styles.sectionHeading}>💼 WORK & INTERNSHIPS</Text>
+                    {profileModalCandidate.seeker?.internships ? (
+                      <Text style={styles.infoValue}>💼 Internships: {profileModalCandidate.seeker.internships}</Text>
+                    ) : null}
+                    {profileModalCandidate.seeker?.experiences ? (
+                      <Text style={styles.infoValue}>🏢 Experience: {profileModalCandidate.seeker.experiences}</Text>
+                    ) : null}
+                  </View>
+                ) : null}
+
+                {/* Live Projects & Portfolio */}
+                {(profileModalCandidate.seeker?.liveProjectLink || profileModalCandidate.seeker?.liveProjectDesc) ? (
+                  <View style={styles.infoSection}>
+                    <Text style={styles.sectionHeading}>🚀 LIVE PROJECT PORTFOLIO</Text>
+                    {profileModalCandidate.seeker?.liveProjectLink ? (
+                      <TouchableOpacity
+                        style={styles.liveProjectBox}
+                        onPress={() => Linking.openURL(profileModalCandidate.seeker.liveProjectLink)}
+                      >
+                        <Text style={styles.liveProjectIcon}>🚀</Text>
+                        <View style={{ flex: 1 }}>
+                          <Text style={styles.liveProjectTitle}>Live Project URL</Text>
+                          <Text style={styles.liveProjectUrl} numberOfLines={1}>
+                            {profileModalCandidate.seeker.liveProjectLink}
+                          </Text>
+                        </View>
+                        <Text style={styles.resumeOpenText}>Test Live ↗</Text>
+                      </TouchableOpacity>
+                    ) : null}
+                    {profileModalCandidate.seeker?.liveProjectDesc ? (
+                      <Text style={styles.projectDescText}>
+                        {profileModalCandidate.seeker.liveProjectDesc}
+                      </Text>
+                    ) : null}
+                  </View>
+                ) : null}
+
                 {/* Resume PDF Document Link */}
                 <View style={styles.infoSection}>
                   <Text style={styles.sectionHeading}>RESUME DOCUMENT</Text>
@@ -597,6 +658,20 @@ const styles = StyleSheet.create({
     borderColor: '#BFDBFE',
     gap: 10,
   },
+  liveProjectBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F3E8FF',
+    padding: 12,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#DDD6FE',
+    gap: 10,
+  },
+  liveProjectIcon: { fontSize: 24 },
+  liveProjectTitle: { fontSize: 13, fontWeight: '800', color: '#6D28D9' },
+  liveProjectUrl: { fontSize: 11, color: '#7C6CF0', fontWeight: '600' },
+  projectDescText: { fontSize: 12, color: '#475569', lineHeight: 17, marginTop: 4 },
   resumeIcon: { fontSize: 24 },
   resumeTitle: { fontSize: 13, fontWeight: '800', color: '#1E40AF' },
   resumeSubtitle: { fontSize: 11, color: '#3B82F6' },

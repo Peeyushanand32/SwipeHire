@@ -235,6 +235,67 @@ export default function MobileCandidateReviewScreen() {
                   )}
                 </View>
 
+                {/* Academic Qualifications Section */}
+                <View style={styles.infoSection}>
+                  <Text style={styles.sectionHeading}>🎓 ACADEMIC QUALIFICATIONS</Text>
+                  {selectedCandidate.seeker?.underGraduation ? (
+                    <Text style={styles.infoValue}>🎓 UG: {selectedCandidate.seeker.underGraduation}</Text>
+                  ) : null}
+                  {selectedCandidate.seeker?.postGraduation ? (
+                    <Text style={styles.infoValue}>🎓 PG: {selectedCandidate.seeker.postGraduation}</Text>
+                  ) : null}
+                  {selectedCandidate.seeker?.twelfthSchool ? (
+                    <Text style={styles.infoValue}>
+                      🏫 12th: {selectedCandidate.seeker.twelfthSchool} ({selectedCandidate.seeker.twelfthBoard || 'Board'})
+                    </Text>
+                  ) : null}
+                  {selectedCandidate.seeker?.tenthSchool ? (
+                    <Text style={styles.infoValue}>
+                      🏫 10th: {selectedCandidate.seeker.tenthSchool} ({selectedCandidate.seeker.tenthBoard || 'Board'})
+                    </Text>
+                  ) : null}
+                </View>
+
+                {/* Work & Internships */}
+                {(selectedCandidate.seeker?.internships || selectedCandidate.seeker?.experiences) ? (
+                  <View style={styles.infoSection}>
+                    <Text style={styles.sectionHeading}>💼 WORK & INTERNSHIPS</Text>
+                    {selectedCandidate.seeker?.internships ? (
+                      <Text style={styles.infoValue}>💼 Internships: {selectedCandidate.seeker.internships}</Text>
+                    ) : null}
+                    {selectedCandidate.seeker?.experiences ? (
+                      <Text style={styles.infoValue}>🏢 Experience: {selectedCandidate.seeker.experiences}</Text>
+                    ) : null}
+                  </View>
+                ) : null}
+
+                {/* Live Projects & Portfolio */}
+                {(selectedCandidate.seeker?.liveProjectLink || selectedCandidate.seeker?.liveProjectDesc) ? (
+                  <View style={styles.infoSection}>
+                    <Text style={styles.sectionHeading}>🚀 LIVE PROJECT PORTFOLIO</Text>
+                    {selectedCandidate.seeker?.liveProjectLink ? (
+                      <TouchableOpacity
+                        style={styles.liveProjectBox}
+                        onPress={() => Linking.openURL(selectedCandidate.seeker.liveProjectLink)}
+                      >
+                        <Text style={styles.liveProjectIcon}>🚀</Text>
+                        <View style={{ flex: 1 }}>
+                          <Text style={styles.liveProjectTitle}>Live Project URL</Text>
+                          <Text style={styles.liveProjectUrl} numberOfLines={1}>
+                            {selectedCandidate.seeker.liveProjectLink}
+                          </Text>
+                        </View>
+                        <Text style={styles.resumeOpenText}>Test Live ↗</Text>
+                      </TouchableOpacity>
+                    ) : null}
+                    {selectedCandidate.seeker?.liveProjectDesc ? (
+                      <Text style={styles.projectDescText}>
+                        {selectedCandidate.seeker.liveProjectDesc}
+                      </Text>
+                    ) : null}
+                  </View>
+                ) : null}
+
                 {/* Resume Document Link */}
                 <View style={styles.infoSection}>
                   <Text style={styles.sectionHeading}>CANDIDATE RESUME</Text>
@@ -433,6 +494,20 @@ const styles = StyleSheet.create({
     borderColor: '#BFDBFE',
     gap: 10,
   },
+  liveProjectBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F3E8FF',
+    padding: 12,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#DDD6FE',
+    gap: 10,
+  },
+  liveProjectIcon: { fontSize: 24 },
+  liveProjectTitle: { fontSize: 13, fontWeight: '800', color: '#6D28D9' },
+  liveProjectUrl: { fontSize: 11, color: '#7C6CF0', fontWeight: '600' },
+  projectDescText: { fontSize: 12, color: '#475569', lineHeight: 17, marginTop: 4 },
   resumeIcon: { fontSize: 24 },
   resumeTitle: { fontSize: 13, fontWeight: '800', color: '#1E40AF' },
   resumeSubtitle: { fontSize: 11, color: '#3B82F6' },

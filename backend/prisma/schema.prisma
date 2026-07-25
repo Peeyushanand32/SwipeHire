@@ -32,6 +32,16 @@ model SeekerProfile {
   city           String?
   resumeUrl      String?
   avatarUrl      String?
+  tenthSchool    String?
+  tenthBoard     String?
+  twelfthSchool  String?
+  twelfthBoard   String?
+  underGraduation String?
+  postGraduation String?
+  internships    String?
+  experiences    String?
+  liveProjectLink String?
+  liveProjectDesc String?
   interests      Interest[]
   bookmarks      Bookmark[]
 }
