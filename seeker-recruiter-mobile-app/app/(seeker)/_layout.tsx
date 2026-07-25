@@ -5,6 +5,7 @@ export default function SeekerLayout() {
     <Stack screenOptions={{ headerShown: true }}>
       <Stack.Screen name="profile-setup" options={{ title: 'Complete Profile' }} />
       <Stack.Screen name="discover" options={{ title: 'Swipe Jobs' }} />
+      <Stack.Screen name="saved-jobs" options={{ title: 'Saved Jobs' }} />
       <Stack.Screen name="matches" options={{ title: 'Matches & Chats' }} />
       <Stack.Screen name="profile" options={{ title: 'Seeker Profile' }} />
     </Stack>

@@ -84,6 +84,11 @@ export default function RecruiterDashboardScreen() {
           <Text style={styles.actionText}>+ Post New Job Opening</Text>
         </TouchableOpacity>
 
+        {/* View All Posted Jobs Action */}
+        <TouchableOpacity style={styles.myJobsAction} onPress={() => router.push('/(recruiter)/my-jobs')}>
+          <Text style={styles.myJobsActionText}>📋 View All Posted Jobs →</Text>
+        </TouchableOpacity>
+
         {/* Candidate Review Action */}
         <TouchableOpacity style={styles.secondaryAction} onPress={() => router.push('/(recruiter)/candidate-review')}>
           <Text style={styles.secondaryActionText}>⚡ Review Candidate Cards →</Text>
@@ -195,6 +200,19 @@ const styles = StyleSheet.create({
   actionText: {
     color: '#FFFFFF',
     fontSize: 15,
+    fontWeight: '800',
+  },
+  myJobsAction: {
+    backgroundColor: '#F3E8FF',
+    paddingVertical: 14,
+    borderRadius: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#DDD6FE',
+  },
+  myJobsActionText: {
+    color: '#7C6CF0',
+    fontSize: 14,
     fontWeight: '800',
   },
   secondaryAction: {

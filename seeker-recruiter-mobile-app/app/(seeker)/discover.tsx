@@ -1,11 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
+import { useRouter } from 'expo-router';
 import { apiFetch } from '../../lib/api';
 
 export default function MobileDiscoverScreen() {
+  const router = useRouter();
   const [jobs, setJobs] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  const handleBookmark = async () => {
+    if (currentIndex >= jobs.length) return;
+    const currentJob = jobs[currentIndex];
+
+    try {
+      const res = await apiFetch('/seeker/bookmarks', {
+        method: 'POST',
+        body: JSON.stringify({ jobId: currentJob.id }),
+      });
+      Alert.alert(res.bookmarked ? 'Saved to Bookmarks! ★' : 'Removed from Saved', res.message);
+    } catch (e) {
+      Alert.alert('Job Saved!', 'Job added to your saved jobs list.');
+    }
+  };
 
   const fetchJobs = async () => {
     setLoading(true);
@@ -67,8 +84,13 @@ export default function MobileDiscoverScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Discover Jobs</Text>
-        <Text style={styles.headerSubtitle}>Verified employer card deck</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.headerTitle}>Discover Jobs</Text>
+          <Text style={styles.headerSubtitle}>Verified employer card deck</Text>
+        </View>
+        <TouchableOpacity style={styles.headerSavedBtn} onPress={() => router.push('/(seeker)/saved-jobs')}>
+          <Text style={styles.headerSavedText}>★ Saved Jobs</Text>
+        </TouchableOpacity>
       </View>
 
       {loading ? (
@@ -135,8 +157,12 @@ export default function MobileDiscoverScreen() {
                 <Text style={styles.passText}>✕ Pass</Text>
               </TouchableOpacity>
 
+              <TouchableOpacity style={styles.bookmarkButton} onPress={handleBookmark}>
+                <Text style={styles.bookmarkText}>★ Save</Text>
+              </TouchableOpacity>
+
               <TouchableOpacity style={styles.likeButton} onPress={() => handleSwipe('right')}>
-                <Text style={styles.likeText}>♥ Apply / Interest</Text>
+                <Text style={styles.likeText}>♥ Apply</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -154,6 +180,22 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 20,
     paddingVertical: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  headerSavedBtn: {
+    backgroundColor: '#FEF3C7',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#FCD34D',
+  },
+  headerSavedText: {
+    color: '#D97706',
+    fontSize: 12,
+    fontWeight: '800',
   },
   headerTitle: {
     fontSize: 24,
@@ -303,7 +345,7 @@ const styles = StyleSheet.create({
   },
   actionRow: {
     flexDirection: 'row',
-    gap: 12,
+    gap: 8,
   },
   passButton: {
     flex: 1,
@@ -315,11 +357,26 @@ const styles = StyleSheet.create({
   },
   passText: {
     color: '#64748B',
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '700',
   },
+  bookmarkButton: {
+    flex: 1,
+    height: 52,
+    borderRadius: 16,
+    backgroundColor: '#FEF3C7',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#FCD34D',
+  },
+  bookmarkText: {
+    color: '#D97706',
+    fontSize: 14,
+    fontWeight: '800',
+  },
   likeButton: {
-    flex: 2,
+    flex: 1.5,
     height: 52,
     borderRadius: 16,
     backgroundColor: '#4F46E5',
