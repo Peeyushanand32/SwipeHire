@@ -91,13 +91,16 @@ export default function RecruiterCandidateReviewPage() {
     }
   }, [selectedJobId]);
 
-  const handlePass = async (interestId: string) => {
+  const handleReject = async (interestId: string) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`/api/interests/${interestId}/pass`, {
+      const res = await fetch(`/api/interests/${interestId}/pass`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });
+      if (res.ok) {
+        alert('❌ Application Rejected! Notification alert sent to seeker.');
+      }
       setQueue((prev) => prev.filter((item) => item.interestId !== interestId));
     } catch (err) {
       console.error(err);
@@ -295,10 +298,10 @@ export default function RecruiterCandidateReviewPage() {
               {/* Action Buttons */}
               <div className="pt-3 flex items-center gap-2 border-t border-[#EFECFF]">
                 <button
-                  onClick={() => handlePass(item.interestId)}
-                  className="flex-1 py-2.5 rounded-full border border-[#E8E5FF] text-[#777587] hover:text-[#BA1A1A] hover:bg-[#FFDAD6]/30 text-xs font-bold transition-colors"
+                  onClick={() => handleReject(item.interestId)}
+                  className="flex-1 py-2.5 rounded-full border border-[#FFDAD6] text-[#BA1A1A] hover:bg-[#FFDAD6]/30 text-xs font-bold transition-colors"
                 >
-                  Pass
+                  ✕ Reject
                 </button>
                 <button
                   onClick={() => handleShortlist(item.interestId)}

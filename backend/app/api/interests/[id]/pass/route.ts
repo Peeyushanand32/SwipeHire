@@ -8,14 +8,17 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     if (!user) return unauthorizedResponse();
 
     if (user.role !== 'RECRUITER' || !user.recruiterProfile) {
-      return forbiddenResponse('Only recruiters can pass candidates');
+      return forbiddenResponse('Only recruiters can reject candidate applications');
     }
 
     const interestId = params.id;
 
     const interest = await prisma.interest.findUnique({
       where: { id: interestId },
-      include: { job: true },
+      include: {
+        seeker: true,
+        job: { include: { company: true } },
+      },
     });
 
     if (!interest) {
@@ -26,17 +29,35 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       return forbiddenResponse('Access denied');
     }
 
-    // Rule 4: Pass -> passed = true; removed from queue; no seeker notification.
-    const updated = await prisma.interest.update({
-      where: { id: interestId },
-      data: {
-        passed: true,
-        passedAt: new Date(),
-      },
+    // Mark application as rejected and send notification alert to Seeker
+    const updated = await prisma.$transaction(async (tx) => {
+      const res = await tx.interest.update({
+        where: { id: interestId },
+        data: {
+          passed: true,
+          passedAt: new Date(),
+          status: 'REJECTED',
+        },
+      });
+
+      await tx.notification.create({
+        data: {
+          userId: interest.seeker.userId,
+          type: 'REJECTED',
+          body: `❌ Application Update: Aapki application "${interest.job.title}" (${interest.job.company.name}) position ke liye reject kar di gayi hai.`,
+        },
+      });
+
+      return res;
     });
 
-    return NextResponse.json({ success: true, interest: updated });
+    return NextResponse.json({
+      success: true,
+      message: 'Application rejected and notification sent to seeker.',
+      interest: updated,
+    });
   } catch (error: any) {
+    console.error('Reject candidate error:', error);
     return errorResponse(error.message || 'Internal server error', 500);
   }
 }

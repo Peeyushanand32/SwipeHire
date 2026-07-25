@@ -79,13 +79,13 @@ export default function MobileCandidateReviewScreen() {
     }
   };
 
-  const handlePass = async (interestId: string) => {
+  const handleReject = async (interestId: string) => {
     setCandidates((prev) => prev.filter((c) => c.id !== interestId));
     try {
-      await apiFetch(`/interests/${interestId}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ passed: true }),
+      await apiFetch(`/interests/${interestId}/pass`, {
+        method: 'POST',
       });
+      Alert.alert('Application Rejected ❌', 'Candidate application rejected. Notification alert sent to seeker.');
     } catch (e) {
       console.log(e);
     }
@@ -147,8 +147,8 @@ export default function MobileCandidateReviewScreen() {
 
                 {/* Card Quick Actions */}
                 <View style={styles.btnRow}>
-                  <TouchableOpacity style={styles.passBtn} onPress={() => handlePass(c.id)}>
-                    <Text style={styles.passText}>✕ Pass</Text>
+                  <TouchableOpacity style={styles.passBtn} onPress={() => handleReject(c.id)}>
+                    <Text style={styles.passText}>✕ Reject</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
