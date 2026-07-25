@@ -6,12 +6,12 @@ import { apiFetch } from '../lib/api';
 
 export default function MobileLoginScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ role?: string }>();
+  const params = useLocalSearchParams<{ role?: string; email?: string }>();
   
   const [role, setRole] = useState<'SEEKER' | 'RECRUITER'>(
     params.role === 'RECRUITER' ? 'RECRUITER' : 'SEEKER'
   );
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(params.email || '');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -19,11 +19,15 @@ export default function MobileLoginScreen() {
     if (params.role === 'RECRUITER' || params.role === 'SEEKER') {
       setRole(params.role);
     }
-  }, [params.role]);
+    if (params.email) {
+      setEmail(params.email);
+    }
+  }, [params.role, params.email]);
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      Alert.alert('Missing Fields', 'Please enter your email and password.');
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail || !password) {
+      Alert.alert('Missing Fields', 'Please enter your email address and password.');
       return;
     }
 
@@ -31,7 +35,7 @@ export default function MobileLoginScreen() {
     try {
       const response = await apiFetch('/auth/login', {
         method: 'POST',
-        body: JSON.stringify({ email, password, role }),
+        body: JSON.stringify({ email: cleanEmail, password, role }),
       });
 
       await saveAuthSession(response.token, response.user);
@@ -42,7 +46,17 @@ export default function MobileLoginScreen() {
         router.replace('/(seeker)/discover');
       }
     } catch (err: any) {
-      Alert.alert('Login Failed', err.message || 'Invalid email or password.');
+      Alert.alert(
+        'Login Failed',
+        err.message || 'Invalid email or password.',
+        [
+          { text: 'Try Again', style: 'cancel' },
+          {
+            text: 'Create New Account',
+            onPress: () => router.push({ pathname: '/signup', params: { role } }),
+          },
+        ]
+      );
     } finally {
       setLoading(false);
     }

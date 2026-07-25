@@ -24,7 +24,8 @@ export default function MobileSignupScreen() {
   }, [params.role]);
 
   const handleSignup = async () => {
-    if (!fullName || !email || !password) {
+    const cleanEmail = email.trim().toLowerCase();
+    if (!fullName || !cleanEmail || !password) {
       Alert.alert('Missing Fields', 'Please fill in your name, email, and password.');
       return;
     }
@@ -35,7 +36,7 @@ export default function MobileSignupScreen() {
         method: 'POST',
         body: JSON.stringify({
           fullName,
-          email,
+          email: cleanEmail,
           password,
           role,
         }),
@@ -43,7 +44,6 @@ export default function MobileSignupScreen() {
 
       await saveAuthSession(response.token, response.user);
 
-      // Redirect immediately to mandatory Profile Completion (Step 2)
       if (role === 'RECRUITER') {
         Alert.alert(
           'Account Created! Step 2/2',
@@ -58,12 +58,21 @@ export default function MobileSignupScreen() {
         router.replace('/(seeker)/profile-setup');
       }
     } catch (err: any) {
-      // Demo fallback if backend API server is offline
-      await saveAuthSession('demo_token', { fullName, email, role });
-      if (role === 'RECRUITER') {
-        router.replace('/(recruiter)/company-setup');
+      const errorMessage = err.message || '';
+      if (errorMessage.toLowerCase().includes('already exists')) {
+        Alert.alert(
+          'Account Already Exists',
+          `An account with email "${cleanEmail}" is already registered. Would you like to Sign In instead?`,
+          [
+            { text: 'Use Different Email', style: 'cancel' },
+            {
+              text: 'Sign In Now',
+              onPress: () => router.push({ pathname: '/login', params: { role, email: cleanEmail } }),
+            },
+          ]
+        );
       } else {
-        router.replace('/(seeker)/profile-setup');
+        Alert.alert('Signup Error', errorMessage || 'Could not complete registration. Please check your network connection.');
       }
     } finally {
       setLoading(false);
