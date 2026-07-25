@@ -97,12 +97,6 @@ export async function POST(req: NextRequest) {
       return errorResponse('Title and description are required', 400);
     }
 
-    // Auto-verify company so recruiter's newly published job appears in seeker feed instantly
-    await prisma.company.update({
-      where: { id: companyId },
-      data: { status: 'VERIFIED' },
-    });
-
     const parsedSkills = Array.isArray(skills) ? JSON.stringify(skills) : JSON.stringify([]);
 
     // Safely cap salary integers to prevent 32-bit INT database overflow

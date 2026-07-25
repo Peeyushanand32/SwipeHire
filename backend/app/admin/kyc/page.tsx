@@ -134,10 +134,13 @@ export default function AdminKycPage() {
                 {recruiter && (
                   <div className="p-3 rounded-2xl bg-[#121223] text-xs space-y-1">
                     <p className="text-[#C7C4D8]">
-                      Recruiter: <strong className="text-white">{recruiter.fullName}</strong>
+                      👤 Recruiter Name: <strong className="text-white">{recruiter.fullName}</strong>
                     </p>
                     <p className="text-[#C7C4D8]">
-                      Email: <strong className="text-white">{recruiter.user.email}</strong>
+                      ✉️ Email: <strong className="text-white">{recruiter.user.email}</strong>
+                    </p>
+                    <p className="text-[#C7C4D8]">
+                      📞 Phone: <strong className="text-white">{recruiter.user.phone || 'Not Provided'}</strong>
                     </p>
                   </div>
                 )}
