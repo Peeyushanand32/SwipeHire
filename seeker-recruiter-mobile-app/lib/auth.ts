@@ -1,8 +1,8 @@
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 
-const TOKEN_KEY = 'swipehire_recruiter_token';
-const USER_KEY = 'swipehire_recruiter_user';
+const TOKEN_KEY = 'swipehire_auth_token';
+const USER_KEY = 'swipehire_auth_user';
 
 export async function saveAuthSession(token: string, user: any) {
   try {

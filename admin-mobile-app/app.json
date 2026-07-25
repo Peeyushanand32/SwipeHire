@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "SwipeHire Admin Console",
+    "owner": "peeyushanand32",
     "slug": "swipehire-admin",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,12 +13,19 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.swipehire.admin",
       "permissions": [
         "android.permission.DETECT_SCREEN_CAPTURE"
       ]
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "2177dc3a-5986-4b57-88a8-ac454f675353"
+      }
+    }
   }
 }

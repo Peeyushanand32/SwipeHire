@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
-
-const API_BASE = 'http://10.14.254.189:3000'; // Android emulator localhost alias or server IP
+import { apiFetch } from '../../lib/api';
 
 export default function MobileDiscoverScreen() {
   const [jobs, setJobs] = useState<any[]>([]);
@@ -11,12 +10,33 @@ export default function MobileDiscoverScreen() {
   const fetchJobs = async () => {
     setLoading(true);
     try {
-      // In production, token is loaded via SecureStore
-      const res = await fetch(`${API_BASE}/api/feed`);
-      const data = await res.json();
+      const data = await apiFetch('/feed');
       setJobs(data.jobs || []);
     } catch (err) {
       console.log('Error fetching mobile feed:', err);
+      // Fallback sample data if offline/demo
+      setJobs([
+        {
+          id: '1',
+          title: 'Senior Frontend Engineer',
+          company: { name: 'TechCorp Solutions' },
+          city: 'Bengaluru',
+          description: 'Build high performance web applications using Next.js & React Native.',
+          skills: ['React', 'TypeScript', 'Node.js'],
+          salaryMin: 1800000,
+          salaryMax: 2800000,
+        },
+        {
+          id: '2',
+          title: 'Mobile App Developer',
+          company: { name: 'InnovateX' },
+          city: 'Remote / Delhi',
+          description: 'Craft beautiful native mobile experiences for iOS & Android with Expo.',
+          skills: ['Expo', 'React Native', 'Tailwind'],
+          salaryMin: 1500000,
+          salaryMax: 2200000,
+        }
+      ]);
     } finally {
       setLoading(false);
     }
@@ -31,9 +51,8 @@ export default function MobileDiscoverScreen() {
     const currentJob = jobs[currentIndex];
 
     try {
-      await fetch(`${API_BASE}/api/swipe`, {
+      await apiFetch('/swipe', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ jobId: currentJob.id, direction }),
       });
     } catch (e) {
@@ -72,13 +91,13 @@ export default function MobileDiscoverScreen() {
             <View style={styles.companyHeader}>
               <View style={styles.avatar}>
                 <Text style={styles.avatarText}>
-                  {currentJob.company.name.slice(0, 2).toUpperCase()}
+                  {currentJob.company?.name ? currentJob.company.name.slice(0, 2).toUpperCase() : 'TC'}
                 </Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={styles.jobTitle}>{currentJob.title}</Text>
                 <Text style={styles.companyName}>
-                  {currentJob.company.name} • {currentJob.city || 'Remote'}
+                  {currentJob.company?.name || 'Company'} • {currentJob.city || 'Remote'}
                 </Text>
               </View>
               <View style={styles.verifiedBadge}>
@@ -106,24 +125,18 @@ export default function MobileDiscoverScreen() {
               <Text style={styles.salaryText}>
                 {currentJob.salaryMin && currentJob.salaryMax
                   ? `₹${currentJob.salaryMin.toLocaleString()} - ₹${currentJob.salaryMax.toLocaleString()} / yr`
-                  : 'Competitive Salary'}
+                  : 'Competitive Package'}
               </Text>
             </View>
 
-            {/* Buttons */}
+            {/* Action buttons */}
             <View style={styles.actionRow}>
-              <TouchableOpacity
-                style={styles.passButton}
-                onPress={() => handleSwipe('left')}
-              >
-                <Text style={styles.passText}>✕</Text>
+              <TouchableOpacity style={styles.passButton} onPress={() => handleSwipe('left')}>
+                <Text style={styles.passText}>✕ Pass</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.likeButton}
-                onPress={() => handleSwipe('right')}
-              >
-                <Text style={styles.likeText}>♥</Text>
+              <TouchableOpacity style={styles.likeButton} onPress={() => handleSwipe('right')}>
+                <Text style={styles.likeText}>♥ Apply / Interest</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -136,7 +149,7 @@ export default function MobileDiscoverScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FCF8FF',
+    backgroundColor: '#F8FAFC',
   },
   header: {
     paddingHorizontal: 20,
@@ -145,11 +158,11 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: '800',
-    color: '#1A1A2E',
+    color: '#0F172A',
   },
   headerSubtitle: {
     fontSize: 12,
-    color: '#464555',
+    color: '#64748B',
   },
   center: {
     flex: 1,
@@ -158,7 +171,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 12,
-    color: '#777587',
+    color: '#64748B',
     marginTop: 8,
   },
   emptyCard: {
@@ -173,40 +186,40 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1A1A2E',
+    color: '#0F172A',
   },
   emptySubtitle: {
     fontSize: 12,
-    color: '#464555',
+    color: '#64748B',
     textAlign: 'center',
     marginTop: 4,
     marginBottom: 20,
   },
   resetButton: {
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 9999,
     backgroundColor: '#4F46E5',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 12,
   },
   resetButtonText: {
     color: '#FFFFFF',
-    fontSize: 14,
     fontWeight: '700',
   },
   cardContainer: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    padding: 16,
   },
   card: {
     flex: 1,
     backgroundColor: '#FFFFFF',
     borderRadius: 24,
     padding: 20,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
     justifyContent: 'space-between',
-    shadowColor: '#1A1A2E',
+    shadowColor: '#0F172A',
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.05,
     shadowRadius: 16,
     elevation: 4,
   },
@@ -214,14 +227,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    paddingBottom: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#EFECFF',
   },
   avatar: {
     width: 48,
     height: 48,
-    borderRadius: 16,
+    borderRadius: 14,
     backgroundColor: '#4F46E5',
     alignItems: 'center',
     justifyContent: 'center',
@@ -234,99 +244,91 @@ const styles = StyleSheet.create({
   jobTitle: {
     fontSize: 16,
     fontWeight: '800',
-    color: '#1A1A2E',
+    color: '#0F172A',
   },
   companyName: {
     fontSize: 12,
-    color: '#464555',
+    color: '#64748B',
     marginTop: 2,
   },
   verifiedBadge: {
+    backgroundColor: '#DCFCE7',
     paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 9999,
-    backgroundColor: '#F0FDF4',
+    borderRadius: 6,
   },
   verifiedText: {
-    fontSize: 9,
+    fontSize: 10,
     fontWeight: '800',
-    color: '#22C55E',
+    color: '#16A34A',
   },
   contentBody: {
+    flex: 1,
     marginVertical: 16,
-    gap: 8,
+    justifyContent: 'center',
   },
   sectionLabel: {
     fontSize: 10,
     fontWeight: '800',
-    color: '#777587',
-    marginTop: 8,
+    color: '#94A3B8',
+    letterSpacing: 0.5,
+    marginTop: 12,
+    marginBottom: 4,
   },
   description: {
-    fontSize: 12,
-    color: '#464555',
-    lineHeight: 18,
+    fontSize: 14,
+    color: '#334155',
+    lineHeight: 20,
   },
   skillsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 6,
-    marginTop: 4,
   },
   skillChip: {
+    backgroundColor: '#F1F5F9',
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 9999,
-    backgroundColor: '#EFECFF',
+    borderRadius: 8,
   },
   skillText: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '600',
-    color: '#4F46E5',
+    color: '#475569',
   },
   salaryText: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '800',
-    color: '#1A1A2E',
-    marginTop: 2,
+    color: '#4F46E5',
   },
   actionRow: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 24,
-    paddingTop: 12,
-    borderTopWidth: 1,
-    borderTopColor: '#EFECFF',
+    gap: 12,
   },
   passButton: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#FEF3C7',
+    flex: 1,
+    height: 52,
+    borderRadius: 16,
+    backgroundColor: '#F1F5F9',
     alignItems: 'center',
     justifyContent: 'center',
   },
   passText: {
-    fontSize: 24,
+    color: '#64748B',
+    fontSize: 15,
     fontWeight: '700',
-    color: '#D97706',
   },
   likeButton: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: '#FF6B5C',
+    flex: 2,
+    height: 52,
+    borderRadius: 16,
+    backgroundColor: '#4F46E5',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#FF6B5C',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
   },
   likeText: {
-    fontSize: 32,
-    fontWeight: '700',
     color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '800',
   },
 });

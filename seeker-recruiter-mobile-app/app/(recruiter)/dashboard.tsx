@@ -1,28 +1,69 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
-import { clearAuthSession } from '../lib/auth';
-import { useAuthGuard } from '../lib/useAuthGuard';
+import { clearAuthSession, getAuthUser } from '../../lib/auth';
+import { apiFetch } from '../../lib/api';
 
 export default function RecruiterDashboardScreen() {
-  const { isAuthenticated, user } = useAuthGuard();
   const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+  const [company, setCompany] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  const loadData = async () => {
+    setLoading(true);
+    try {
+      const authUser = await getAuthUser();
+      setUser(authUser);
+
+      const compData = await apiFetch('/company/profile');
+      setCompany(compData.company);
+    } catch (err) {
+      console.log('Error fetching recruiter company details:', err);
+      // Fallback display state
+      setCompany({
+        name: user?.recruiterProfile?.company?.name || 'Your Company',
+        status: 'PENDING', // PENDING or VERIFIED
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const isVerified = company?.status === 'VERIFIED';
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
+        {/* Company Header */}
         <View style={styles.companyHeader}>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>RECRUITER CONSOLE</Text>
           </View>
-          <Text style={styles.title}>TechCorp Solutions</Text>
-          <Text style={styles.statusText}>✓ Verified Employer • Pro Subscription</Text>
+          <Text style={styles.title}>{company?.name || 'Company Account'}</Text>
+          
+          {/* Status Badge */}
+          {isVerified ? (
+            <Text style={styles.verifiedStatusText}>✓ Verified Employer • Jobs Live on Seekers Feed</Text>
+          ) : (
+            <View style={styles.pendingBanner}>
+              <Text style={styles.pendingTitle}>⏳ Verification Pending from Admin</Text>
+              <Text style={styles.pendingDesc}>
+                Your company details are under review by Admin (App & Website). Posted jobs will go live once verified.
+              </Text>
+            </View>
+          )}
         </View>
 
+        {/* Quick Metrics */}
         <View style={styles.statsGrid}>
           <View style={styles.statCard}>
             <Text style={styles.statNumber}>12</Text>
-            <Text style={styles.statLabel}>Active Job Posts</Text>
+            <Text style={styles.statLabel}>Active Jobs</Text>
           </View>
           <View style={styles.statCard}>
             <Text style={styles.statNumber}>148</Text>
@@ -30,7 +71,7 @@ export default function RecruiterDashboardScreen() {
           </View>
           <View style={styles.statCard}>
             <Text style={styles.statNumber}>24</Text>
-            <Text style={styles.statLabel}>Matches Made</Text>
+            <Text style={styles.statLabel}>Shortlisted Matches</Text>
           </View>
           <View style={styles.statCard}>
             <Text style={styles.statNumber}>8</Text>
@@ -38,36 +79,15 @@ export default function RecruiterDashboardScreen() {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.primaryAction} onPress={() => router.push('/post-job')}>
+        {/* Post Job Action */}
+        <TouchableOpacity style={styles.primaryAction} onPress={() => router.push('/(recruiter)/post-job')}>
           <Text style={styles.actionText}>+ Post New Job Opening</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.secondaryAction} onPress={() => router.push('/candidate-review')}>
+        {/* Candidate Review Action */}
+        <TouchableOpacity style={styles.secondaryAction} onPress={() => router.push('/(recruiter)/candidate-review')}>
           <Text style={styles.secondaryActionText}>⚡ Review Candidate Cards →</Text>
         </TouchableOpacity>
-
-        <View style={styles.recentSection}>
-          <Text style={styles.sectionTitle}>ACTIVE JOB POSTINGS</Text>
-          <View style={styles.jobRow}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.jobTitle}>Senior Frontend Engineer</Text>
-              <Text style={styles.jobMeta}>Bengaluru • ₹18L - ₹28L</Text>
-            </View>
-            <View style={styles.applicantBadge}>
-              <Text style={styles.applicantText}>42 Applicants</Text>
-            </View>
-          </View>
-
-          <View style={styles.jobRow}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.jobTitle}>React Native Mobile Developer</Text>
-              <Text style={styles.jobMeta}>Remote / Delhi • ₹15L - ₹22L</Text>
-            </View>
-            <View style={styles.applicantBadge}>
-              <Text style={styles.applicantText}>28 Applicants</Text>
-            </View>
-          </View>
-        </View>
 
         <TouchableOpacity
           style={styles.logoutButton}
@@ -118,11 +138,30 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: '#0F172A',
   },
-  statusText: {
+  verifiedStatusText: {
     fontSize: 12,
     color: '#10B981',
     fontWeight: '700',
-    marginTop: 4,
+    marginTop: 6,
+  },
+  pendingBanner: {
+    backgroundColor: '#FEF3C7',
+    borderWidth: 1,
+    borderColor: '#FCD34D',
+    borderRadius: 12,
+    padding: 12,
+    marginTop: 10,
+  },
+  pendingTitle: {
+    color: '#92400E',
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  pendingDesc: {
+    color: '#B45309',
+    fontSize: 11,
+    marginTop: 2,
+    lineHeight: 15,
   },
   statsGrid: {
     flexDirection: 'row',
@@ -169,58 +208,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '800',
   },
-  recentSection: {
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    gap: 12,
-  },
-  sectionTitle: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: '#94A3B8',
-    letterSpacing: 0.5,
-  },
-  jobRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F5F9',
-  },
-  jobTitle: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: '#0F172A',
-  },
-  jobMeta: {
-    fontSize: 11,
-    color: '#64748B',
-    marginTop: 2,
-  },
-  applicantBadge: {
-    backgroundColor: '#F1F5F9',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-  },
-  applicantText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#475569',
-  },
   logoutButton: {
-    backgroundColor: '#FEE2E2',
     paddingVertical: 14,
-    borderRadius: 14,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 8,
   },
   logoutText: {
     color: '#EF4444',
-    fontWeight: '800',
-    fontSize: 14,
+    fontSize: 13,
+    fontWeight: '700',
   },
 });
