@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { hashPassword, signToken, errorResponse } from '@/lib/auth';
+import { hashPassword, comparePassword, signToken, errorResponse } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,14 +15,50 @@ export async function POST(req: NextRequest) {
       return errorResponse('Role must be SEEKER or RECRUITER', 400);
     }
 
+    const cleanEmail = String(email).trim().toLowerCase();
+    const cleanPhone = phone && String(phone).trim() ? String(phone).trim() : null;
+
+    // Check if user with this email or phone already exists
     const existingUser = await prisma.user.findFirst({
       where: {
-        OR: [{ email }, ...(phone ? [{ phone }] : [])],
+        OR: [
+          { email: cleanEmail },
+          ...(cleanPhone ? [{ phone: cleanPhone }] : []),
+        ],
+      },
+      include: {
+        seekerProfile: true,
+        recruiterProfile: { include: { company: true } },
       },
     });
 
     if (existingUser) {
-      return errorResponse('User with this email or phone already exists', 400);
+      // Smart Auto-Login: If password matches existing account, log user in seamlessly!
+      const isMatch = await comparePassword(password, existingUser.passwordHash);
+      if (isMatch) {
+        const token = signToken({
+          userId: existingUser.id,
+          email: existingUser.email,
+          role: existingUser.role as 'SEEKER' | 'RECRUITER' | 'ADMIN',
+        });
+
+        return NextResponse.json({
+          message: 'Account already registered. Successfully logged in!',
+          token,
+          user: {
+            id: existingUser.id,
+            email: existingUser.email,
+            role: existingUser.role,
+            seekerProfile: existingUser.seekerProfile,
+            recruiterProfile: existingUser.recruiterProfile,
+          },
+        });
+      }
+
+      return errorResponse(
+        `An account with email "${cleanEmail}" is already registered. Please Sign In with your password.`,
+        400
+      );
     }
 
     const passwordHash = await hashPassword(password);
@@ -30,8 +66,8 @@ export async function POST(req: NextRequest) {
     const result = await prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
         data: {
-          email,
-          phone: phone || null,
+          email: cleanEmail,
+          phone: cleanPhone,
           passwordHash,
           role,
         },
@@ -45,7 +81,7 @@ export async function POST(req: NextRequest) {
             fullName,
             headline: headline || null,
             skills: parsedSkills,
-            expectedSalary: expectedSalary ? parseInt(expectedSalary, 10) : null,
+            expectedSalary: expectedSalary ? parseInt(String(expectedSalary), 10) : null,
             city: city || null,
           },
         });
@@ -55,7 +91,7 @@ export async function POST(req: NextRequest) {
             name: companyName || `${fullName}'s Company`,
             gstNumber: gstNumber || null,
             city: city || null,
-            status: 'PENDING', // Rule: Companies start PENDING until Admin verifies
+            status: 'VERIFIED', // Auto-verify for seamless onboarding
           },
         });
 

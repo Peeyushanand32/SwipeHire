@@ -44,10 +44,20 @@ export default function MobileSignupScreen() {
 
       await saveAuthSession(response.token, response.user);
 
+      if (response.message?.includes('logged in')) {
+        Alert.alert('Welcome Back! 👋', 'Account found and logged in successfully.');
+        if (response.user.role === 'RECRUITER') {
+          router.replace('/(recruiter)/dashboard');
+        } else {
+          router.replace('/(seeker)/discover');
+        }
+        return;
+      }
+
       if (role === 'RECRUITER') {
         Alert.alert(
           'Account Created! Step 2/2',
-          'Please complete your company details and GST for Admin KYC approval.'
+          'Please complete your company details for Employer Console access.'
         );
         router.replace('/(recruiter)/company-setup');
       } else {
