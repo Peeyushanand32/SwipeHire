@@ -17,38 +17,57 @@ export default function RecruiterDashboardPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) return;
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
 
-        const [compRes, jobsRes] = await Promise.all([
-          fetch('/api/company', { headers: { Authorization: `Bearer ${token}` } }),
-          fetch('/api/jobs', { headers: { Authorization: `Bearer ${token}` } }),
-        ]);
+      const [compRes, jobsRes] = await Promise.all([
+        fetch('/api/company', { headers: { Authorization: `Bearer ${token}` } }),
+        fetch('/api/jobs', { headers: { Authorization: `Bearer ${token}` } }),
+      ]);
 
-        if (compRes.ok) {
-          const compData = await compRes.json();
-          setCompany(compData.company);
-        }
-
-        if (jobsRes.ok) {
-          const jobsData = await jobsRes.json();
-          setJobs(jobsData.jobs || []);
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+      if (compRes.ok) {
+        const compData = await compRes.json();
+        setCompany(compData.company);
       }
-    };
 
+      if (jobsRes.ok) {
+        const jobsData = await jobsRes.json();
+        setJobs(jobsData.jobs || []);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
+  const handleDeleteJob = async (jobId: string, title: string) => {
+    if (!window.confirm(`Are you sure you want to permanently delete "${title}"?`)) {
+      return;
+    }
+
+    setJobs((prev) => prev.filter((j) => j.id !== jobId));
+
+    try {
+      const token = localStorage.getItem('token');
+      await fetch(`/api/jobs/${jobId}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      alert(`Job "${title}" deleted successfully.`);
+    } catch (err) {
+      console.error('Failed to delete job:', err);
+    }
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-sans">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -102,7 +121,7 @@ export default function RecruiterDashboardPage() {
       <div className="grid grid-cols-3 gap-6">
         <div className="p-6 rounded-3xl bg-white card-shadow border border-[#E8E5FF]">
           <div className="w-10 h-10 rounded-2xl bg-[#EFECFF] text-[#4F46E5] flex items-center justify-center text-xl font-bold mb-3">
-            work
+            💼
           </div>
           <div className="text-3xl font-black text-[#1A1A2E]">{jobs.length}</div>
           <p className="text-xs text-[#464555] font-medium mt-1">Total Jobs Posted</p>
@@ -110,7 +129,7 @@ export default function RecruiterDashboardPage() {
 
         <div className="p-6 rounded-3xl bg-white card-shadow border border-[#E8E5FF]">
           <div className="w-10 h-10 rounded-2xl bg-[#FF6B5C]/10 text-[#FF6B5C] flex items-center justify-center text-xl font-bold mb-3">
-            favorite
+            ❤️
           </div>
           <div className="text-3xl font-black text-[#1A1A2E]">
             {jobs.reduce((acc, j) => acc + j.applicantCount, 0)}
@@ -120,7 +139,7 @@ export default function RecruiterDashboardPage() {
 
         <div className="p-6 rounded-3xl bg-white card-shadow border border-[#E8E5FF]">
           <div className="w-10 h-10 rounded-2xl bg-[#22C55E]/10 text-[#22C55E] flex items-center justify-center text-xl font-bold mb-3">
-            verified
+            ✓
           </div>
           <div className="text-3xl font-black text-[#1A1A2E]">{company?.status || 'PENDING'}</div>
           <p className="text-xs text-[#464555] font-medium mt-1">KYC Account Status</p>
@@ -152,8 +171,8 @@ export default function RecruiterDashboardPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <div className="text-right">
+                <div className="flex items-center gap-3">
+                  <div className="text-right mr-2">
                     <span className="text-xs font-bold text-[#1A1A2E]">{job.applicantCount} applicants</span>
                     <span className="block text-[10px] text-[#777587]">swiped interested</span>
                   </div>
@@ -164,6 +183,14 @@ export default function RecruiterDashboardPage() {
                   >
                     Review Applicants →
                   </Link>
+
+                  <button
+                    onClick={() => handleDeleteJob(job.id, job.title)}
+                    className="px-3.5 py-2 rounded-full border border-[#FFDAD6] text-[#BA1A1A] hover:bg-[#FFDAD6]/30 text-xs font-bold transition-colors"
+                    title="Delete Job Listing"
+                  >
+                    🗑️ Delete
+                  </button>
                 </div>
               </div>
             ))}
