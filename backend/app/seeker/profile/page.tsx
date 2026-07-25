@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 
 export default function SeekerProfilePage() {
   const router = useRouter();
+
+  // Basic Profile State
   const [fullName, setFullName] = useState('');
   const [headline, setHeadline] = useState('');
   const [skills, setSkills] = useState('');
@@ -14,7 +16,23 @@ export default function SeekerProfilePage() {
   const [avatarUrl, setAvatarUrl] = useState('');
   const [phone, setPhone] = useState('');
 
-  // Resume & Avatar File State
+  // Academic Education State
+  const [tenthSchool, setTenthSchool] = useState('');
+  const [tenthBoard, setTenthBoard] = useState('');
+  const [twelfthSchool, setTwelfthSchool] = useState('');
+  const [twelfthBoard, setTwelfthBoard] = useState('');
+  const [underGraduation, setUnderGraduation] = useState('');
+  const [postGraduation, setPostGraduation] = useState('');
+
+  // Work & Internships State
+  const [internships, setInternships] = useState('');
+  const [experiences, setExperiences] = useState('');
+
+  // Live Project Portfolio State
+  const [liveProjectLink, setLiveProjectLink] = useState('');
+  const [liveProjectDesc, setLiveProjectDesc] = useState('');
+
+  // Upload States
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadingResume, setUploadingResume] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
@@ -48,11 +66,23 @@ export default function SeekerProfilePage() {
             const p = data.user.seekerProfile;
             setFullName(p.fullName || '');
             setHeadline(p.headline || '');
-            setSkills(Array.isArray(p.skills) ? p.skills.join(', ') : '');
+            setSkills(Array.isArray(p.skills) ? p.skills.join(', ') : p.skills || '');
             setExpectedSalary(p.expectedSalary ? String(p.expectedSalary) : '');
             setCity(p.city || '');
             setResumeUrl(p.resumeUrl || '');
             setAvatarUrl(p.avatarUrl || '');
+
+            setTenthSchool(p.tenthSchool || '');
+            setTenthBoard(p.tenthBoard || '');
+            setTwelfthSchool(p.twelfthSchool || '');
+            setTwelfthBoard(p.twelfthBoard || '');
+            setUnderGraduation(p.underGraduation || '');
+            setPostGraduation(p.postGraduation || '');
+
+            setInternships(p.internships || '');
+            setExperiences(p.experiences || '');
+            setLiveProjectLink(p.liveProjectLink || '');
+            setLiveProjectDesc(p.liveProjectDesc || '');
           }
         }
       } catch (err) {
@@ -137,7 +167,7 @@ export default function SeekerProfilePage() {
 
     try {
       const token = localStorage.getItem('token');
-      const parsedSkills = skills ? skills.split(',').map((s) => s.trim()) : [];
+      const parsedSkills = skills ? skills.split(',').map((s) => s.trim()).filter(Boolean) : [];
 
       const res = await fetch('/api/profile', {
         method: 'PATCH',
@@ -146,19 +176,29 @@ export default function SeekerProfilePage() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          fullName,
-          headline,
+          fullName: fullName.trim(),
+          headline: headline.trim(),
           skills: parsedSkills,
           expectedSalary: expectedSalary ? parseInt(expectedSalary, 10) : null,
-          city,
+          city: city.trim(),
           resumeUrl,
           avatarUrl,
           phone,
+          tenthSchool: tenthSchool.trim(),
+          tenthBoard: tenthBoard.trim(),
+          twelfthSchool: twelfthSchool.trim(),
+          twelfthBoard: twelfthBoard.trim(),
+          underGraduation: underGraduation.trim(),
+          postGraduation: postGraduation.trim(),
+          internships: internships.trim(),
+          experiences: experiences.trim(),
+          liveProjectLink: liveProjectLink.trim(),
+          liveProjectDesc: liveProjectDesc.trim(),
         }),
       });
 
       if (res.ok) {
-        setMessage('Profile updated successfully!');
+        setMessage('Complete profile updated successfully!');
       } else {
         setMessage('Failed to update profile.');
       }
@@ -171,10 +211,12 @@ export default function SeekerProfilePage() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 font-sans">
       <div>
-        <h1 className="text-xl font-black text-[#1A1A2E]">Profile Settings</h1>
-        <p className="text-xs text-[#464555]">Manage your profile photo, bio, skills, and resume upload</p>
+        <h1 className="text-xl font-black text-[#1A1A2E]">Comprehensive Profile Settings</h1>
+        <p className="text-xs text-[#464555]">
+          Manage academic history, internships, work experience, live project link, and resume file
+        </p>
       </div>
 
       {loading ? (
@@ -182,7 +224,7 @@ export default function SeekerProfilePage() {
           Loading profile details...
         </div>
       ) : (
-        <form onSubmit={handleSave} className="w-full bg-white rounded-3xl p-6 card-shadow border border-[#E8E5FF] space-y-4">
+        <form onSubmit={handleSave} className="w-full bg-white rounded-3xl p-6 card-shadow border border-[#E8E5FF] space-y-6">
           {message && (
             <div className="p-3 rounded-xl bg-[#22C55E]/10 text-[#22C55E] text-xs font-bold text-center">
               {message}
@@ -256,68 +298,190 @@ export default function SeekerProfilePage() {
             </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#464555] mb-1">
-              Full Name
-            </label>
-            <input
-              type="text"
-              required
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
-            />
-          </div>
+          {/* Personal Info */}
+          <div className="bg-[#F8FAFC] p-4 rounded-2xl border border-[#E2E8F0] space-y-3">
+            <h3 className="text-xs font-black uppercase text-[#4F46E5] tracking-wider">👤 Personal Information</h3>
 
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#464555] mb-1">
-              Professional Headline
-            </label>
-            <input
-              type="text"
-              value={headline}
-              onChange={(e) => setHeadline(e.target.value)}
-              placeholder="e.g. Senior Full Stack Engineer"
-              className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#464555] mb-1">
-              Key Skills (Comma Separated)
-            </label>
-            <input
-              type="text"
-              value={skills}
-              onChange={(e) => setSkills(e.target.value)}
-              placeholder="React, TypeScript, Node.js"
-              className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#464555] mb-1">
-                Expected Salary (₹ / yr)
-              </label>
+              <label className="block text-xs font-bold text-[#464555] mb-1">Full Name</label>
               <input
-                type="number"
-                value={expectedSalary}
-                onChange={(e) => setExpectedSalary(e.target.value)}
-                placeholder="1800000"
+                type="text"
+                required
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
                 className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#464555] mb-1">
-                City / Location
-              </label>
+              <label className="block text-xs font-bold text-[#464555] mb-1">Professional Headline</label>
               <input
                 type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Bangalore"
+                value={headline}
+                onChange={(e) => setHeadline(e.target.value)}
+                placeholder="e.g. Senior Full Stack Engineer"
+                className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-[#464555] mb-1">Key Skills (Comma Separated)</label>
+              <input
+                type="text"
+                value={skills}
+                onChange={(e) => setSkills(e.target.value)}
+                placeholder="React, TypeScript, Node.js"
+                className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-bold text-[#464555] mb-1">Expected Salary (₹ / yr)</label>
+                <input
+                  type="number"
+                  value={expectedSalary}
+                  onChange={(e) => setExpectedSalary(e.target.value)}
+                  placeholder="1800000"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#464555] mb-1">City / Location</label>
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="Bangalore"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Academic Qualifications */}
+          <div className="bg-[#F8FAFC] p-4 rounded-2xl border border-[#E2E8F0] space-y-3">
+            <h3 className="text-xs font-black uppercase text-[#4F46E5] tracking-wider">🎓 Academic Qualifications</h3>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div className="col-span-2">
+                <label className="block text-xs font-bold text-[#464555] mb-1">10th School Name</label>
+                <input
+                  type="text"
+                  value={tenthSchool}
+                  onChange={(e) => setTenthSchool(e.target.value)}
+                  placeholder="St. Xavier's High School"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-[#464555] mb-1">10th Board</label>
+                <input
+                  type="text"
+                  value={tenthBoard}
+                  onChange={(e) => setTenthBoard(e.target.value)}
+                  placeholder="CBSE / ICSE"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div className="col-span-2">
+                <label className="block text-xs font-bold text-[#464555] mb-1">12th School Name</label>
+                <input
+                  type="text"
+                  value={twelfthSchool}
+                  onChange={(e) => setTwelfthSchool(e.target.value)}
+                  placeholder="DPS International School"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-[#464555] mb-1">12th Board</label>
+                <input
+                  type="text"
+                  value={twelfthBoard}
+                  onChange={(e) => setTwelfthBoard(e.target.value)}
+                  placeholder="CBSE / State"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-[#464555] mb-1">Under Graduation (Degree & College)</label>
+              <input
+                type="text"
+                value={underGraduation}
+                onChange={(e) => setUnderGraduation(e.target.value)}
+                placeholder="B.Tech CS - College Name"
+                className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-[#464555] mb-1">Post Graduation (Degree & College)</label>
+              <input
+                type="text"
+                value={postGraduation}
+                onChange={(e) => setPostGraduation(e.target.value)}
+                placeholder="M.Tech - College Name (Optional)"
+                className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Work & Internships */}
+          <div className="bg-[#F8FAFC] p-4 rounded-2xl border border-[#E2E8F0] space-y-3">
+            <h3 className="text-xs font-black uppercase text-[#4F46E5] tracking-wider">💼 Work Experience & Internships</h3>
+
+            <div>
+              <label className="block text-xs font-bold text-[#464555] mb-1">Internship Details</label>
+              <textarea
+                rows={3}
+                value={internships}
+                onChange={(e) => setInternships(e.target.value)}
+                placeholder="Frontend Intern at TechCorp (6 Months) - Details..."
+                className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-[#464555] mb-1">Work Experience</label>
+              <textarea
+                rows={3}
+                value={experiences}
+                onChange={(e) => setExperiences(e.target.value)}
+                placeholder="Software Engineer at InnovateX (2 Years) - Details..."
+                className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Live Projects & Portfolio */}
+          <div className="bg-[#F8FAFC] p-4 rounded-2xl border border-[#E2E8F0] space-y-3">
+            <h3 className="text-xs font-black uppercase text-[#4F46E5] tracking-wider">🚀 Live Projects & Portfolio</h3>
+
+            <div>
+              <label className="block text-xs font-bold text-[#464555] mb-1">Live Project Link (URL)</label>
+              <input
+                type="url"
+                value={liveProjectLink}
+                onChange={(e) => setLiveProjectLink(e.target.value)}
+                placeholder="https://myproject.vercel.app"
+                className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-[#464555] mb-1">Project Description & Highlights</label>
+              <textarea
+                rows={3}
+                value={liveProjectDesc}
+                onChange={(e) => setLiveProjectDesc(e.target.value)}
+                placeholder="Features, architecture, and technology stack..."
                 className="w-full px-4 py-2.5 rounded-xl border border-[#C7C4D8] text-xs focus:border-[#4F46E5] outline-none"
               />
             </div>
@@ -326,9 +490,9 @@ export default function SeekerProfilePage() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full py-3 rounded-full bg-[#4F46E5] hover:bg-[#3525CD] text-white font-bold text-xs shadow-md transition-colors disabled:opacity-50 mt-2"
+            className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#7C6CF0] hover:shadow-lg text-white font-extrabold text-xs shadow-md transition-all disabled:opacity-50 mt-2"
           >
-            {saving ? 'Saving...' : 'Save Profile Changes'}
+            {saving ? 'Saving Profile...' : 'Save Profile Changes'}
           </button>
         </form>
       )}
